@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2185" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/drawable-v24/rounded_edit_text.xml" value="0.2445" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/activity_login.xml" value="0.2984375" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/activity_tabbed.xml" value="0.24062816616008106" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/fragment_acheivment.xml" value="0.278125" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/fragment_login.xml" value="0.22" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/fragment_profile.xml" value="0.278125" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/fragment_schedule.xml" value="0.278125" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/fragment_stats.xml" value="0.278125" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/fragment_tabbed.xml" value="0.23378926038500505" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
