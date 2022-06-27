@@ -14,6 +14,10 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">10dp</item>
+    </style>
+
     <style name="Theme.Football.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

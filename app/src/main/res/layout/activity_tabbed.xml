@@ -18,6 +18,7 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="74dp"
+        app:tabTextAppearance="@style/MineCustomTabText"
         app:layout_anchor="@+id/view_pager"
-        app:layout_anchorGravity="bottom|center" />
+        app:layout_anchorGravity="bottom|center"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -28,16 +28,16 @@ public class TabbedActivity extends AppCompatActivity {
         binding = ActivityTabbedBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        tabLayout=(TabLayout) findViewById(R.id.tabs);
-        ViewPager viewPager=(ViewPager) findViewById(R.id.view_pager);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Статистика"));
-        tabLayout.addTab(tabLayout.newTab().setText("Достижения"));
-        tabLayout.addTab(tabLayout.newTab().setText("Расписание"));
-        tabLayout.addTab(tabLayout.newTab().setText("Профиль"));
+        tabLayout.addTab(tabLayout.newTab().setText("Статистика").setIcon(R.drawable.ic_stats));
+        tabLayout.addTab(tabLayout.newTab().setText("Достижения").setIcon(R.drawable.ic_medal));
+        tabLayout.addTab(tabLayout.newTab().setText("Расписание").setIcon(R.drawable.ic_schedule));
+        tabLayout.addTab(tabLayout.newTab().setText("Профиль").setIcon(R.drawable.ic_profile));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final SectionsPagerAdapter adapter = new SectionsPagerAdapter(this,getSupportFragmentManager(), 4);
+        final SectionsPagerAdapter adapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), 4);
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
