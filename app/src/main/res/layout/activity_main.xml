@@ -17,6 +17,7 @@
         android:layout_height="64dp"
         android:layout_marginBottom="52dp"
         android:textColorHint="#B9B8B8"
+        app:errorEnabled="true"
         app:hintEnabled="false"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
@@ -25,8 +26,8 @@
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent">
 
-        `<EditText
-            android:id="@+id/text"
+        <EditText
+            android:id="@+id/login"
             android:layout_width="354dp"
             android:layout_height="52dp"
             android:layout_marginStart="0dp"
@@ -118,7 +119,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/logo"
         android:layout_width="120dp"
         android:layout_height="134dp"
         android:contentDescription="@string/logo"
@@ -137,6 +138,7 @@
         android:layout_height="64dp"
         android:layout_marginBottom="88dp"
         android:textColorHint="#B9B8B8"
+        app:errorEnabled="true"
         app:hintEnabled="false"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
@@ -147,6 +149,7 @@
         app:passwordToggleEnabled="true">
 
         <EditText
+            android:id="@+id/pass"
             android:layout_width="354dp"
             android:layout_height="52dp"
             android:layout_marginStart="0dp"
@@ -170,5 +173,17 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/errorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="136dp"
+        android:textColor="#C30505"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

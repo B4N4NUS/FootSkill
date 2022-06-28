@@ -2,16 +2,22 @@ package com.example.football;
 
 import android.os.Bundle;
 
+import com.example.football.ui.acheivments.AcheivmentFragment;
+import com.example.football.ui.profile.ProfileFragment;
+import com.example.football.ui.schedule.ScheduleFragment;
+import com.example.football.ui.stats.StatsFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.football.ui.main.SectionsPagerAdapter;
 import com.example.football.databinding.ActivityTabbedBinding;
@@ -20,6 +26,8 @@ public class TabbedActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     private ActivityTabbedBinding binding;
+
+    public static final Fragment[] tabsFragments = {new StatsFragment(), new AcheivmentFragment(), new ScheduleFragment(), new ProfileFragment()};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,5 +66,6 @@ public class TabbedActivity extends AppCompatActivity {
 
             }
         });
+
     }
 }

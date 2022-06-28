@@ -37,4 +37,5 @@
     <string name="scheduleLabel">Расписание</string>
     <string name="profileLabel">Профиль</string>
     <string name="poity_nahuy">Пойти нахуй</string>
+    <string name="incorrect_credits">Неправильный номер телефона или пароль</string>
 </resources>

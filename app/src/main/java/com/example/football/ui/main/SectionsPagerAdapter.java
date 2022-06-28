@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.football.R;
+import com.example.football.TabbedActivity;
 import com.example.football.ui.acheivments.AcheivmentFragment;
 import com.example.football.ui.profile.ProfileFragment;
 import com.example.football.ui.schedule.ScheduleFragment;
@@ -33,17 +34,13 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                StatsFragment homeFragment = new StatsFragment();
-                return homeFragment;
+                return TabbedActivity.tabsFragments[0];
             case 1:
-                AcheivmentFragment sportFragment = new AcheivmentFragment();
-                return sportFragment;
+                return TabbedActivity.tabsFragments[1];
             case 2:
-                ScheduleFragment movieFragment = new ScheduleFragment();
-                return movieFragment;
+                return TabbedActivity.tabsFragments[2];
             case 3:
-                ProfileFragment movieFragmnt = new ProfileFragment();
-                return movieFragmnt;
+                return TabbedActivity.tabsFragments[3];
             default:
                 return null;
         }
