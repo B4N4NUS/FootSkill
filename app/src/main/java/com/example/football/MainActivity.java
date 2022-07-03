@@ -1,14 +1,11 @@
 package com.example.football;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,7 +22,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.football.databinding.ActivityMainBinding;
-import com.example.football.ui.acheivments.AcheivmentFragment;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONObject;
@@ -49,14 +46,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Connection.getData();
+
         EditText login = findViewById(R.id.login);
         EditText pass = findViewById(R.id.pass);
         TextInputLayout loginLay = findViewById(R.id.inputLogin);
         TextInputLayout passLay = findViewById(R.id.inputPass);
+        View loseFocus = findViewById(R.id.loseFocus);
+        loseFocus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager) getSystemService(
+                                Activity.INPUT_METHOD_SERVICE);
+                if (inputMethodManager.isAcceptingText()) {
+                    inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                }
+            }
+        });
 
         errorLabel = findViewById(R.id.errorText);
-        ImageView logo  = findViewById(R.id.logo);
-        logo.setOnClickListener(e-> {
+        ImageView logo = findViewById(R.id.logo);
+        logo.setOnClickListener(e -> {
             login.setText("");
             pass.setText("");
         });
@@ -75,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            Pair<Boolean, JSONObject> user = Connection.GetData(login.getText().toString(), pass.getText().toString());
+            Pair<Boolean, JSONObject> user = Connection.findUser(login.getText().toString(), pass.getText().toString());
             if (user.first) {
                 Saver.Save(this, login.getText().toString(), pass.getText().toString());
                 System.out.println(user.second);
@@ -95,17 +106,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Saver.Load(this);
-        System.out.println("--------------------------------------------"+Saver.login + " " + Saver.pass);
+        System.out.println("--------------------------------------------" + Saver.login + " " + Saver.pass);
         if (!Objects.equals(Saver.login, "") && !Objects.equals(Saver.pass, "")) {
             login.setText(Saver.login);
             pass.setText(Saver.pass);
 
-            switchActivitiesWithData();
-            Pair<Boolean, JSONObject> user = Connection.GetData(login.getText().toString(), pass.getText().toString());
+
+            Pair<Boolean, JSONObject> user = Connection.findUser(login.getText().toString(), pass.getText().toString());
+            if (user == null) {
+                onButtonShowPopupWindowClick(findViewById(R.id.imageProf));
+            } else {
                 Saver.Save(this, login.getText().toString(), pass.getText().toString());
                 System.out.println(user.second);
                 rawUser = user.second;
-
+                switchActivitiesWithData();
+            }
         }
 
 

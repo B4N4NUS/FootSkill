@@ -11,6 +11,16 @@
     android:paddingBottom="16dp"
     tools:context=".MainActivity">
 
+    <View
+        android:id="@+id/loseFocus"
+        android:layout_width="398dp"
+        android:layout_height="706dp"
+        android:focusable="auto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLogin"
         android:layout_width="354dp"
@@ -59,17 +69,18 @@
         android:layout_marginTop="4dp"
         android:buttonTint="@color/light_green"
         android:text="@string/remember_me"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputPass" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="203dp"
-        android:layout_height="51dp"
+        android:layout_height="63dp"
         android:layout_gravity="start"
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="76dp"
         android:backgroundTint="@color/light_green"
         android:backgroundTintMode="add"
 
@@ -79,7 +90,6 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
@@ -117,20 +127,6 @@
         android:text="@string/password"
         app:layout_constraintBottom_toTopOf="@+id/inputPass"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="120dp"
-        android:layout_height="134dp"
-        android:contentDescription="@string/logo"
-        android:src="@drawable/real_logo"
-        app:layout_constraintBottom_toTopOf="@+id/inputLogin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.446"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.525"
-        tools:ignore="ImageContrastCheck" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputPass"
@@ -185,5 +181,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="120dp"
+        android:layout_height="134dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/real_logo"
+        app:layout_constraintBottom_toTopOf="@+id/inputLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.446"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.525"
+        tools:ignore="ImageContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

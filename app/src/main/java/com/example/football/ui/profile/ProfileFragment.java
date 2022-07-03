@@ -60,14 +60,15 @@ public class ProfileFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        TextView text = getView().findViewById(R.id.profileLabel);
-        text.setText(MainActivity.rawUser.toString());
 
         ImageView image = getView().findViewById(R.id.imageProf);
         TextView name = getView().findViewById(R.id.nameProf);
         TextView pos = getView().findViewById(R.id.posProf);
         TextView foot = getView().findViewById(R.id.footProf);
         TextView team = getView().findViewById(R.id.teamProf);
+        TextView lastPay = getView().findViewById(R.id.lastPayProf);
+        TextView abon = getView().findViewById(R.id.abonProf);
+        TextView age = getView().findViewById(R.id.ageProf);
         Button exit = getView().findViewById(R.id.exitProf);
 
         exit.setOnClickListener(e-> {
@@ -99,6 +100,11 @@ public class ProfileFragment extends Fragment {
             pos.setText(MainActivity.rawUser.getString("playerPosition"));
             foot.setText(MainActivity.rawUser.getString("lead_leg"));
             team.setText(MainActivity.rawUser.getString("team"));
+            lastPay.setText(MainActivity.rawUser.getString("date_of_last_pay"));
+            abon.setText(MainActivity.rawUser.getString("variant_of_subscription"));
+            String[] rawAge = MainActivity.rawUser.getString("birthday").split("-");
+            age.setText(rawAge.length == 3?rawAge[2] + "." + rawAge[1] + "." + rawAge[0] : "null");
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
