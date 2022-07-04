@@ -23,14 +23,14 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLogin"
-        android:layout_width="354dp"
+        android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginBottom="52dp"
         android:textColorHint="#B9B8B8"
-        app:errorEnabled="true"
-        app:hintEnabled="false"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
+        app:errorEnabled="true"
+        app:hintEnabled="false"
         app:layout_constraintBottom_toTopOf="@+id/inputPass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
@@ -38,7 +38,7 @@
 
         <EditText
             android:id="@+id/login"
-            android:layout_width="354dp"
+            android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
@@ -130,14 +130,14 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputPass"
-        android:layout_width="354dp"
+        android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginBottom="88dp"
         android:textColorHint="#B9B8B8"
-        app:errorEnabled="true"
-        app:hintEnabled="false"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
+        app:errorEnabled="true"
+        app:hintEnabled="false"
         app:layout_constraintBottom_toTopOf="@+id/loginButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.456"
@@ -146,7 +146,7 @@
 
         <EditText
             android:id="@+id/pass"
-            android:layout_width="354dp"
+            android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
@@ -182,18 +182,33 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="120dp"
-        android:layout_height="134dp"
-        android:contentDescription="@string/logo"
-        android:src="@drawable/real_logo"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/inputLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.446"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.525"
-        tools:ignore="ImageContrastCheck" />
+        app:layout_constraintTop_toTopOf="@+id/loseFocus">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="155dp"
+            android:layout_height="166dp"
+            android:contentDescription="@string/logo"
+            android:src="@drawable/real_logo"
+            tools:ignore="ImageContrastCheck" />
+
+        <com.example.football.components.Loading
+            android:id="@+id/loading_gif"
+            android:layout_width="155dp"
+            android:layout_height="166dp"
+            android:background="@drawable/rounded_edit_text_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </com.example.football.components.Loading>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

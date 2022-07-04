@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".components.ScheduleActivity">
+
+    <!-- date toolbar -->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingTop="12dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/activity"
+            android:layout_width="109dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/time"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="Аджуманя" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/circle"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="12:23" />
+
+        <ImageView
+            android:id="@+id/circle"
+            android:layout_width="19dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/time"
+            android:layout_alignBottom="@+id/time"
+            android:layout_marginBottom="0dp"
+            app:srcCompat="@drawable/splitter" />
+
+    </RelativeLayout>
+
+    <!-- days header -->
+
+    <!-- days view -->
+</LinearLayout>

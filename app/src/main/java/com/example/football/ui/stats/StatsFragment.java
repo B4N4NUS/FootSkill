@@ -27,7 +27,6 @@ import java.util.Objects;
 
 public class StatsFragment extends Fragment {
 
-    private StatsViewModel mViewModel;
     private String[] names = {"date", "Speed", "Hit", "Reaction", "Jump", "Hitt", "date_of_game", "sharpshooting", "Speed2", "Speed_s_razbega", "Jump2"};
     private ArrayList<String[]> stats = new ArrayList<>();
 
@@ -42,20 +41,26 @@ public class StatsFragment extends Fragment {
             // User is viewing the fragment,
             // or fragment is inside the screen
             refresh();
-        }
-        else {
+        } else {
             // User is not viewing the fragment,
             // or fragment is our of the screen
             //doYourThing();
         }
     }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_stats, container, false);
     }
 
     private void GetStats() throws JSONException {
+        if (MainActivity.rawUser == null) {
+            stats = null;
+            return;
+        }
+
         JSONArray raw = MainActivity.rawUser.getJSONArray("Statistics");
+        stats.clear();
         for (int i = 0; i < raw.length(); i++) {
             stats.add(new String[names.length]);
 
@@ -63,6 +68,7 @@ public class StatsFragment extends Fragment {
                 stats.get(i)[j] = ((JSONObject) raw.get(i)).getString(names[j]);
             }
         }
+
         for (int i = 0; i < stats.size(); i++) {
             for (int j = 0; j < stats.get(i).length; j++) {
                 System.out.print(stats.get(i)[j] + "  ");
@@ -97,8 +103,11 @@ public class StatsFragment extends Fragment {
     }
 
     private float[] GetFloat(int pos) {
+        if (stats == null) {
+            return null;
+        }
         float[] newArr = new float[stats.size()];
-        for(int i = 0; i < stats.size(); i++) {
+        for (int i = 0; i < stats.size(); i++) {
             if (Objects.equals(stats.get(i)[pos], "null")) {
                 return null;
             }
@@ -110,18 +119,12 @@ public class StatsFragment extends Fragment {
         return newArr;
     }
 
-    private HashMap<String, String> prettyAndTheBeast;
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(StatsViewModel.class);
-        // TODO: Use the ViewModel
-    }
-
     private String[] getDates() {
+        if (stats == null) {
+            return null;
+        }
         String[] newArr = new String[stats.size()];
-        for(int i = 0; i < stats.size(); i++) {
+        for (int i = 0; i < stats.size(); i++) {
             if (Objects.equals(stats.get(i)[0], "null")) {
                 return null;
             }
@@ -134,8 +137,8 @@ public class StatsFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        refresh();
-        System.out.println("______________________REFRESH___________________________________");
+        //refresh();
+        //System.out.println("______________________REFRESH___________________________________");
     }
 
     @Override
@@ -180,7 +183,7 @@ public class StatsFragment extends Fragment {
             strength.setData(GetFloat(2), getDates());
             walk.setData(GetFloat(1), getDates());
             walk2.setData(GetFloat(8), getDates());
-            run2.setData(GetFloat(9),getDates());
+            run2.setData(GetFloat(9), getDates());
             run.setData(GetFloat(9), getDates());
             pounce.setData(GetFloat(4), getDates());
             pounce2.setData(GetFloat(10), getDates());

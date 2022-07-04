@@ -97,8 +97,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:text="Позиция:"
-                    android:textColor="@color/light_green"
-                    android:textStyle="bold" />
+                    android:textColor="@color/light_green" />
 
                 <TextView
                     android:id="@+id/footLabel"
@@ -107,8 +106,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:text="Нога:"
-                    android:textColor="@color/light_green"
-                    android:textStyle="bold" />
+                    android:textColor="@color/light_green" />
 
                 <TextView
                     android:id="@+id/teamLabel"
@@ -117,8 +115,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:text="Команда:"
-                    android:textColor="@color/light_green"
-                    android:textStyle="bold" />
+                    android:textColor="@color/light_green" />
 
                 <TextView
                     android:id="@+id/lastPayLabel"
@@ -127,8 +124,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:text="Последняя оплата:"
-                    android:textColor="@color/light_green"
-                    android:textStyle="bold" />
+                    android:textColor="@color/light_green" />
 
                 <TextView
                     android:id="@+id/abonLabel"
@@ -137,8 +133,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:text="Абонемент:"
-                    android:textColor="@color/light_green"
-                    android:textStyle="bold" />
+                    android:textColor="@color/light_green" />
 
                 <TextView
                     android:id="@+id/ageLabel"
@@ -147,8 +142,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:text="Дата рождения:"
-                    android:textColor="@color/light_green"
-                    android:textStyle="bold" />
+                    android:textColor="@color/light_green" />
             </LinearLayout>
 
             <LinearLayout

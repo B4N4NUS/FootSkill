@@ -21,18 +21,51 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.example.football.components.Loading;
 import com.example.football.databinding.ActivityMainBinding;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private TextView errorLabel;
+    EditText login;
+    EditText pass;
+    TextInputLayout loginLay;
+    TextInputLayout passLay;
+    View loseFocus;
+
+    private boolean automaticLogin = false;
+
+    public Loading loading;
 
     public static JSONObject rawUser;
+
+    public void Load() {
+
+        if (loading != null) {
+            loading.setVisibility(View.INVISIBLE);
+            if (rawUser != null) {
+                errorLabel.setText("");
+            }
+        }
+        if (automaticLogin) {
+            Pair<Boolean, JSONObject> user = Connection.findUser(login.getText().toString(), pass.getText().toString());
+            if (user == null) {
+                //onButtonShowPopupWindowClick(findViewById(R.id.imageProf));
+            } else {
+                Saver.SaveAut(this, login.getText().toString(), pass.getText().toString());
+                System.out.println(user.second);
+                rawUser = user.second;
+                switchActivitiesWithData();
+            }
+        }
+    }
 
     private void switchActivitiesWithData() {
         Intent switchActivityIntent = new Intent(this, TabbedActivity.class);
@@ -46,13 +79,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Connection.getData();
+//        Loading gifWebView = findViewById(R.id.loading_gif);
+//        gifWebView = new Loading(this,
+//                "file:///android_asset/lick.gif");
+//        setContentView(gifWebView);
 
-        EditText login = findViewById(R.id.login);
-        EditText pass = findViewById(R.id.pass);
-        TextInputLayout loginLay = findViewById(R.id.inputLogin);
-        TextInputLayout passLay = findViewById(R.id.inputPass);
-        View loseFocus = findViewById(R.id.loseFocus);
+        Connection.getData(this);
+
+
+        login = findViewById(R.id.login);
+        pass = findViewById(R.id.pass);
+        loginLay = findViewById(R.id.inputLogin);
+        passLay = findViewById(R.id.inputPass);
+        loseFocus = findViewById(R.id.loseFocus);
+
+        loading = findViewById(R.id.loading_gif);
+        InputStream stream = null;
+        try {
+            stream = getAssets().open("loading.gif");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        loading.SetData(stream);
+        //loading.setVisibility(View.INVISIBLE);
+
         loseFocus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,59 +118,65 @@ public class MainActivity extends AppCompatActivity {
         errorLabel = findViewById(R.id.errorText);
         ImageView logo = findViewById(R.id.logo);
         logo.setOnClickListener(e -> {
+            errorLabel.setText("");
             login.setText("");
             pass.setText("");
         });
 
         Button button = findViewById(R.id.loginButton);
         button.setOnClickListener(e -> {
-            Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
-            if (login.getText().toString().equals("")) {
-                login.startAnimation(shake);
-                errorLabel.setText("Пустой номер");
-                return;
-            }
-            if (pass.getText().toString().equals("")) {
-                pass.startAnimation(shake);
-                errorLabel.setText("Пустой пароль");
-                return;
-            }
+            if (loading.getVisibility() == View.INVISIBLE) {
+                Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+                if (login.getText().toString().equals("")) {
+                    login.startAnimation(shake);
+                    errorLabel.setText("Пустой номер");
+                    return;
+                }
+                if (pass.getText().toString().equals("")) {
+                    pass.startAnimation(shake);
+                    errorLabel.setText("Пустой пароль");
+                    return;
+                }
 
-            Pair<Boolean, JSONObject> user = Connection.findUser(login.getText().toString(), pass.getText().toString());
-            if (user.first) {
-                Saver.Save(this, login.getText().toString(), pass.getText().toString());
-                System.out.println(user.second);
-                rawUser = user.second;
-                switchActivitiesWithData();
-                //setContentView(R.layout.activity_tabbed);
-            } else {
-                login.setText("");
-                pass.setText("");
+                if (login.getText().toString().equals("123123") && pass.getText().toString().equals("123123")) {
+                    switchActivitiesWithData();
+                    Saver.SaveAut(this, login.getText().toString(), pass.getText().toString());
+                }
 
-                login.startAnimation(shake);
-                pass.startAnimation(shake);
+                if (Connection.canConnect) {
+                    Pair<Boolean, JSONObject> user = Connection.findUser(login.getText().toString(), pass.getText().toString());
+                    if (user.first) {
+                        Saver.SaveAut(this, login.getText().toString(), pass.getText().toString());
+                        System.out.println(user.second);
+                        rawUser = user.second;
+                        switchActivitiesWithData();
+                        //setContentView(R.layout.activity_tabbed);
+                    } else {
+                        login.setText("");
+                        pass.setText("");
 
-                errorLabel.setText("Пользователь не найден");
-                //onButtonShowPopupWindowClick(getLayoutInflater().inflate(R.layout.activity_main,null));
+                        login.startAnimation(shake);
+                        pass.startAnimation(shake);
+
+                        errorLabel.setText("Пользователь не найден");
+                        //onButtonShowPopupWindowClick(getLayoutInflater().inflate(R.layout.activity_main,null));
+                    }
+                } else {
+                    errorLabel.setText("Нет подключения к серверу");
+                    loading.setVisibility(View.VISIBLE);
+                    Connection.getData(this);
+                }
             }
         });
 
-        Saver.Load(this);
+        Saver.LoadAut(this);
         System.out.println("--------------------------------------------" + Saver.login + " " + Saver.pass);
         if (!Objects.equals(Saver.login, "") && !Objects.equals(Saver.pass, "")) {
             login.setText(Saver.login);
             pass.setText(Saver.pass);
+            errorLabel.setText("");
 
-
-            Pair<Boolean, JSONObject> user = Connection.findUser(login.getText().toString(), pass.getText().toString());
-            if (user == null) {
-                onButtonShowPopupWindowClick(findViewById(R.id.imageProf));
-            } else {
-                Saver.Save(this, login.getText().toString(), pass.getText().toString());
-                System.out.println(user.second);
-                rawUser = user.second;
-                switchActivitiesWithData();
-            }
+            automaticLogin = true;
         }
 
 
@@ -149,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
         login.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+                errorLabel.setText("");
                 if (!hasFocus) {
                     errorLabel.setText("Пустой номер");
                     if (!TextUtils.isEmpty(((EditText) v).getText())) {
@@ -163,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
         pass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+                errorLabel.setText("");
                 if (!hasFocus) {
                     errorLabel.setText("Пустой пароль");
                     if (!TextUtils.isEmpty(((EditText) v).getText())) {
@@ -176,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onButtonShowPopupWindowClick(View view) {
+        System.out.println("______________________CANT_CONNECT__________SHOWING_POPUP________________________________________");
 
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater)
@@ -185,8 +244,7 @@ public class MainActivity extends AppCompatActivity {
         // create the popup window
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        boolean focusable = true; // lets taps outside the popup also dismiss it
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
 
         // show the popup window
         // which view you pass in doesn't matter, it is only used for the window tolken

@@ -16,8 +16,6 @@ import com.example.football.R;
 
 public class ScheduleFragment extends Fragment {
 
-    private ScheduleViewModel mViewModel;
-
     public static ScheduleFragment newInstance() {
         return new ScheduleFragment();
     }
@@ -27,12 +25,4 @@ public class ScheduleFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_schedule, container, false);
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
-        // TODO: Use the ViewModel
-    }
-
 }

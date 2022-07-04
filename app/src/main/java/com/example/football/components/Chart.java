@@ -52,6 +52,14 @@ public class Chart extends LinearLayout {
     private LineChart chart;
     private Context context;
 
+    public CharSequence getHeaderText() {
+        return header.getText();
+    }
+
+    public LineChart getChart() {
+        return chart;
+    }
+
     public Chart(Context context) {
         super(context);
         this.context = context;
@@ -84,11 +92,11 @@ public class Chart extends LinearLayout {
 
     public void setHeader(String name) {
         header.setText(name);
-        int size = splitter.getMaxWidth();
-        header.getTextSize();
-        ViewGroup.LayoutParams params = splitter.getLayoutParams();
-        params.width = (int)(header.getTextSize() * name.length() * 0.6);
-        splitter.setLayoutParams(params);
+//        int size = splitter.getMaxWidth();
+//        header.getTextSize();
+//        ViewGroup.LayoutParams params = splitter.getLayoutParams();
+//        params.width = (int)(header.getTextSize() * name.length() * 0.6);
+//        splitter.setLayoutParams(params);
 //        splitter.setMaxWidth((int)(size * header.getTextSize() * name.length()));
 //        splitter.setMinimumWidth((int)(size * header.getTextSize() * name.length()));
     }
@@ -121,6 +129,7 @@ public class Chart extends LinearLayout {
     }
 
     public void setData(float[] stats, String[] labels) {
+        System.out.println("_________________________________________________________________________SET DATA_________________________________________________________________________");
         float start = 1f;
         ArrayList<Entry> values = new ArrayList<>();
 
@@ -133,6 +142,7 @@ public class Chart extends LinearLayout {
                 values.add(new Entry(DateToMillis(labels[i]), val));
             }
         } else {
+            System.out.println("-----------------------------------------------------------------NO_DATA_GIVEN---------------------------------------------------------------");
             for (int i = 0; i < 10; i++) {
                 values.add(new Entry(i, (float) Math.random() % 100));
             }

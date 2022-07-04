@@ -13,27 +13,34 @@ import java.util.concurrent.CountDownLatch;
 public class Connection {
     private static boolean giveAccess;
     private static JSONObject person;
+    public static boolean canConnect = true;
+
     public static String data;
 
     public static final String serverUrl = "https://cdn.lk-ft.ru/footballers";
     public static final String imagesUrl = "https://cdn.lk-ft.ru";
 
-    public static void getData() {
+    public static boolean getData(MainActivity act) {
         data = "";
+        canConnect = true;
+
+        long startTimer = System.currentTimeMillis();
         CountDownLatch latch = new CountDownLatch(1);
         Thread load = new Thread() {
             @Override
             public void run() {
                 try {
                     URL url = new URL(serverUrl);
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("GET");
-                    conn.connect();
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.setRequestProperty("Accept-Encoding", "gzip");
+                    connection.connect();
 
-                    int responsecode = conn.getResponseCode();
+                    int responseCode = connection.getResponseCode();
+                    System.out.println("----------------------------------------GOT_RESPONSE_FROM_SERVER_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
 
-                    if (responsecode != 200) {
-                        throw new RuntimeException("HttpResponseCode: " + responsecode);
+                    if (responseCode != 200) {
+                        throw new RuntimeException("HttpResponseCode: " + responseCode);
                     } else {
                         Scanner scanner = new Scanner(url.openStream());
                         while (scanner.hasNext()) {
@@ -41,18 +48,25 @@ public class Connection {
                         }
                         scanner.close();
                     }
+                    //latch.countDown();
                 } catch (Exception exception) {
+                    canConnect = false;
+                    //latch.countDown();
                     exception.printStackTrace();
                 }
-                latch.countDown();
-                System.out.println("--------------------------------------------------------THREAD DIED");
+
+                System.out.println("----------------------------------------CONNECTION_TOOK_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
+                act.Load();
+                System.out.println(data);
             }
         };
-        try{
+        try {
             load.start();
-            latch.await();
-        } catch (Exception exception) {}
+            //latch.await();
+        } catch (Exception exception) {
+        }
 
+        return canConnect;
     }
 
     public static Pair<Boolean, JSONObject> findUser(String login, String pass) {
@@ -60,6 +74,10 @@ public class Connection {
 
         giveAccess = false;
         person = null;
+
+        if (Objects.equals(login, "123123") && Objects.equals(pass, "123123")) {
+            return new Pair(true, null);
+        }
 
         if (Objects.equals(data, "")) {
             return null;

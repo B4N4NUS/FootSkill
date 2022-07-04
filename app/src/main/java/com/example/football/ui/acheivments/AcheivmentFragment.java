@@ -16,8 +16,6 @@ import com.example.football.R;
 
 public class AcheivmentFragment extends Fragment {
 
-    private AcheivmentViewModel mViewModel;
-
     public static AcheivmentFragment newInstance() {
         return new AcheivmentFragment();
     }
@@ -27,12 +25,4 @@ public class AcheivmentFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_acheivment, container, false);
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(AcheivmentViewModel.class);
-        // TODO: Use the ViewModel
-    }
-
 }

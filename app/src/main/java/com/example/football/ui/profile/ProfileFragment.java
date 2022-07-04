@@ -3,7 +3,6 @@ package com.example.football.ui.profile;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import com.example.football.Connection;
 import com.example.football.MainActivity;
 import com.example.football.R;
 import com.example.football.Saver;
-import com.example.football.TabbedActivity;
 import com.example.football.databinding.ActivityTabbedBinding;
 import com.example.football.ui.main.PageViewModel;
 
@@ -35,7 +33,6 @@ import java.net.URL;
 
 public class ProfileFragment extends Fragment {
 
-    private ProfileViewModel mViewModel;
     private PageViewModel pageViewModel;
     private ActivityTabbedBinding binding;
 
@@ -76,7 +73,7 @@ public class ProfileFragment extends Fragment {
 //            switchActivityIntent.putExtra("message", "From: " + TabbedActivity.class.getSimpleName());
 //            startActivity(switchActivityIntent);
             getActivity().onBackPressed();
-            Saver.Save(getActivity(), "","");
+            Saver.SaveAut(getActivity(), "","");
             //getActivity().setContentView(R.layout.activity_main);
         });
 
@@ -87,6 +84,9 @@ public class ProfileFragment extends Fragment {
             }
             //System.out.println(MainActivity.rawUser.getJSONObject("avatar").getString("url"));
             String url = "";
+            if (MainActivity.rawUser == null) {
+                throw new Exception("No server connection presented");
+            }
             JSONObject array = MainActivity.rawUser.getJSONObject("avatar");
             url = array.getString("url");
             System.out.println(url);
@@ -94,6 +94,7 @@ public class ProfileFragment extends Fragment {
             image.setImageBitmap(bitmap);
         } catch (Exception ex) {
             ex.printStackTrace();
+            image.setImageResource(R.drawable.ic_profile);
         }
         try {
             name.setText(MainActivity.rawUser.getString("firstname") + " " + MainActivity.rawUser.getString("lastname"));
@@ -108,12 +109,5 @@ public class ProfileFragment extends Fragment {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
-        // TODO: Use the ViewModel
     }
 }
