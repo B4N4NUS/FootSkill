@@ -25,7 +25,6 @@ public class Connection {
         canConnect = true;
 
         long startTimer = System.currentTimeMillis();
-        CountDownLatch latch = new CountDownLatch(1);
         Thread load = new Thread() {
             @Override
             public void run() {

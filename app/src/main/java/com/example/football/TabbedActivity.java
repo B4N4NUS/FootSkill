@@ -42,7 +42,7 @@ public class TabbedActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Статистика").setIcon(R.drawable.ic_stats));
         tabLayout.addTab(tabLayout.newTab().setText("Достижения").setIcon(R.drawable.ic_medal));
         tabLayout.addTab(tabLayout.newTab().setText("Расписание").setIcon(R.drawable.ic_schedule));
-        tabLayout.addTab(tabLayout.newTab().setText("Профиль").setIcon(R.drawable.ic_profile));
+        tabLayout.addTab(tabLayout.newTab().setText("Профиль").setIcon(R.drawable.ic_schedule));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final SectionsPagerAdapter adapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), 4);
