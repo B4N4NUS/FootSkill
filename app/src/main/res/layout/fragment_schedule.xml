@@ -5,9 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.schedule.ScheduleFragment">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Расписание" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/lays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

@@ -1,55 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".components.ScheduleActivity">
+    android:orientation="vertical"
+    tools:context=".ui.schedule.PlaceSchedule">
 
-    <!-- date toolbar -->
-    <RelativeLayout
+    <TextView
+        android:id="@+id/place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="30dp"
-        android:paddingTop="12dp"
-        android:paddingRight="30dp"
-        android:paddingBottom="12dp">
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="5dp"
+        android:singleLine="true"
+        android:text="Ул. Пушкина"
+        android:textColor="@color/gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/activity"
-            android:layout_width="109dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/time"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="Аджуманя" />
+    <LinearLayout
+        android:id="@+id/days"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/circle"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="12:23" />
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_alignBottom="@+id/place"
+        android:background="@drawable/rounded_edit_text"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.253"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/place"
+        app:layout_constraintVertical_bias="0.042" />
 
-        <ImageView
-            android:id="@+id/circle"
-            android:layout_width="19dp"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/time"
-            android:layout_alignBottom="@+id/time"
-            android:layout_marginBottom="0dp"
-            app:srcCompat="@drawable/splitter" />
-
-    </RelativeLayout>
-
-    <!-- days header -->
-
-    <!-- days view -->
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
