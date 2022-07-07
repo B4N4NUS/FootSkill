@@ -1,6 +1,4 @@
-package com.example.football.ui.acheivments;
-
-import androidx.lifecycle.ViewModelProvider;
+package com.example.football.ui.achievements;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -17,18 +15,14 @@ import android.widget.ProgressBar;
 import com.example.football.Connection;
 import com.example.football.R;
 
-public class AcheivmentFragment extends Fragment {
+public class AchievementFragment extends Fragment {
     private ProgressBar train;
     private ProgressBar panna;
     private ProgressBar turn;
     private ProgressBar lager;
     private ProgressBar test;
     private ProgressBar earned;
-    private ProgressBar avaliable;
-
-    public static AcheivmentFragment newInstance() {
-        return new AcheivmentFragment();
-    }
+    private ProgressBar available;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -39,35 +33,27 @@ public class AcheivmentFragment extends Fragment {
     public void Load() {
         int tr = 0, pn = 0, tu = 0,la = 0,te = 0;
         try {
-            for (int i = 0; i < Connection.achievementObject.size(); i++) {
-                String name = Connection.achievementObject.get(i).getString("last_statements");
+            for (int i = 0; i < Connection.userAchievements.size(); i++) {
+                String name = Connection.userAchievements.get(i).getString("last_statements");
                 switch (name) {
                     case "Панна": {
-                        pn += Integer.parseInt(Connection.achievementObject.get(i).getString("adresse"));
+                        pn += Integer.parseInt(Connection.userAchievements.get(i).getString("adresse"));
                         break;
                     }
-//                    case "Пенальти": {
-//                        tr += Integer.parseInt(Connection.achievementObject.get(i).getString("adresse"));
-//                        break;
-//                    }
                     case "3 VS 3": {
-                        tu += Integer.parseInt(Connection.achievementObject.get(i).getString("adresse"));
+                        tu += Integer.parseInt(Connection.userAchievements.get(i).getString("adresse"));
                         break;
                     }
-//                    case "Лагерь": {
-//                        la += Integer.parseInt(Connection.achievementObject.get(i).getString("adresse"));
-//                        break;
-//                    }
                     case "Тестирование": {
-                        te += Integer.parseInt(Connection.achievementObject.get(i).getString("adresse"));
+                        te += Integer.parseInt(Connection.userAchievements.get(i).getString("adresse"));
                         break;
                     }
                     default:
                         System.out.println(name);
                 }
             }
-            tr += Integer.parseInt(Connection.person.getString("count_of_training"));
-            la += Integer.parseInt(Connection.person.getString("count_of_camps"));
+            tr += Connection.getCountOfTraining();
+            la += Connection.getCountOfCamps();
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -88,7 +74,7 @@ public class AcheivmentFragment extends Fragment {
             lager.setProgress(la, true);
             test.setProgress(te, true);
             earned.setProgress(en, true);
-            avaliable.setProgress(100 - en, true);
+            available.setProgress(100 - en, true);
         }
     }
 
@@ -100,7 +86,7 @@ public class AcheivmentFragment extends Fragment {
         lager = view.findViewById(R.id.pb_lager);
         test = view.findViewById(R.id.pb_test);
         earned = view.findViewById(R.id.pb_earned);
-        avaliable = view.findViewById(R.id.pb_avaliable);
+        available = view.findViewById(R.id.pb_avaliable);
 
         Load();
     }

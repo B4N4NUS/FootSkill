@@ -1,7 +1,5 @@
 package com.example.football.ui.stats;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,32 +19,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class StatsFragment extends Fragment {
-
-    private String[] names = {"date", "Speed", "Hit", "Reaction", "Jump", "Hitt", "date_of_game", "sharpshooting", "Speed2", "Speed_s_razbega", "Jump2"};
+    private final String[] names = {"date", "Speed", "Hit", "Reaction", "Jump", "Hitt", "date_of_game", "sharpshooting", "Speed2", "Speed_s_razbega", "Jump2"};
     private ArrayList<String[]> stats = new ArrayList<>();
-
-    static StatsFragment newInstance() {
-        return new StatsFragment();
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            // User is viewing the fragment,
-            // or fragment is inside the screen
-            refresh();
-        } else {
-            // User is not viewing the fragment,
-            // or fragment is our of the screen
-            //doYourThing();
-        }
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -77,31 +54,6 @@ public class StatsFragment extends Fragment {
         }
     }
 
-    Chart strength;
-    Chart walk;
-    Chart walk2;
-    Chart run;
-    Chart run2;
-    Chart pounce;
-    Chart pounce2;
-    Chart reaction;
-    Chart sharp;
-
-    public void refresh() {
-        System.out.println("______________________REFRESHED___________________________________");
-        if (strength != null) {
-            strength.refresh();
-            walk.refresh();
-            walk2.refresh();
-            run.refresh();
-            run2.refresh();
-            pounce.refresh();
-            pounce2.refresh();
-            reaction.refresh();
-            sharp.refresh();
-        }
-    }
-
     private float[] GetFloat(int pos) {
         if (stats == null) {
             return null;
@@ -114,6 +66,7 @@ public class StatsFragment extends Fragment {
             try {
                 newArr[i] = Float.parseFloat(stats.get(i)[pos]);
             } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
         return newArr;
@@ -136,26 +89,10 @@ public class StatsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        //refresh();
-        //System.out.println("______________________REFRESH___________________________________");
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-//        prettyAndTheBeast.put(names[0],"Число");
-//        prettyAndTheBeast.put(names[1],"Скорость");
-//        prettyAndTheBeast.put(names[2],"Удар");
-//        prettyAndTheBeast.put(names[3],"Реакция");
-//        prettyAndTheBeast.put(names[4],"Паунс в окно");
-//        prettyAndTheBeast.put(names[5],"Удар");
-//        prettyAndTheBeast.put(names[6],"Время игры");
-//        prettyAndTheBeast.put(names[7],"Меткость");
-//        prettyAndTheBeast.put(names[8],"Скорость 2");
-//        prettyAndTheBeast.put(names[9],"Скорость с разбега");
-//        prettyAndTheBeast.put(names[10],"Скорокть с разбега 2");
-//        prettyAndTheBeast.put(names[11],"Паунс в окно 2");
-
         Chart strength = getView().findViewById(R.id.strength);
         Chart walk = getView().findViewById(R.id.walk);
         Chart walk2 = getView().findViewById(R.id.walk2);
@@ -178,8 +115,6 @@ public class StatsFragment extends Fragment {
 
         try {
             GetStats();
-            //"date", "Speed", "Hit", "Reaction", "Jump", "Hitt", "date_of_game", "sharpshooting", "Speed2", "Speed_s_razbega", "Jump2"
-            //  0        1       2         3         4       5        6                 7              8              9            10
             strength.setData(GetFloat(2), getDates());
             walk.setData(GetFloat(1), getDates());
             walk2.setData(GetFloat(8), getDates());
@@ -189,10 +124,8 @@ public class StatsFragment extends Fragment {
             pounce2.setData(GetFloat(10), getDates());
             reaction.setData(GetFloat(3), getDates());
             sharp.setData(GetFloat(7), getDates());
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-
 }

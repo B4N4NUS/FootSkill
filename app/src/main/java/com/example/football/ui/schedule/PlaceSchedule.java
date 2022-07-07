@@ -43,17 +43,11 @@ public class PlaceSchedule extends RelativeLayout {
         initControl(context);
     }
 
-    public PlaceSchedule(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        initControl(context);
-    }
-
     public void setData(String header, ArrayList<String> daysOfWeek, ArrayList<String> times, ArrayList<String> acts) {
         place.setText(header);
 
-        for(int i = 0; i < times.size(); i++) {
+        for (int i = 0; i < times.size(); i++) {
             DailyActivity daily = new DailyActivity(context);
-            //daily.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1));
             daily.setData(daysOfWeek.get(i), times.get(i), acts.get(i));
             days.addView(daily);
         }

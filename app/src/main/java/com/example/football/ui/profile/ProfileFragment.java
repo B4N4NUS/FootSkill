@@ -1,7 +1,5 @@
 package com.example.football.ui.profile;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,8 +21,6 @@ import com.example.football.Connection;
 import com.example.football.MainActivity;
 import com.example.football.R;
 import com.example.football.Saver;
-import com.example.football.databinding.ActivityTabbedBinding;
-import com.example.football.ui.main.PageViewModel;
 
 import org.json.JSONObject;
 
@@ -33,17 +29,9 @@ import java.net.URL;
 
 public class ProfileFragment extends Fragment {
 
-    private PageViewModel pageViewModel;
-    private ActivityTabbedBinding binding;
-
-    public static ProfileFragment newInstance() {
-        return new ProfileFragment();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = new ViewModelProvider(this).get(PageViewModel.class);
     }
 
     @Override
@@ -54,9 +42,8 @@ public class ProfileFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         ImageView image = getView().findViewById(R.id.imageProf);
         TextView name = getView().findViewById(R.id.nameProf);
@@ -69,19 +56,14 @@ public class ProfileFragment extends Fragment {
         Button exit = getView().findViewById(R.id.exitProf);
 
         exit.setOnClickListener(e-> {
-//            Intent switchActivityIntent = new Intent(getActivity(), MainActivity.class);
-//            switchActivityIntent.putExtra("message", "From: " + TabbedActivity.class.getSimpleName());
-//            startActivity(switchActivityIntent);
             getActivity().onBackPressed();
             Saver.SaveAut(getActivity(), "","");
             //getActivity().setContentView(R.layout.activity_main);
         });
 
         try{
-            if (android.os.Build.VERSION.SDK_INT > 9) {
-                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
-            }
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
             //System.out.println(MainActivity.rawUser.getJSONObject("avatar").getString("url"));
             String url = "";
             if (MainActivity.rawUser == null) {

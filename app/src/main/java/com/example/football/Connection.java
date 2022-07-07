@@ -2,6 +2,8 @@ package com.example.football;
 
 import android.util.Pair;
 
+import com.example.football.ui.schedule.RawSchedule;
+
 import org.json.*;
 
 import java.net.HttpURLConnection;
@@ -9,212 +11,297 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.concurrent.CountDownLatch;
 
 public class Connection {
-    private static boolean giveAccess;
-    public static JSONObject person;
-    public static ArrayList<JSONObject> achievementObject = new ArrayList<>();
+    private static JSONObject person;
+
+    public static ArrayList<JSONObject> userAchievements = new ArrayList<>();
+
     public static boolean canConnect = true;
 
-    public static String data;
-    public static String schedule;
-    public static String achievement;
+    private static String data;
+    private static String schedule;
+    private static String achievement;
 
-    public static final String serverUrl = "https://cdn.lk-ft.ru/footballers";
-    public static final String scheduleUrl = "https://cdn.lk-ft.ru/scheduleas";
-    public static final String achievementUrl = "https://cdn.lk-ft.ru/players";
+    private static final String serverUrl = "https://cdn.lk-ft.ru/footballers";
+    private static final String scheduleUrl = "https://cdn.lk-ft.ru/scheduleas";
+    private static final String achievementUrl = "https://cdn.lk-ft.ru/players";
+
     public static final String imagesUrl = "https://cdn.lk-ft.ru";
 
-    public static boolean getData(MainActivity act) {
+    private static final String adminLog = "0451";
+    private static final String adminPass = "0451";
+
+    /**
+     * Получение данных для расписания.
+     * @return - данные для построения расписания.
+     */
+    public static ArrayList<RawSchedule> GetScheduleCopy() {
+        ArrayList<RawSchedule> pl = new ArrayList<>();
+        try {
+            JSONArray array = new JSONArray(schedule);
+            String[] names = new String[array.length()];
+
+            RawSchedule raw;
+
+            for (int i = 0; i < array.length(); i++) {
+                raw = new RawSchedule();
+
+                JSONObject object = array.getJSONObject(i);
+                names[i] = object.getString("Loation");
+
+                if (!(object.getString("MondayStart").equals("null") || object.getString("MondayStart").equals(""))) {
+                    raw.date.add("Понедельник");
+                    raw.time.add(object.getString("MondayStart"));
+                    raw.act.add(object.getString("MondayArtema"));
+                }
+                if (!(object.getString("TuesdayStart").equals("null") || object.getString("TuesdayStart").equals(""))) {
+                    raw.date.add("Вторник");
+                    raw.time.add(object.getString("TuesdayStart"));
+                    raw.act.add(object.getString("TuesdayArtema"));
+                }
+                if (!(object.getString("WednesdayStart").equals("null") || object.getString("WednesdayStart").equals(""))) {
+                    raw.date.add("Среда");
+                    raw.time.add(object.getString("WednesdayStart"));
+                    raw.act.add(object.getString("WednesdayArtema"));
+                }
+                if (!(object.getString("ThursdayStart").equals("null") || object.getString("ThursdayStart").equals(""))) {
+                    raw.date.add("Четверг");
+                    raw.time.add(object.getString("ThursdayStart"));
+                    raw.act.add(object.getString("ThursdayArtema"));
+                }
+                if (!(object.getString("FridayStart").equals("null") || object.getString("FridayStart").equals(""))) {
+                    raw.date.add("Пятница");
+                    raw.time.add(object.getString("FridayStart"));
+                    raw.act.add(object.getString("FridayArtema"));
+                }
+                if (!(object.getString("SaturdayStart").equals("null") || object.getString("SaturdayStart").equals(""))) {
+                    raw.date.add("Суббота");
+                    raw.time.add(object.getString("SaturdayStart"));
+                    raw.act.add(object.getString("SaturdayArtema"));
+                }
+                if (!(object.getString("SundayStart").equals("null") || object.getString("SundayStart").equals(""))) {
+                    raw.date.add("Воскресенье");
+                    raw.time.add(object.getString("SundayStart"));
+                    raw.act.add(object.getString("SundayArtema"));
+                }
+                if (raw.date.size() == 0) {
+                    continue;
+                }
+                raw.name = names[i];
+
+                pl.add(raw);
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return pl;
+    }
+
+    /**
+     * Получение количества тренировок.
+     *
+     * @return - количество тренировок.
+     */
+    public static int getCountOfTraining() {
+        if (person != null) {
+            try {
+                return Integer.parseInt(person.getString("count_of_training"));
+            } catch (JSONException e) {
+                return 0;
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * Получение количества лагерей.
+     *
+     * @return - количество лагерей.
+     */
+    public static int getCountOfCamps() {
+        if (person != null) {
+            try {
+                return Integer.parseInt(person.getString("count_of_camps"));
+            } catch (JSONException e) {
+                return 0;
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * Получение данных с сервера.
+     *
+     * @param act - основная активность. (Для обработки данных после загрузки)
+     */
+    public static void getData(MainActivity act) {
+        // Обнуление переменных.
         data = "";
+        schedule = "";
+        achievement = "";
+
+        // Обнуление флага на успешное соединение.
         canConnect = true;
 
+        // Таймер для дебага.
         long startTimer = System.currentTimeMillis();
+
+        // Запуск треда с выкачкой инфы с сервера.
         Thread load = new Thread() {
             @Override
             public void run() {
-                getSchedule();
-                getAchievements();
                 try {
+                    StringBuilder string = new StringBuilder();
+
+
+                    System.out.println("----------------------------------------STARTED_CONNECTION_THREAD--------------------------------------------------------------");
+                    // Подключение к серверу.
                     URL url = new URL(serverUrl);
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("GET");
                     connection.setRequestProperty("Accept-Encoding", "gzip");
                     connection.connect();
 
+                    // Ответный код сервера.
                     int responseCode = connection.getResponseCode();
-                    System.out.println("----------------------------------------GOT_RESPONSE_FROM_SERVER_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
+                    System.out.println("----------------------------------------GOT_RESPONSE_FROM_PLAYERS_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
 
+
+                    // Если сервак не захотел отдавать данные.
                     if (responseCode != 200) {
-                        throw new RuntimeException("HttpResponseCode: " + responseCode);
+                        throw new RuntimeException("Players: HttpResponseCode: " + responseCode);
                     } else {
+                        // Перегоняем инфу с сервера в строку.
                         Scanner scanner = new Scanner(url.openStream());
                         while (scanner.hasNext()) {
-                            data += scanner.nextLine();
+                            string.append(scanner.nextLine());
                         }
                         scanner.close();
                     }
-                    //latch.countDown();
-                } catch (Exception exception) {
-                    canConnect = false;
-                    //latch.countDown();
-                    exception.printStackTrace();
-                }
+                    data = string.toString();
+                    string = new StringBuilder();
+                    System.out.println("----------------------------------------CONNECTION_TO_PLAYERS_TOOK_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
+                    System.out.println("Raw Players: " + data);
 
-                System.out.println("----------------------------------------CONNECTION_TOOK_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
-                act.Load();
-                System.out.println(data);
-            }
-        };
-        try {
-            load.start();
-            //latch.await();
-        } catch (Exception exception) {
-        }
 
-        return canConnect;
-    }
-
-    public static void getSchedule() {
-        schedule = "";
-        canConnect = true;
-        CountDownLatch latch = new CountDownLatch(1);
-        long startTimer = System.currentTimeMillis();
-        Thread start = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL(scheduleUrl);
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    url = new URL(scheduleUrl);
+                    connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("GET");
                     connection.setRequestProperty("Accept-Encoding", "gzip");
                     connection.connect();
 
-                    int responseCode = connection.getResponseCode();
+                    responseCode = connection.getResponseCode();
                     System.out.println("----------------------------------------GOT_RESPONSE_FROM_SCHEDULE_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
 
                     if (responseCode != 200) {
-                        throw new RuntimeException("HttpResponseCode: " + responseCode);
+                        throw new RuntimeException("Schedule: HttpResponseCode: " + responseCode);
                     } else {
                         Scanner scanner = new Scanner(url.openStream());
                         while (scanner.hasNext()) {
-                            schedule += scanner.nextLine();
+                            string.append(scanner.nextLine());
                         }
                         scanner.close();
                     }
-                    //latch.countDown();
-                } catch (
-                        Exception exception) {
-                    canConnect = false;
-                    //latch.countDown();
-                    exception.printStackTrace();
-                }
+                    schedule = string.toString();
+                    string = new StringBuilder();
+                    System.out.println("----------------------------------------CONNECTION_TO_SCHEDULE_TOOK_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
+                    System.out.println("Raw Schedule: " + schedule);
 
-                System.out.println("----------------------------------------CONNECTION_TOOK_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
-                System.out.println(schedule);
-                latch.countDown();
-            }
-        };
-        try {
-            start.start();
-            latch.await();
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
 
-    }
-
-    public static void getAchievements() {
-        schedule = "";
-        canConnect = true;
-        CountDownLatch latch = new CountDownLatch(1);
-        long startTimer = System.currentTimeMillis();
-        Thread start = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL(achievementUrl);
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    url = new URL(achievementUrl);
+                    connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("GET");
                     connection.setRequestProperty("Accept-Encoding", "gzip");
                     connection.connect();
 
-                    int responseCode = connection.getResponseCode();
+                    responseCode = connection.getResponseCode();
                     System.out.println("----------------------------------------GOT_RESPONSE_FROM_ACHIEVEMENTS_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
 
                     if (responseCode != 200) {
-                        throw new RuntimeException("HttpResponseCode: " + responseCode);
+                        throw new RuntimeException("Achievements: HttpResponseCode: " + responseCode);
                     } else {
                         Scanner scanner = new Scanner(url.openStream());
                         while (scanner.hasNext()) {
-                            achievement += scanner.nextLine();
+                            string.append(scanner.nextLine());
                         }
                         scanner.close();
                     }
-                    //latch.countDown();
-                } catch (
-                        Exception exception) {
+                    achievement = string.toString();
+                    System.out.println("----------------------------------------CONNECTION_TO_ACHIEVEMENTS_TOOK_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
+                    System.out.println("Raw Achievements: " + achievement);
+                } catch (Exception exception) {
                     canConnect = false;
-                    //latch.countDown();
+                    System.out.println("-----------------------------------------CONNECTION_FAILED---------------------------------------------------");
                     exception.printStackTrace();
                 }
 
-                System.out.println("----------------------------------------CONNECTION_TOOK_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
-                System.out.println(achievement);
-                latch.countDown();
+
+                System.out.println("------------------------------------------ENDED_CONNECTION_THREAD--------------------------------------------------------------");
+
+                // Продолжение работы главного потока.
+                act.Load();
             }
         };
+
         try {
-            start.start();
-            latch.await();
+            load.start();
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-
     }
 
+    /**
+     * Получение информации о пользователе.
+     *
+     * @param login - логин, забитый пользователем.
+     * @param pass  - пароль, забитый пользователем.
+     * @return - является ли пользователь валидным.
+     */
     public static Pair<Boolean, JSONObject> findUser(String login, String pass) {
-        //CountDownLatch latch = new CountDownLatch(1);
-
-        giveAccess = false;
+        // Обнуление переменных.
+        boolean giveAccess = false;
         person = null;
 
-        if (Objects.equals(login, "123123") && Objects.equals(pass, "123123")) {
+        // Если пользователь использует логин разработчика.
+        if (Objects.equals(login, adminLog) && Objects.equals(pass, adminPass)) {
             return new Pair(true, null);
         }
 
+        //  Если с сервака ничего не подсосало.
         if (Objects.equals(data, "")) {
             return null;
         }
 
         try {
+            // Если пароль и логин могут быть в системе.
             if (data.contains(login) && data.contains(pass)) {
-                JSONArray array = new JSONArray(data);
-                for (int i = 0; i < array.length(); i++) {
-                    JSONObject object = array.getJSONObject(i);
+                JSONArray peoArr = new JSONArray(data);
 
+                // Проходимся по всем пользователям.
+                for (int i = 0; i < peoArr.length(); i++) {
+                    JSONObject object = peoArr.getJSONObject(i);
+
+                    // Если логин и пароль подходят.
                     if (Objects.equals(login, object.getString("f_email")) && Objects.equals(pass, object.getString("f_password"))) {
                         giveAccess = true;
-                        person = array.getJSONObject(i);
-                        System.out.println("___________________________________________________PIDORAS_NAIDEN________________________________________________________");
-                        //System.out.println(achievement);
-                        //System.out.println(achievement.substring(5,achievement.length()-1));
-                        JSONArray aray = new JSONArray(achievement.substring(4,achievement.length()));
-                        for (int j = 0; j < aray.length(); j++) {
-                            JSONObject obj = aray.getJSONObject(j);
+                        person = peoArr.getJSONObject(i);
+                        System.out.println("___________________________________________________USER_FOUND________________________________________________________");
+
+                        // Проходимся по всем достижениям.
+                        JSONArray achArr = new JSONArray(achievement);
+                        for (int j = 0; j < achArr.length(); j++) {
+                            JSONObject obj = achArr.getJSONObject(j);
                             if (obj.getString("fullname").equals("null")) {
                                 continue;
                             }
-                            System.out.println(j);
-                            if (Objects.equals(obj.getString("fullname"), object.getString("lastname") + " " + object.getString("firstname") + " " + object.getString("id") + " ")) {
-                                achievementObject.add(aray.getJSONObject(j));
-                                System.out.println("___________________________________________________ACHIEVEMENT_NAIDEN________________________________________________________");
-                                String[] aboba = achievementObject.toString().split(",");
 
-                                //for (int h = 0; h < aboba.length; h++) {
-                                    System.out.println("achievement " + achievementObject.toString());
-                                //}
+                            // Проверяем ачивку на вшивость.
+                            if (Objects.equals(obj.getString("fullname"), object.getString("lastname") + " " + object.getString("firstname") + " " + object.getString("id") + " ")) {
+                                userAchievements.add(achArr.getJSONObject(j));
+                                System.out.println("___________________________________________________ACHIEVEMENT_FOUND________________________________________________________");
                             }
                         }
                         break;
@@ -224,13 +311,7 @@ public class Connection {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        //latch.countDown();
 
-        try {
-            //latch.await();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return new Pair(giveAccess, person);
     }
 }

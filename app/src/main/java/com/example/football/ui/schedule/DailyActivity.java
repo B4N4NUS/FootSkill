@@ -3,7 +3,6 @@ package com.example.football.ui.schedule;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -13,14 +12,11 @@ import com.example.football.R;
 
 public class DailyActivity extends ConstraintLayout {
     private TextView time, activity, day;
-    private Context context;
-
 
     private void initControl(Context context) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.day_activity, this);
 
-        this.context = context;
         activity = findViewById(R.id.activity);
         time = findViewById(R.id.time);
         day = findViewById(R.id.day_of_the_week);
@@ -38,11 +34,6 @@ public class DailyActivity extends ConstraintLayout {
 
     public DailyActivity(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initControl(context);
-    }
-
-    public DailyActivity(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         initControl(context);
     }
 
