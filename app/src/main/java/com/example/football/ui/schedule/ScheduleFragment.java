@@ -1,5 +1,6 @@
 package com.example.football.ui.schedule;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -31,10 +32,11 @@ public class ScheduleFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        data = Connection.GetScheduleCopy();
+        data = Connection.GetSchedule();
         return inflater.inflate(R.layout.fragment_schedule, container, false);
     }
 
+    @SuppressLint("SetTextI18n")
     public void Load() {
         long startTimer = System.currentTimeMillis();
         try {

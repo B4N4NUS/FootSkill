@@ -1,4 +1,4 @@
-package com.example.football.components;
+package com.example.football.ui.stats;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -12,21 +12,19 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.example.football.R;
-import com.example.football.ui.stats.DateValueFormatter;
 import com.github.mikephil.charting.charts.*;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 public class Chart extends LinearLayout {
@@ -50,11 +48,6 @@ public class Chart extends LinearLayout {
         super(context, attrs, defStyleAttr);
         this.context = context;
         initControl(context);
-    }
-
-    public void refresh() {
-        chart.notifyDataSetChanged();
-        chart.invalidate();
     }
 
     public void setHeader(String name) {
@@ -103,6 +96,8 @@ public class Chart extends LinearLayout {
             }
         }
 
+        Collections.sort(values, (entry, t1) -> Float.compare(entry.getX(),t1.getX()));
+
         LineDataSet set1;
         if (chart.getData() != null &&
                 chart.getData().getDataSetCount() > 0) {
@@ -113,7 +108,7 @@ public class Chart extends LinearLayout {
         } else {
             set1 = new LineDataSet(values, "");
             set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-            set1.setCubicIntensity(0.2f);
+            set1.setCubicIntensity(0.0f);
             set1.setDrawFilled(true);
             set1.setLineWidth(1.8f);
             set1.setCircleRadius(3f);
@@ -125,12 +120,7 @@ public class Chart extends LinearLayout {
             set1.setFillAlpha(40);
             set1.setDrawHorizontalHighlightIndicator(false);
             set1.setDrawValues(false);
-            set1.setFillFormatter(new IFillFormatter() {
-                @Override
-                public float getFillLinePosition(ILineDataSet dataSet, LineDataProvider dataProvider) {
-                    return chart.getAxisLeft().getAxisMinimum();
-                }
-            });
+            set1.setFillFormatter((dataSet, dataProvider) -> chart.getAxisLeft().getAxisMinimum());
 
             chart.getAxisLeft().setDrawGridLines(true);
             chart.getAxisRight().setDrawGridLines(false);
@@ -155,7 +145,6 @@ public class Chart extends LinearLayout {
             if (labels != null) {
                 XAxis xAxis = chart.getXAxis();
                 xAxis.setValueFormatter(new IndexAxisValueFormatter() {
-
                     @Override
                     public String getFormattedValue(float value) {
                         System.out.println(labels[(int) value]);

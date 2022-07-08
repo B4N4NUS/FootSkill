@@ -36,7 +36,7 @@ public class Connection {
      * Получение данных для расписания.
      * @return - данные для построения расписания.
      */
-    public static ArrayList<RawSchedule> GetScheduleCopy() {
+    public static ArrayList<RawSchedule> GetSchedule() {
         ArrayList<RawSchedule> pl = new ArrayList<>();
         try {
             JSONArray array = new JSONArray(schedule);
@@ -109,6 +109,23 @@ public class Connection {
         if (person != null) {
             try {
                 return Integer.parseInt(person.getString("count_of_training"));
+            } catch (JSONException e) {
+                return 0;
+            }
+        }
+        return 0;
+    }
+
+
+    /**
+     * Получение количества тренировок.
+     *
+     * @return - количество тренировок.
+     */
+    public static int getCountOfMinusPoints() {
+        if (person != null) {
+            try {
+                return Integer.parseInt(person.getString("count_of_minus_points"));
             } catch (JSONException e) {
                 return 0;
             }

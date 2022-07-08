@@ -15,47 +15,47 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.example.football.components.Chart
+            <com.example.football.ui.stats.Chart
                 android:id="@+id/strength"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <com.example.football.components.Chart
+            <com.example.football.ui.stats.Chart
                 android:id="@+id/walk"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <com.example.football.components.Chart
+            <com.example.football.ui.stats.Chart
                 android:id="@+id/walk2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <com.example.football.components.Chart
+            <com.example.football.ui.stats.Chart
                 android:id="@+id/run"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <com.example.football.components.Chart
+            <com.example.football.ui.stats.Chart
                 android:id="@+id/run2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <com.example.football.components.Chart
+            <com.example.football.ui.stats.Chart
                 android:id="@+id/pounce"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <com.example.football.components.Chart
+            <com.example.football.ui.stats.Chart
                 android:id="@+id/pounce2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <com.example.football.components.Chart
+            <com.example.football.ui.stats.Chart
                 android:id="@+id/reaction"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <com.example.football.components.Chart
+            <com.example.football.ui.stats.Chart
                 android:id="@+id/sharp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

@@ -1,6 +1,10 @@
 package com.example.football;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.football.ui.achievements.AchievementFragment;
 import com.example.football.ui.profile.ProfileFragment;
@@ -13,17 +17,23 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.football.ui.main.SectionsPagerAdapter;
-import com.example.football.databinding.ActivityTabbedBinding;
 
 public class TabbedActivity extends AppCompatActivity {
 
     public static final Fragment[] tabsFragments = {new StatsFragment(), new AchievementFragment(), new ScheduleFragment(), new ProfileFragment()};
+    private static final String[] titles = {"Статистика","Достижения","Расписание","Профиль"};
+
+    private void switchActivitiesWithData() {
+        Intent switchActivityIntent = new Intent(this, AchievementsActivity.class);
+        switchActivityIntent.putExtra("message", "From: " + TabbedActivity.class.getSimpleName());
+        startActivity(switchActivityIntent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        com.example.football.databinding.ActivityTabbedBinding binding = ActivityTabbedBinding.inflate(getLayoutInflater());
+        com.example.football.databinding.ActivityTabbedBinding binding = com.example.football.databinding.ActivityTabbedBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -35,6 +45,14 @@ public class TabbedActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Профиль").setIcon(R.drawable.ic_schedule));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
+        TextView title = findViewById(R.id.textView4);
+        title.setText(titles[0]);
+
+        ImageButton info = findViewById(R.id.infoButton);
+        info.setOnClickListener(e-> {
+            switchActivitiesWithData();
+        });
+
         final SectionsPagerAdapter adapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), 4);
         viewPager.setAdapter(adapter);
 
@@ -43,6 +61,12 @@ public class TabbedActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                title.setText(titles[tab.getPosition()]);
+                if (tab.getPosition() == 1) {
+                    info.setVisibility(View.VISIBLE);
+                } else {
+                    info.setVisibility(View.INVISIBLE);
+                }
                 viewPager.setCurrentItem(tab.getPosition());
             }
 

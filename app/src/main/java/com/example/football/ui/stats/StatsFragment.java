@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.example.football.MainActivity;
 import com.example.football.R;
-import com.example.football.components.Chart;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -92,22 +91,22 @@ public class StatsFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        Chart strength = getView().findViewById(R.id.strength);
-        Chart walk = getView().findViewById(R.id.walk);
-        Chart walk2 = getView().findViewById(R.id.walk2);
-        Chart run = getView().findViewById(R.id.run);
-        Chart run2 = getView().findViewById(R.id.run2);
-        Chart pounce = getView().findViewById(R.id.pounce);
-        Chart pounce2 = getView().findViewById(R.id.pounce2);
-        Chart reaction = getView().findViewById(R.id.reaction);
-        Chart sharp = getView().findViewById(R.id.sharp);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Chart strength = view.findViewById(R.id.strength);
+        Chart walk = view.findViewById(R.id.walk);
+        Chart walk2 = view.findViewById(R.id.walk2);
+        Chart run = view.findViewById(R.id.run);
+        Chart run2 = view.findViewById(R.id.run2);
+        Chart pounce = view.findViewById(R.id.pounce);
+        Chart pounce2 = view.findViewById(R.id.pounce2);
+        Chart reaction = view.findViewById(R.id.reaction);
+        Chart sharp = view.findViewById(R.id.sharp);
 
         strength.setHeader("Сила удара");
         walk.setHeader("10 метров с места (км/ч)");
-        walk2.setHeader("10 метров с места (м/с)");
+        walk2.setHeader("10 метров с места (сек)");
         run2.setHeader("10 метров с разбега (км/ч)");
-        run.setHeader("10 метров с разбега (м/с)");
+        run.setHeader("10 метров с разбега (сек)");
         pounce.setHeader("Прыжок в высоту");
         pounce2.setHeader("Прыжок в длинну");
         reaction.setHeader("Скорость реакции");

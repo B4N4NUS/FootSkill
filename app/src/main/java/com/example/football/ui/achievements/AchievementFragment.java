@@ -1,6 +1,5 @@
 package com.example.football.ui.achievements;
 
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,19 +9,18 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.example.football.Connection;
 import com.example.football.R;
 
 public class AchievementFragment extends Fragment {
-    private ProgressBar train;
-    private ProgressBar panna;
-    private ProgressBar turn;
-    private ProgressBar lager;
-    private ProgressBar test;
-    private ProgressBar earned;
-    private ProgressBar available;
+    private PrettyProgressBar train;
+    private PrettyProgressBar panna;
+    private PrettyProgressBar turn;
+    private PrettyProgressBar lager;
+    private PrettyProgressBar test;
+    private PrettyProgressBar earned;
+    private SuperPrettyProgressBar available;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -31,7 +29,7 @@ public class AchievementFragment extends Fragment {
     }
 
     public void Load() {
-        int tr = 0, pn = 0, tu = 0,la = 0,te = 0;
+        int tr = 0, pn = 0, tu = 0, la = 0, te = 0;
         try {
             for (int i = 0; i < Connection.userAchievements.size(); i++) {
                 String name = Connection.userAchievements.get(i).getString("last_statements");
@@ -67,15 +65,15 @@ public class AchievementFragment extends Fragment {
                 "test = " + te + "\n" +
                 "earned = " + en);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            train.setProgress(tr, true);
-            panna.setProgress(pn, true);
-            turn.setProgress(tu, true);
-            lager.setProgress(la, true);
-            test.setProgress(te, true);
-            earned.setProgress(en, true);
-            available.setProgress(100 - en, true);
-        }
+
+        train.setData(tr);
+        panna.setData(pn);
+        turn.setData(tu);
+        lager.setData(la);
+        test.setData(te);
+        earned.setData(en);
+        available.setData(en - Connection.getCountOfMinusPoints());
+
     }
 
     @Override

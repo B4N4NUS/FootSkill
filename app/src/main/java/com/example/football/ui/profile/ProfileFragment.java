@@ -28,51 +28,54 @@ import java.io.InputStream;
 import java.net.URL;
 
 public class ProfileFragment extends Fragment {
+    private Bitmap bitmap;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-
-
-        return inflater.inflate(R.layout.fragment_profile, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-        ImageView image = getView().findViewById(R.id.imageProf);
-        TextView name = getView().findViewById(R.id.nameProf);
-        TextView pos = getView().findViewById(R.id.posProf);
-        TextView foot = getView().findViewById(R.id.footProf);
-        TextView team = getView().findViewById(R.id.teamProf);
-        TextView lastPay = getView().findViewById(R.id.lastPayProf);
-        TextView abon = getView().findViewById(R.id.abonProf);
-        TextView age = getView().findViewById(R.id.ageProf);
-        Button exit = getView().findViewById(R.id.exitProf);
-
-        exit.setOnClickListener(e-> {
-            getActivity().onBackPressed();
-            Saver.SaveAut(getActivity(), "","");
-            //getActivity().setContentView(R.layout.activity_main);
-        });
 
         try{
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
-            //System.out.println(MainActivity.rawUser.getJSONObject("avatar").getString("url"));
-            String url = "";
+            String url;
             if (MainActivity.rawUser == null) {
                 throw new Exception("No server connection presented");
             }
             JSONObject array = MainActivity.rawUser.getJSONObject("avatar");
             url = array.getString("url");
             System.out.println(url);
-            Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(Connection.imagesUrl + url).getContent());
+            bitmap = BitmapFactory.decodeStream((InputStream)new URL(Connection.imagesUrl + url).getContent());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_profile, container, false);
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        long startTimer = System.currentTimeMillis();
+
+        ImageView image = view.findViewById(R.id.imageProf);
+        TextView name = view.findViewById(R.id.nameProf);
+        TextView pos = view.findViewById(R.id.posProf);
+        TextView foot = view.findViewById(R.id.footProf);
+        TextView team = view.findViewById(R.id.teamProf);
+        TextView lastPay = view.findViewById(R.id.lastPayProf);
+        TextView abon = view.findViewById(R.id.abonProf);
+        TextView age = view.findViewById(R.id.ageProf);
+        Button exit = view.findViewById(R.id.exitProf);
+
+        exit.setOnClickListener(e-> {
+            getActivity().onBackPressed();
+            Saver.SaveAut(getActivity(), "","");
+        });
+
+        try{
             image.setImageBitmap(bitmap);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -83,7 +86,9 @@ public class ProfileFragment extends Fragment {
             pos.setText(MainActivity.rawUser.getString("playerPosition"));
             foot.setText(MainActivity.rawUser.getString("lead_leg"));
             team.setText(MainActivity.rawUser.getString("team"));
-            lastPay.setText(MainActivity.rawUser.getString("date_of_last_pay"));
+            String[] rawDate = MainActivity.rawUser.getString("date_of_last_pay").split("-");
+            lastPay.setText(rawDate.length == 3?rawDate[2] + "." + rawDate[1] + "." + rawDate[0] : "null");
+            //lastPay.setText(MainActivity.rawUser.getString("date_of_last_pay"));
             abon.setText(MainActivity.rawUser.getString("variant_of_subscription"));
             String[] rawAge = MainActivity.rawUser.getString("birthday").split("-");
             age.setText(rawAge.length == 3?rawAge[2] + "." + rawAge[1] + "." + rawAge[0] : "null");
@@ -91,5 +96,6 @@ public class ProfileFragment extends Fragment {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        System.out.println("-------------------------------------------PROFILE_CREATED_IN_"+((System.currentTimeMillis() - startTimer*1.0)/1000) + "_SECONDS-------------------------------------");
     }
 }
