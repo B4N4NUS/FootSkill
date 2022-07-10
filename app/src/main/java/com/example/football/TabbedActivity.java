@@ -49,11 +49,9 @@ public class TabbedActivity extends AppCompatActivity {
         title.setText(titles[0]);
 
         ImageButton info = findViewById(R.id.infoButton);
-        info.setOnClickListener(e-> {
-            switchActivitiesWithData();
-        });
+        info.setOnClickListener(e-> switchActivitiesWithData());
 
-        final SectionsPagerAdapter adapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), 4);
+        final SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), 4);
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

@@ -18,11 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.football.Connection;
-import com.example.football.MainActivity;
 import com.example.football.R;
-import com.example.football.Saver;
-
-import org.json.JSONObject;
+import com.example.football.SharedPrefLS;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -37,15 +34,11 @@ public class ProfileFragment extends Fragment {
         try{
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
-            String url;
-            if (MainActivity.rawUser == null) {
-                throw new Exception("No server connection presented");
-            }
-            JSONObject array = MainActivity.rawUser.getJSONObject("avatar");
-            url = array.getString("url");
+            String url = Connection.getUrl();
             System.out.println(url);
             bitmap = BitmapFactory.decodeStream((InputStream)new URL(Connection.imagesUrl + url).getContent());
         } catch (Exception ex) {
+            bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.real_logo);
             ex.printStackTrace();
         }
     }
@@ -72,7 +65,7 @@ public class ProfileFragment extends Fragment {
 
         exit.setOnClickListener(e-> {
             getActivity().onBackPressed();
-            Saver.SaveAut(getActivity(), "","");
+            SharedPrefLS.SaveAut(getActivity(), "","");
         });
 
         try{
@@ -82,17 +75,13 @@ public class ProfileFragment extends Fragment {
             image.setImageResource(R.drawable.ic_profile);
         }
         try {
-            name.setText(MainActivity.rawUser.getString("firstname") + " " + MainActivity.rawUser.getString("lastname"));
-            pos.setText(MainActivity.rawUser.getString("playerPosition"));
-            foot.setText(MainActivity.rawUser.getString("lead_leg"));
-            team.setText(MainActivity.rawUser.getString("team"));
-            String[] rawDate = MainActivity.rawUser.getString("date_of_last_pay").split("-");
-            lastPay.setText(rawDate.length == 3?rawDate[2] + "." + rawDate[1] + "." + rawDate[0] : "null");
-            //lastPay.setText(MainActivity.rawUser.getString("date_of_last_pay"));
-            abon.setText(MainActivity.rawUser.getString("variant_of_subscription"));
-            String[] rawAge = MainActivity.rawUser.getString("birthday").split("-");
-            age.setText(rawAge.length == 3?rawAge[2] + "." + rawAge[1] + "." + rawAge[0] : "null");
-
+            name.setText(Connection.getName());
+            pos.setText(Connection.getPosition());
+            foot.setText(Connection.getFoot());
+            team.setText(Connection.getTeam());
+            lastPay.setText(Connection.getLastPay());
+            abon.setText(Connection.getAbonement());
+            age.setText(Connection.getAge());
         } catch (Exception ex) {
             ex.printStackTrace();
         }

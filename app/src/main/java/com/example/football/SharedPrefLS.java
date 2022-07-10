@@ -3,7 +3,7 @@ package com.example.football;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
-public class Saver {
+public class SharedPrefLS {
     public static String login;
     public static String pass;
 
@@ -18,7 +18,7 @@ public class Saver {
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("Username",log);
         editor.putString("Password",pas);
-        editor.commit();
+        editor.apply();
     }
 
     /**

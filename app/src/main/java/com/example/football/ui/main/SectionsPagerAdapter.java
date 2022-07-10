@@ -1,7 +1,6 @@
 package com.example.football.ui.main;
 
-import android.content.Context;
-
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -11,11 +10,12 @@ import com.example.football.TabbedActivity;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
     int totalTabs;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm, int totalTabs) {
+    public SectionsPagerAdapter(FragmentManager fm, int totalTabs) {
         super(fm);
         this.totalTabs = totalTabs;
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         switch (position) {
@@ -25,10 +25,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return TabbedActivity.tabsFragments[1];
             case 2:
                 return TabbedActivity.tabsFragments[2];
-            case 3:
-                return TabbedActivity.tabsFragments[3];
             default:
-                return null;
+                return TabbedActivity.tabsFragments[3];
         }
     }
 

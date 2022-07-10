@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     // Флаг автоматического входа.
     private boolean automaticLogin = false;
 
-    public static JSONObject rawUser;
+    private static JSONObject rawUser;
 
 
     /**
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             Pair<Boolean, JSONObject> user = Connection.findUser(login.getText().toString(), pass.getText().toString());
 
             if (user != null) {
-                Saver.SaveAut(this, login.getText().toString(), pass.getText().toString());
+                SharedPrefLS.SaveAut(this, login.getText().toString(), pass.getText().toString());
                 System.out.println(user.second);
                 rawUser = user.second;
                 switchActivitiesWithData();
@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity {
      * Метод загрузки данных аутентификации из памяти устройства.
      */
     private void loadSaves() {
-        Saver.LoadAut(this);
+        SharedPrefLS.LoadAut(this);
 
-        if (!Objects.equals(Saver.login, "") && !Objects.equals(Saver.pass, "")) {
-            login.setText(Saver.login);
-            pass.setText(Saver.pass);
+        if (!Objects.equals(SharedPrefLS.login, "") && !Objects.equals(SharedPrefLS.pass, "")) {
+            login.setText(SharedPrefLS.login);
+            pass.setText(SharedPrefLS.pass);
             errorLabel.setText("");
             automaticLogin = true;
         }
@@ -135,15 +135,15 @@ public class MainActivity extends AppCompatActivity {
 
                 if (login.getText().toString().equals("123123") && pass.getText().toString().equals("123123")) {
                     switchActivitiesWithData();
-                    Saver.SaveAut(this, login.getText().toString(), pass.getText().toString());
+                    SharedPrefLS.SaveAut(this, login.getText().toString(), pass.getText().toString());
                 }
 
                 if (Connection.canConnect) {
                     Pair<Boolean, JSONObject> user = Connection.findUser(login.getText().toString(), pass.getText().toString());
 
                     if (user != null) {
-                        if (user.first != null) {
-                            Saver.SaveAut(this, login.getText().toString(), pass.getText().toString());
+                        if (user.first) {
+                            SharedPrefLS.SaveAut(this, login.getText().toString(), pass.getText().toString());
                             System.out.println(user.second);
                             rawUser = user.second;
                             switchActivitiesWithData();
@@ -156,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
                             pass.startAnimation(shake);
 
                             errorLabel.setText("Пользователь не найден");
-                            //onButtonShowPopupWindowClick(getLayoutInflater().inflate(R.layout.activity_main,null));
                         }
                     }
                 } else {
@@ -167,32 +166,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        login.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                errorLabel.setText("");
-                if (!hasFocus) {
-                    errorLabel.setText("Пустой номер");
-                    if (!TextUtils.isEmpty(((EditText) v).getText())) {
-                        loginLay.setError(null);
-                        errorLabel.setText(null);
-                    } else {
-                        loginLay.setError("WRONG");
-                    }
+        login.setOnFocusChangeListener((v, hasFocus) -> {
+            errorLabel.setText("");
+            if (!hasFocus) {
+                errorLabel.setText("Пустой номер");
+                if (!TextUtils.isEmpty(((EditText) v).getText())) {
+                    loginLay.setError(null);
+                    errorLabel.setText(null);
+                } else {
+                    loginLay.setError("WRONG");
                 }
             }
         });
 
-        pass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                errorLabel.setText("");
-                if (!hasFocus) {
-                    errorLabel.setText("Пустой пароль");
-                    if (!TextUtils.isEmpty(((EditText) v).getText())) {
-                        passLay.setError(null);
-                        errorLabel.setText(null);
-                    }
+        pass.setOnFocusChangeListener((v, hasFocus) -> {
+            errorLabel.setText("");
+            if (!hasFocus) {
+                errorLabel.setText("Пустой пароль");
+                if (!TextUtils.isEmpty(((EditText) v).getText())) {
+                    passLay.setError(null);
+                    errorLabel.setText(null);
                 }
             }
         });

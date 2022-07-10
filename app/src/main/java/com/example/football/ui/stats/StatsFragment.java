@@ -1,5 +1,7 @@
 package com.example.football.ui.stats;
 
+import android.annotation.SuppressLint;
+import android.graphics.Rect;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,8 +11,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
-import com.example.football.MainActivity;
+import com.example.football.Connection;
 import com.example.football.R;
 
 import org.json.JSONArray;
@@ -30,12 +33,12 @@ public class StatsFragment extends Fragment {
     }
 
     private void GetStats() throws JSONException {
-        if (MainActivity.rawUser == null) {
+        if (!Connection.isPersonAlive()) {
             stats = null;
             return;
         }
 
-        JSONArray raw = MainActivity.rawUser.getJSONArray("Statistics");
+        JSONArray raw = Connection.getStats();
         stats.clear();
         for (int i = 0; i < raw.length(); i++) {
             stats.add(new String[names.length]);
@@ -90,6 +93,7 @@ public class StatsFragment extends Fragment {
         super.onResume();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Chart strength = view.findViewById(R.id.strength);
@@ -123,6 +127,24 @@ public class StatsFragment extends Fragment {
             pounce2.setData(GetFloat(10), getDates());
             reaction.setData(GetFloat(3), getDates());
             sharp.setData(GetFloat(7), getDates());
+
+            Chart[] charts = {strength, walk, walk2, run2, run, pounce, pounce2, reaction, sharp};
+
+            ScrollView scroll = view.findViewById(R.id.stats_view);
+            strength.wasAnimated = true;
+            walk.wasAnimated = true;
+            walk2.wasAnimated = true;
+            scroll.getViewTreeObserver().addOnScrollChangedListener(() -> {
+                Rect scrollBounds = new Rect();
+                scroll.getHitRect(scrollBounds);
+                for (Chart chart : charts) {
+                    if (chart.getLocalVisibleRect(scrollBounds)) {
+                        chart.animateChart();
+                    } else {
+                        chart.wasAnimated = false;
+                    }
+                }
+            });
         } catch (Exception ex) {
             ex.printStackTrace();
         }

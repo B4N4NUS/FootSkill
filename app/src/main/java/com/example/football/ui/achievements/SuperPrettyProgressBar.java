@@ -1,5 +1,6 @@
 package com.example.football.ui.achievements;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -49,6 +50,7 @@ public class SuperPrettyProgressBar extends ConstraintLayout {
         Init(context);
     }
 
+    @SuppressLint("SetTextI18n")
     public void setData(int prog) {
         progress.setText(prog + "");
 
@@ -66,16 +68,18 @@ public class SuperPrettyProgressBar extends ConstraintLayout {
                 }
         });
 
-        if (prog < 37) {
-            t25.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
-        } else {
-            if (prog < 62) {
-                t50.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
+        if (prog >= 25) {
+            if (prog < 50) {
+                t25.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
             } else {
-                if (prog < 87) {
-                    t75.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
+                if (prog < 75) {
+                    t50.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
                 } else {
-                    t100.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
+                    if (prog < 100) {
+                        t75.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
+                    } else {
+                        t100.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
+                    }
                 }
             }
         }

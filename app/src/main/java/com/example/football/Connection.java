@@ -32,6 +32,53 @@ public class Connection {
     private static final String adminLog = "0451";
     private static final String adminPass = "0451";
 
+    public static boolean isPersonAlive() {
+        return person != null;
+    }
+
+    public static JSONArray getStats() throws JSONException {
+        return person.getJSONArray("Statistics");
+    }
+
+    public static String getUrl() {
+        try{
+            return person.getJSONObject("avatar").getString("url");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String getName() throws JSONException {
+        return person.getString("firstname") + " " + person.getString("lastname");
+    }
+
+    public static String getPosition() throws JSONException {
+        return person.getString("playerPosition");
+    }
+
+    public static String getFoot() throws JSONException {
+        return person.getString("lead_leg");
+    }
+
+    public static String getTeam() throws JSONException {
+        return person.getString("team");
+    }
+
+    public static String getLastPay() throws JSONException {
+        String[] rawDate = person.getString("date_of_last_pay").split("-");
+        return rawDate.length == 3?rawDate[2] + "." + rawDate[1] + "." + rawDate[0] : "null";
+    }
+
+    public static String getAbonement() throws JSONException {
+        return person.getString("variant_of_subscription");
+    }
+
+    public static String getAge() throws JSONException {
+        String[] rawAge = person.getString("birthday").split("-");
+        return rawAge.length == 3?rawAge[2] + "." + rawAge[1] + "." + rawAge[0] + " " : "null";
+    }
+
     /**
      * Получение данных для расписания.
      * @return - данные для построения расписания.
@@ -126,7 +173,7 @@ public class Connection {
         if (person != null) {
             try {
                 return Integer.parseInt(person.getString("count_of_minus_points"));
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 return 0;
             }
         }
@@ -281,6 +328,7 @@ public class Connection {
         // Обнуление переменных.
         boolean giveAccess = false;
         person = null;
+        userAchievements.clear();
 
         // Если пользователь использует логин разработчика.
         if (Objects.equals(login, adminLog) && Objects.equals(pass, adminPass)) {
@@ -326,6 +374,7 @@ public class Connection {
                 }
             }
         } catch (Exception ex) {
+            giveAccess = false;
             ex.printStackTrace();
         }
 

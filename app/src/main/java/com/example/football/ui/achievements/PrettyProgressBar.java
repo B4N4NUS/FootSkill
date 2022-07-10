@@ -1,5 +1,6 @@
 package com.example.football.ui.achievements;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -14,7 +15,6 @@ import com.example.football.R;
 public class PrettyProgressBar extends ConstraintLayout {
     private TextView progress;
     private ProgressBar bar;
-    private Context context;
 
     private void Init(Context context) {
         LayoutInflater inflater = (LayoutInflater)
@@ -22,7 +22,6 @@ public class PrettyProgressBar extends ConstraintLayout {
 
         inflater.inflate(R.layout.pretty_progressbar, this);
 
-        this.context = context;
         progress = findViewById(R.id.progress);
         bar = findViewById(R.id.bar);
     }
@@ -42,6 +41,7 @@ public class PrettyProgressBar extends ConstraintLayout {
         Init(context);
     }
 
+    @SuppressLint("SetTextI18n")
     public void setData(int prog) {
         progress.setText(prog + "");
 

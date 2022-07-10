@@ -31,6 +31,7 @@ public class Chart extends LinearLayout {
     private TextView header;
     private LineChart chart;
     private final Context context;
+    public boolean wasAnimated = false;
 
     public Chart(Context context) {
         super(context);
@@ -48,6 +49,14 @@ public class Chart extends LinearLayout {
         super(context, attrs, defStyleAttr);
         this.context = context;
         initControl(context);
+    }
+
+    public void animateChart() {
+        if (!wasAnimated) {
+            wasAnimated = true;
+            chart.animateY(1000);
+
+        }
     }
 
     public void setHeader(String name) {

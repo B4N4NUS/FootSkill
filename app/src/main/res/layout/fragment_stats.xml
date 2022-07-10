@@ -7,8 +7,10 @@
     tools:context=".ui.stats.StatsFragment">
 
     <ScrollView
+        android:id="@+id/stats_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbarThumbVertical="@null">
 
         <LinearLayout
             android:layout_width="match_parent"
