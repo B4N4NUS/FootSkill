@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import com.example.football.R;
 public class PrettyProgressBar extends ConstraintLayout {
     private TextView progress;
     private ProgressBar bar;
+    private int prog = 0;
 
     private void Init(Context context) {
         LayoutInflater inflater = (LayoutInflater)
@@ -24,6 +27,20 @@ public class PrettyProgressBar extends ConstraintLayout {
 
         progress = findViewById(R.id.progress);
         bar = findViewById(R.id.bar);
+    }
+
+    public void Animate() {
+        bar.startAnimation(new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                super.applyTransformation(interpolatedTime, t);
+                if (prog != 0) {
+                    setDuration((int) (prog * 1.0 / 100 * 1000));
+                }
+                float value =  prog * interpolatedTime;
+                bar.setProgress((int) value);
+            }
+        });
     }
 
     public PrettyProgressBar(Context context) {
@@ -44,7 +61,7 @@ public class PrettyProgressBar extends ConstraintLayout {
     @SuppressLint("SetTextI18n")
     public void setData(int prog) {
         progress.setText(prog + "");
-
+        this.prog = prog;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             bar.setProgress(prog, true);
         }

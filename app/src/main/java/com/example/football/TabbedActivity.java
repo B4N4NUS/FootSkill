@@ -1,6 +1,7 @@
 package com.example.football;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -32,6 +33,7 @@ public class TabbedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
         com.example.football.databinding.ActivityTabbedBinding binding = com.example.football.databinding.ActivityTabbedBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

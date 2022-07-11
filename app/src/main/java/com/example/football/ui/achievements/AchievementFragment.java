@@ -86,6 +86,22 @@ public class AchievementFragment extends Fragment {
         earned = view.findViewById(R.id.pb_earned);
         available = view.findViewById(R.id.pb_avaliable);
 
+//        ScrollView scroll = view.findViewById(R.id.ach_scroll);
+//        scroll.getViewTreeObserver().addOnScrollChangedListener(() -> {
+//            Rect scrollBounds = new Rect();
+//            scroll.getHitRect(scrollBounds);
+//            if (train.getLocalVisibleRect(scrollBounds)) {
+//                train.Animate();
+//                panna.Animate();
+//                turn.Animate();
+//                lager.Animate();
+//                test.Animate();
+//                earned.Animate();
+//                available.Animate();
+//                System.out.println("ANIMATED");
+//            }
+//        });
+
         Load();
     }
 }

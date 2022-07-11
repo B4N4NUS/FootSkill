@@ -11,15 +11,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/bottom_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@+id/tabs"
+            app:srcCompat="@drawable/tabs_splitter" />
+
+        <ImageView
+            android:id="@+id/upper_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/textView4"
+            app:srcCompat="@drawable/tabs_splitter"
+           />
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/textView4"
-            android:layout_alignBottom="@+id/tabs"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="46dp"
+            android:layout_below="@+id/upper_line"
+            android:layout_above="@+id/bottom_line"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         </androidx.viewpager.widget.ViewPager>

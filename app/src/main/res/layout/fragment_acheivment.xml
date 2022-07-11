@@ -7,6 +7,7 @@
     tools:context=".ui.achievements.AchievementFragment">
 
     <ScrollView
+        android:id="@+id/ach_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbarThumbVertical="@null">
@@ -23,10 +24,10 @@
             app:layout_constraintVertical_bias="0.0">
 
             <TextView
-                android:paddingTop="10dp"
                 android:id="@+id/trens"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:text="Тренировки" />
 
             <com.example.football.ui.achievements.PrettyProgressBar
@@ -35,10 +36,10 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:paddingTop="10dp"
                 android:id="@+id/panna"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:text="Панна 1 на 1" />
 
             <com.example.football.ui.achievements.PrettyProgressBar
@@ -47,10 +48,10 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:paddingTop="10dp"
                 android:id="@+id/turn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:text="Турнир 3 на 3" />
 
             <com.example.football.ui.achievements.PrettyProgressBar
@@ -59,10 +60,10 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:paddingTop="10dp"
                 android:id="@+id/lager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:text="Лагерь" />
 
             <com.example.football.ui.achievements.PrettyProgressBar
@@ -71,10 +72,10 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:paddingTop="10dp"
                 android:id="@+id/test"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:text="Тестирование" />
 
             <com.example.football.ui.achievements.PrettyProgressBar
@@ -83,10 +84,10 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:paddingTop="10dp"
                 android:id="@+id/p_earned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="60dp"
                 android:text="ВСЕГО ЗАРАБОТАНО БАЛЛОВ" />
 
             <com.example.football.ui.achievements.PrettyProgressBar
@@ -95,10 +96,10 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:paddingTop="10dp"
                 android:id="@+id/p_avaliable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:text="ДОСТУПНО БАЛЛОВ" />
 
             <com.example.football.ui.achievements.SuperPrettyProgressBar
@@ -106,13 +107,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textColor="#FFFFFF"
-                android:textSize="48dp" />
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

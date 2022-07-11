@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -17,8 +19,7 @@ public class SuperPrettyProgressBar extends ConstraintLayout {
     private TextView progress, t25, t50, t75, t100;
     private ProgressBar bar;
     private Context context;
-
-    static int counter = 0;
+    private int prog = 0;
 
     private void Init(Context context) {
         LayoutInflater inflater = (LayoutInflater)
@@ -50,36 +51,37 @@ public class SuperPrettyProgressBar extends ConstraintLayout {
         Init(context);
     }
 
+    public void Animate() {
+        bar.startAnimation(new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                super.applyTransformation(interpolatedTime, t);
+                if (prog != 0) {
+                    setDuration((int) (prog * 1.0 / 100 * 1000));
+                }
+                float value =  prog * interpolatedTime;
+                bar.setProgress((int) value);
+            }
+        });
+    }
+
     @SuppressLint("SetTextI18n")
     public void setData(int prog) {
         progress.setText(prog + "");
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             bar.setProgress(prog, true);
         }
 
-        counter = 0;
-        bar.setOnClickListener(e -> {
-
-                bar.setProgress(counter);
-                counter = (counter + 25) % 100;
-                if (counter == 0) {
-                    counter = 100;
-                }
-        });
-
-        if (prog >= 25) {
-            if (prog < 50) {
-                t25.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
+        if (prog < 37) {
+            t25.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
+        } else {
+            if (prog < 62) {
+                t50.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
             } else {
-                if (prog < 75) {
-                    t50.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
+                if (prog < 87) {
+                    t75.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
                 } else {
-                    if (prog < 100) {
-                        t75.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
-                    } else {
-                        t100.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
-                    }
+                    t100.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
                 }
             }
         }
