@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context=".ui.schedule.PlaceSchedule">
+    tools:context="com.oldi.football.ui.schedule.PlaceSchedule">
 
     <TextView
         android:id="@+id/place"

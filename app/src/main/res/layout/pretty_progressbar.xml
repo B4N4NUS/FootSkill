@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.achievements.PrettyProgressBar">
+    tools:context="com.oldi.football.ui.achievements.PrettyProgressBar">
 
     <TextView
         android:id="@+id/progress"

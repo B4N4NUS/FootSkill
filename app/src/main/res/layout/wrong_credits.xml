@@ -8,7 +8,7 @@
     android:animateLayoutChanges="true"
     android:background="#FFFFFF"
     app:layout_anchorGravity="center"
-    tools:context=".MainActivity">
+    tools:context="com.oldi.football.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"

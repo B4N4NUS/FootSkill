@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.achievements.AchievementFragment">
+    tools:context="com.oldi.football.ui.achievements.AchievementFragment">
 
     <ScrollView
         android:id="@+id/ach_scroll"
@@ -30,7 +30,7 @@
                 android:paddingTop="10dp"
                 android:text="Тренировки" />
 
-            <com.example.football.ui.achievements.PrettyProgressBar
+            <com.oldi.football.ui.achievements.PrettyProgressBar
                 android:id="@+id/pb_train"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -42,7 +42,7 @@
                 android:paddingTop="10dp"
                 android:text="Панна 1 на 1" />
 
-            <com.example.football.ui.achievements.PrettyProgressBar
+            <com.oldi.football.ui.achievements.PrettyProgressBar
                 android:id="@+id/pb_panna"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -54,7 +54,7 @@
                 android:paddingTop="10dp"
                 android:text="Турнир 3 на 3" />
 
-            <com.example.football.ui.achievements.PrettyProgressBar
+            <com.oldi.football.ui.achievements.PrettyProgressBar
                 android:id="@+id/pb_turn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -66,7 +66,7 @@
                 android:paddingTop="10dp"
                 android:text="Лагерь" />
 
-            <com.example.football.ui.achievements.PrettyProgressBar
+            <com.oldi.football.ui.achievements.PrettyProgressBar
                 android:id="@+id/pb_lager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -78,7 +78,7 @@
                 android:paddingTop="10dp"
                 android:text="Тестирование" />
 
-            <com.example.football.ui.achievements.PrettyProgressBar
+            <com.oldi.football.ui.achievements.PrettyProgressBar
                 android:id="@+id/pb_test"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -90,7 +90,7 @@
                 android:paddingTop="60dp"
                 android:text="ВСЕГО ЗАРАБОТАНО БАЛЛОВ" />
 
-            <com.example.football.ui.achievements.PrettyProgressBar
+            <com.oldi.football.ui.achievements.PrettyProgressBar
                 android:id="@+id/pb_earned"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -102,7 +102,7 @@
                 android:paddingTop="10dp"
                 android:text="ДОСТУПНО БАЛЛОВ" />
 
-            <com.example.football.ui.achievements.SuperPrettyProgressBar
+            <com.oldi.football.ui.achievements.SuperPrettyProgressBar
                 android:id="@+id/pb_avaliable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
