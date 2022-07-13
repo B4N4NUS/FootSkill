@@ -19,6 +19,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
         android:text="@string/incorrect_credits"
-        android:textSize="22sp" />
+        android:textSize="22sp"
+        android:textStyle="bold|italic" />
 
 </RelativeLayout>

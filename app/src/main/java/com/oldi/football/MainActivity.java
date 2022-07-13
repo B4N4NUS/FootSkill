@@ -27,8 +27,8 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private TextView errorLabel;
-    private EditText login;
-    private EditText pass;
+    public EditText login;
+    public EditText pass;
     private TextInputLayout loginLay;
     private TextInputLayout passLay;
     private ImageView logo;
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if (automaticLogin) {
-            Pair<Boolean, JSONObject> user = Connection.findUser(login.getText().toString(), pass.getText().toString());
+            Pair<Boolean, JSONObject> user = Connection.findUser(login.getText().toString(), pass.getText().toString(), this);
 
             if (user != null) {
                 SharedPrefLS.SaveAut(this, login.getText().toString(), pass.getText().toString());
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (Connection.canConnect) {
-                    Pair<Boolean, JSONObject> user = Connection.findUser(login.getText().toString(), pass.getText().toString());
+                    Pair<Boolean, JSONObject> user = Connection.findUser(login.getText().toString(), pass.getText().toString(), this);
 
                     if (user != null) {
                         if (user.first) {

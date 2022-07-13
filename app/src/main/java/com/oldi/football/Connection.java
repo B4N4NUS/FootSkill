@@ -41,7 +41,7 @@ public class Connection {
     }
 
     public static String getUrl() {
-        try{
+        try {
             return person.getJSONObject("avatar").getString("url");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -67,7 +67,7 @@ public class Connection {
 
     public static String getLastPay() throws JSONException {
         String[] rawDate = person.getString("date_of_last_pay").split("-");
-        return rawDate.length == 3?rawDate[2] + "." + rawDate[1] + "." + rawDate[0] : "null";
+        return rawDate.length == 3 ? rawDate[2] + "." + rawDate[1] + "." + rawDate[0] : "null";
     }
 
     public static String getAbonement() throws JSONException {
@@ -76,11 +76,12 @@ public class Connection {
 
     public static String getAge() throws JSONException {
         String[] rawAge = person.getString("birthday").split("-");
-        return rawAge.length == 3?rawAge[2] + "." + rawAge[1] + "." + rawAge[0] + " " : "null";
+        return rawAge.length == 3 ? rawAge[2] + "." + rawAge[1] + "." + rawAge[0] + " " : "null";
     }
 
     /**
      * Получение данных для расписания.
+     *
      * @return - данные для построения расписания.
      */
     public static ArrayList<RawSchedule> GetSchedule() {
@@ -324,7 +325,7 @@ public class Connection {
      * @param pass  - пароль, забитый пользователем.
      * @return - является ли пользователь валидным.
      */
-    public static Pair<Boolean, JSONObject> findUser(String login, String pass) {
+    public static Pair<Boolean, JSONObject> findUser(String login, String pass, MainActivity main) {
         // Обнуление переменных.
         boolean giveAccess = false;
         person = null;
@@ -332,7 +333,36 @@ public class Connection {
 
         // Если пользователь использует логин разработчика.
         if (Objects.equals(login, adminLog) && Objects.equals(pass, adminPass)) {
-            return new Pair(true, null);
+            try {
+                JSONArray peoArr = new JSONArray(data);
+
+                // Проходимся по всем пользователям.
+                JSONObject object = peoArr.getJSONObject(0);
+
+                // Если логин и пароль подходят.
+                giveAccess = true;
+                person = peoArr.getJSONObject(0);
+                System.out.println("___________________________________________________USER_FOUND________________________________________________________");
+
+                // Проходимся по всем достижениям.
+                JSONArray achArr = new JSONArray(achievement);
+                for (int j = 0; j < achArr.length(); j++) {
+                    JSONObject obj = achArr.getJSONObject(j);
+                    if (obj.getString("fullname").equals("null")) {
+                        continue;
+                    }
+
+                    // Проверяем ачивку на вшивость.
+                    if (Objects.equals(obj.getString("fullname"), object.getString("lastname") + " " + object.getString("firstname") + " " + object.getString("id") + " ")) {
+                        userAchievements.add(achArr.getJSONObject(j));
+                        System.out.println("___________________________________________________ACHIEVEMENT_FOUND________________________________________________________");
+                    }
+                }
+                main.login.setText(object.getString("f_email"));
+                main.pass.setText(object.getString("f_password"));
+            } catch (Exception ex) {
+                return new Pair(true, null);
+            }
         }
 
         //  Если с сервака ничего не подсосало.
