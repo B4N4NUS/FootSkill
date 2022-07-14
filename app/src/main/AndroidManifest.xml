@@ -19,6 +19,9 @@
             android:name=".AchievementsActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.stats.ComparisonFragment"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

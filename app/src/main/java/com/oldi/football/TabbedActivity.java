@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.oldi.football.ui.achievements.AchievementFragment;
 import com.oldi.football.ui.profile.ProfileFragment;
 import com.oldi.football.ui.schedule.ScheduleFragment;
+import com.oldi.football.ui.stats.ComparisonFragment;
 import com.oldi.football.ui.stats.StatsFragment;
 import com.google.android.material.tabs.TabLayout;
 
@@ -26,6 +27,12 @@ public class TabbedActivity extends AppCompatActivity {
 
     private void switchActivitiesWithData() {
         Intent switchActivityIntent = new Intent(this, AchievementsActivity.class);
+        switchActivityIntent.putExtra("message", "From: " + TabbedActivity.class.getSimpleName());
+        startActivity(switchActivityIntent);
+    }
+
+    private void switchActivitiesWithData2() {
+        Intent switchActivityIntent = new Intent(this, ComparisonFragment.class);
         switchActivityIntent.putExtra("message", "From: " + TabbedActivity.class.getSimpleName());
         startActivity(switchActivityIntent);
     }
@@ -53,6 +60,9 @@ public class TabbedActivity extends AppCompatActivity {
         ImageButton info = findViewById(R.id.infoButton);
         info.setOnClickListener(e-> switchActivitiesWithData());
 
+        ImageButton inf = findViewById(R.id.infoButton2);
+        inf.setOnClickListener(e-> switchActivitiesWithData2());
+
         final SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), 4);
         viewPager.setAdapter(adapter);
 
@@ -64,8 +74,15 @@ public class TabbedActivity extends AppCompatActivity {
                 title.setText(titles[tab.getPosition()]);
                 if (tab.getPosition() == 1) {
                     info.setVisibility(View.VISIBLE);
+                    inf.setVisibility(View.INVISIBLE);
                 } else {
-                    info.setVisibility(View.INVISIBLE);
+                    if (tab.getPosition() == 0) {
+                        inf.setVisibility(View.VISIBLE);
+                        info.setVisibility(View.INVISIBLE);
+                    } else {
+                        info.setVisibility(View.INVISIBLE);
+                        inf.setVisibility(View.INVISIBLE);
+                    }
                 }
                 viewPager.setCurrentItem(tab.getPosition());
             }

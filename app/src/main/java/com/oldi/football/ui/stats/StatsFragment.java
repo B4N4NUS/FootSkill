@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class StatsFragment extends Fragment {
-    private final String[] names = {"date", "Speed", "Hit", "Reaction", "Jump", "Hitt", "date_of_game", "sharpshooting", "Speed2", "Speed_s_razbega", "Jump2"};
+    public static final String[] names = {"date", "Speed", "Hit", "Reaction", "Jump", "Hitt", "date_of_game", "sharpshooting", "Speed2", "Speed_s_razbega", "Jump2"};
     private ArrayList<String[]> stats = new ArrayList<>();
 
     @Override

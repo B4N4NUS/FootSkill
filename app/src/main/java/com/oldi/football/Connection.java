@@ -1,16 +1,22 @@
 package com.oldi.football;
 
+import static com.oldi.football.ui.stats.StatsFragment.names;
+
 import android.util.Pair;
 
 import com.oldi.football.ui.schedule.RawSchedule;
+import com.oldi.football.ui.stats.StatsFragment;
 
 import org.json.*;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Connection {
     private static JSONObject person;
@@ -77,6 +83,98 @@ public class Connection {
     public static String getAge() throws JSONException {
         String[] rawAge = person.getString("birthday").split("-");
         return rawAge.length == 3 ? rawAge[2] + "." + rawAge[1] + "." + rawAge[0] + " " : "null";
+    }
+
+    public static String[] getYears() {
+        Set<String> years = new HashSet<>();
+        try {
+            JSONArray peoArr = new JSONArray(data);
+            for(int i = 0; i < peoArr.length(); i++) {
+                years.add(peoArr.getJSONObject(i).getString("birthday").split("-")[0]);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return years.toArray(new String[years.size()]);
+    }
+
+    public static int[][] getAverage(String year) {
+        int[][] ret = new int[3][];
+        try {
+            //String year = person.getString("birthday").split("-")[0];
+            JSONArray peoArr = new JSONArray(data);
+            int counter = 0;
+            int[] avers = new int[names.length];
+
+            int[] maxes = new int[names.length];
+
+            int[] your = new int[names.length];
+
+
+            JSONArray pers = person.getJSONArray("Statistics");
+
+            for (int i = 0; i < pers.length(); i++) {
+                for (int j = 1; j < names.length; j++) {
+                    if (((JSONObject) pers.get(i)).getString(names[j]).equals("null")) {
+                        continue;
+                    }
+                    if (your[j] < (int) Float.parseFloat(((JSONObject) pers.get(i)).getString(names[j]))) {
+                        your[j] = (int) Float.parseFloat(((JSONObject) pers.get(i)).getString(names[j]));
+                    }
+                }
+            }
+
+
+            for (int k = 0; k < peoArr.length(); k++) {
+                if (peoArr.getJSONObject(k).getString("birthday").split("-")[0].equals(year)) {
+                    JSONArray raw = peoArr.getJSONObject(k).getJSONArray("Statistics");
+
+                    for (int i = 0; i < raw.length(); i++) {
+                        counter++;
+                        for (int j = 1; j < names.length; j++) {
+                            if (((JSONObject) raw.get(i)).getString(names[j]).equals("null")) {
+                                continue;
+                            }
+                            avers[j] += (int) Float.parseFloat(((JSONObject) raw.get(i)).getString(names[j]));
+
+                            if (maxes[j] < (int) Float.parseFloat(((JSONObject) raw.get(i)).getString(names[j]))) {
+                                System.out.println("old " + maxes[j]);
+                                maxes[j] = (int) Float.parseFloat(((JSONObject) raw.get(i)).getString(names[j]));
+                                System.out.println("new " + maxes[j]);
+                            }
+                        }
+                    }
+                }
+            }
+            System.out.println("Entry counter "+counter);
+
+            for (int i = 0; i < names.length; i++) {
+                avers[i] = (int) (avers[i] * 1.0 / counter);
+            }
+
+            System.out.println("\nNames:");
+            for (int i = 0; i < names.length; i++) {
+                System.out.print(names[i] + " ");
+            }
+            System.out.println("\navers:");
+            for (int i = 0; i < names.length; i++) {
+                System.out.print(avers[i] + " ");
+            }
+            System.out.println("\nyour:");
+            for (int i = 0; i < names.length; i++) {
+                System.out.print(your[i] + " ");
+            }
+            System.out.println("\nmaxes:");
+            for (int i = 0; i < names.length; i++) {
+                System.out.print(maxes[i] + " ");
+            }
+            ret[0] = your;
+            ret[1] = avers;
+            ret[2] = maxes;
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return ret;
     }
 
     /**

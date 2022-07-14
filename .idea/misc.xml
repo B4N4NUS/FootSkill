@@ -6,6 +6,7 @@
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2185" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/drawable-v24/rounded_edit_text.xml" value="0.2445" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/drawable-v24/rounded_edit_text_white.xml" value="0.2805" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/drawable/comp_rect.xml" value="0.297" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/drawable/custom_progress_bar.xml" value="0.3365" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/drawable/ic_launcher_background.xml" value="0.307" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/drawable/rounded_green.xml" value="0.3375" />
@@ -15,7 +16,8 @@
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/activity_login.xml" value="0.2984375" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/activity_more_achievements.xml" value="0.11410788381742738" />
-        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/activity_tabbed.xml" value="0.10185185185185185" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/activity_tabbed.xml" value="0.5" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/comparison.xml" value="0.40370370370370373" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/day_activity.xml" value="0.892271662763466" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/day_week.xml" value="1.0" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/fragment_acheivment.xml" value="0.3333333333333333" />
@@ -30,6 +32,7 @@
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/list_item.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/marker.xml" value="0.7333333333333334" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/more_achievements.xml" value="0.40376175548589344" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/part_comp.xml" value="0.40854700854700854" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/pretty_progressbar.xml" value="0.3212713936430318" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/start_part.xml" value="0.6940581542351454" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/stat_part.xml" value="0.4235403151065802" />

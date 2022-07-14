@@ -51,7 +51,7 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
                     } else {
                         onSwipeTop();
                     }
-                    result = true;
+                    result = false;
                 }
             } catch (Exception exception) {
                 exception.printStackTrace();

@@ -30,8 +30,8 @@
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/upper_line"
             android:layout_above="@+id/bottom_line"
+            android:layout_below="@+id/upper_line"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         </androidx.viewpager.widget.ViewPager>
@@ -75,6 +75,19 @@
             android:background="#00FFFFFF"
             android:scaleType="fitCenter"
             android:visibility="invisible"
+            app:srcCompat="@drawable/info" />
+
+        <ImageButton
+            android:id="@+id/infoButton2"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="64dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/info" />
 
     </RelativeLayout>
