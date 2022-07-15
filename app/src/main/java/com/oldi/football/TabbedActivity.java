@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.oldi.football.ui.achievements.AchievementFragment;
+import com.oldi.football.ui.news.NewsFragment;
 import com.oldi.football.ui.profile.ProfileFragment;
 import com.oldi.football.ui.schedule.ScheduleFragment;
 import com.oldi.football.ui.stats.ComparisonFragment;
@@ -22,8 +23,8 @@ import com.oldi.football.ui.main.SectionsPagerAdapter;
 
 public class TabbedActivity extends AppCompatActivity {
 
-    public static final Fragment[] tabsFragments = {new StatsFragment(), new AchievementFragment(), new ScheduleFragment(), new ProfileFragment()};
-    private static final String[] titles = {"Статистика","Достижения","Расписание","Профиль"};
+    public static final Fragment[] tabsFragments = {new StatsFragment(), new AchievementFragment(), new ScheduleFragment(), new NewsFragment(), new ProfileFragment()};
+    private static final String[] titles = {"Статистика","Достижения","Расписание","Новости","Профиль"};
 
     private void switchActivitiesWithData() {
         Intent switchActivityIntent = new Intent(this, AchievementsActivity.class);
@@ -48,10 +49,17 @@ public class TabbedActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Статистика").setIcon(R.drawable.ic_stats));
-        tabLayout.addTab(tabLayout.newTab().setText("Достижения").setIcon(R.drawable.ic_medal));
-        tabLayout.addTab(tabLayout.newTab().setText("Расписание").setIcon(R.drawable.ic_schedule));
-        tabLayout.addTab(tabLayout.newTab().setText("Профиль").setIcon(R.drawable.ic_schedule));
+//        tabLayout.addTab(tabLayout.newTab().setText("Статистика").setIcon(R.drawable.ic_stats));
+//        tabLayout.addTab(tabLayout.newTab().setText("Достижения").setIcon(R.drawable.ic_medal));
+//        tabLayout.addTab(tabLayout.newTab().setText("Расписание").setIcon(R.drawable.ic_schedule));
+//        tabLayout.addTab(tabLayout.newTab().setText("Новости").setIcon(R.drawable.ic_schedule));
+//        tabLayout.addTab(tabLayout.newTab().setText("Профиль").setIcon(R.drawable.ic_profile));
+
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_stats));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_medal));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_schedule));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_news));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_profile));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         TextView title = findViewById(R.id.textView4);
@@ -63,7 +71,7 @@ public class TabbedActivity extends AppCompatActivity {
         ImageButton inf = findViewById(R.id.infoButton2);
         inf.setOnClickListener(e-> switchActivitiesWithData2());
 
-        final SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), 4);
+        final SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

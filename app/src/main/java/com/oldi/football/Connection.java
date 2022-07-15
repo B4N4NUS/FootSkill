@@ -4,6 +4,7 @@ import static com.oldi.football.ui.stats.StatsFragment.names;
 
 import android.util.Pair;
 
+import com.oldi.football.ui.news.NewsInfo;
 import com.oldi.football.ui.schedule.RawSchedule;
 import com.oldi.football.ui.stats.StatsFragment;
 
@@ -28,10 +29,12 @@ public class Connection {
     private static String data;
     private static String schedule;
     private static String achievement;
+    private static String news;
 
     private static final String serverUrl = "https://cdn.lk-ft.ru/footballers";
     private static final String scheduleUrl = "https://cdn.lk-ft.ru/scheduleas";
     private static final String achievementUrl = "https://cdn.lk-ft.ru/players";
+    private static final String newsUrl = "https://cdn.lk-ft.ru/posts";
 
     public static final String imagesUrl = "https://cdn.lk-ft.ru";
 
@@ -46,13 +49,46 @@ public class Connection {
         return person.getJSONArray("Statistics");
     }
 
-    public static String getUrl() {
+    public static String getProfileUrl() {
         try {
             return person.getJSONObject("avatar").getString("url");
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static NewsInfo getNews() {
+        NewsInfo info = new NewsInfo();
+        try {
+            String header, desc, url, vid, autor, lastname, date;
+            JSONArray newsArr = new JSONArray(news);
+            for(int i = 0; i < newsArr.length(); i++) {
+                header = newsArr.getJSONObject(i).getString("Post_Title");
+                desc = newsArr.getJSONObject(i).getString("Post_teaser");
+                vid = newsArr.getJSONObject(i).getString("Post_video");
+                autor = newsArr.getJSONObject(i).getString("Post_author");
+                lastname = newsArr.getJSONObject(i).getString("Post_author_lastname");
+                date = newsArr.getJSONObject(i).getString("Post_Date");
+                JSONArray arr = newsArr.getJSONObject(i).
+                        getJSONArray("Post_image");
+                if (arr.length() != 0) {
+                    url = arr.getJSONObject(0).
+                            getJSONObject("formats").
+                            getJSONObject("large").
+                            getString("url");
+                    System.out.println("OK--------------------------------------------------------------------------------");
+                } else {
+                    url = "";
+                    System.out.println("EXEPTION--------------------------------------------------------------------------------");
+                }
+                info.setInfo(header, desc, url, vid, autor, lastname, date);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return info;
     }
 
     public static String getName() throws JSONException {
@@ -393,8 +429,32 @@ public class Connection {
                         scanner.close();
                     }
                     achievement = string.toString();
+                    string = new StringBuilder();
                     System.out.println("----------------------------------------CONNECTION_TO_ACHIEVEMENTS_TOOK_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
                     System.out.println("Raw Achievements: " + achievement);
+
+
+                    url = new URL(newsUrl);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.setRequestProperty("Accept-Encoding", "gzip");
+                    connection.connect();
+
+                    responseCode = connection.getResponseCode();
+                    System.out.println("----------------------------------------GOT_RESPONSE_FROM_NEWS" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
+
+                    if (responseCode != 200) {
+                        throw new RuntimeException("News: HttpResponseCode: " + responseCode);
+                    } else {
+                        Scanner scanner = new Scanner(url.openStream());
+                        while (scanner.hasNext()) {
+                            string.append(scanner.nextLine());
+                        }
+                        scanner.close();
+                    }
+                    news = string.toString();
+                    System.out.println("----------------------------------------CONNECTION_TO_NEWS_TOOK_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
+                    System.out.println("Raw News: " + news);
                 } catch (Exception exception) {
                     canConnect = false;
                     System.out.println("-----------------------------------------CONNECTION_FAILED---------------------------------------------------");

@@ -32,9 +32,7 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         try{
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            String url = Connection.getUrl();
+            String url = Connection.getProfileUrl();
             System.out.println(url);
             bitmap = BitmapFactory.decodeStream((InputStream)new URL(Connection.imagesUrl + url).getContent());
         } catch (Exception ex) {
