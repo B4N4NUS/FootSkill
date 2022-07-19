@@ -20,24 +20,24 @@ import com.oldi.football.R;
 import java.util.ArrayList;
 
 public class ScheduleFragment extends Fragment {
-    private LinearLayout layout;
-
+    private final ArrayList<RawSchedule> data;
 
     public ScheduleFragment() {
+        data = Connection.GetSchedule();
     }
-
-    public ArrayList<RawSchedule> data;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        data = Connection.GetSchedule();
         return inflater.inflate(R.layout.fragment_schedule, container, false);
     }
 
     @SuppressLint("SetTextI18n")
-    public void Load() {
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        LinearLayout layout = view.findViewById(R.id.lays);
+
         long startTimer = System.currentTimeMillis();
         try {
             for (int i = 0; i < data.size(); i++) {
@@ -57,12 +57,5 @@ public class ScheduleFragment extends Fragment {
         layout.addView(end);
 
         System.out.println("_____________________________________SCHEDULE_CREATED_IN_" + ((System.currentTimeMillis() - startTimer * 1.0) / 1000) + "_SECONDS_______________________________");
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        layout = view.findViewById(R.id.lays);
-
-        Load();
     }
 }

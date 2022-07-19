@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,18 +26,21 @@ import java.net.URL;
 public class ProfileFragment extends Fragment {
     private Bitmap bitmap;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
+    public ProfileFragment() {
         try{
             String url = Connection.getProfileUrl();
             System.out.println(url);
             bitmap = BitmapFactory.decodeStream((InputStream)new URL(Connection.imagesUrl + url).getContent());
         } catch (Exception ex) {
-            bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.real_logo);
+            bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.red_logo);
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -52,19 +54,7 @@ public class ProfileFragment extends Fragment {
         long startTimer = System.currentTimeMillis();
 
         ImageView image = view.findViewById(R.id.imageProf);
-        TextView name = view.findViewById(R.id.nameProf);
-        TextView pos = view.findViewById(R.id.posProf);
-        TextView foot = view.findViewById(R.id.footProf);
-        TextView team = view.findViewById(R.id.teamProf);
-        TextView lastPay = view.findViewById(R.id.lastPayProf);
-        TextView abon = view.findViewById(R.id.abonProf);
-        TextView age = view.findViewById(R.id.ageProf);
-        Button exit = view.findViewById(R.id.exitProf);
-
-        exit.setOnClickListener(e-> {
-            getActivity().onBackPressed();
-            SharedPrefLS.SaveAut(getActivity(), "","");
-        });
+        TextView text;
 
         try{
             image.setImageBitmap(bitmap);
@@ -73,13 +63,20 @@ public class ProfileFragment extends Fragment {
             image.setImageResource(R.drawable.ic_profile);
         }
         try {
-            name.setText(Connection.getName());
-            pos.setText(Connection.getPosition());
-            foot.setText(Connection.getFoot());
-            team.setText(Connection.getTeam());
-            lastPay.setText(Connection.getLastPay());
-            abon.setText(Connection.getAbonement());
-            age.setText(Connection.getAge());
+            text = view.findViewById(R.id.nameProf);
+            text.setText(Connection.getName());
+            text = view.findViewById(R.id.posProf);
+            text.setText(Connection.getPosition());
+            text = view.findViewById(R.id.footProf);
+            text.setText(Connection.getFoot());
+            text = view.findViewById(R.id.teamProf);
+            text.setText(Connection.getTeam());
+            text =  view.findViewById(R.id.lastPayProf);
+            text.setText(Connection.getLastPay());
+            text = view.findViewById(R.id.abonProf);
+            text.setText(Connection.getAbonement());
+            text = view.findViewById(R.id.ageProf);
+            text.setText(Connection.getAge());
         } catch (Exception ex) {
             ex.printStackTrace();
         }

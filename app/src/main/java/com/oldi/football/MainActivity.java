@@ -46,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
      */
     public void Load() {
         if (loading != null) {
-            loading.setVisibility(View.INVISIBLE);
+            if (!automaticLogin) {
+                loading.setVisibility(View.INVISIBLE);
+            }
             logo.setVisibility(View.VISIBLE);
 
             if (rawUser != null) {
@@ -154,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                             SharedPrefLS.SaveAut(this, login.getText().toString(), pass.getText().toString());
                             System.out.println(user.second);
                             rawUser = user.second;
+                            loading.setVisibility(View.VISIBLE);
                             switchActivitiesWithData();
                             //setContentView(R.layout.activity_tabbed);
                         } else {
@@ -170,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
                     errorLabel.setText("Нет подключения к серверу");
                     loading.setVisibility(View.VISIBLE);
                     Connection.getData(this);
+                    loading.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -197,5 +201,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        loading.setVisibility(View.INVISIBLE);
+        errorLabel.setText("");
     }
 }

@@ -6,16 +6,15 @@ import android.util.Pair;
 
 import com.oldi.football.ui.news.NewsInfo;
 import com.oldi.football.ui.schedule.RawSchedule;
-import com.oldi.football.ui.stats.StatsFragment;
 
 import org.json.*;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -61,7 +60,8 @@ public class Connection {
     public static NewsInfo getNews() {
         NewsInfo info = new NewsInfo();
         try {
-            String header, desc, url, vid, autor, lastname, date;
+            String header = "", desc = "", url = "", vid = "", autor = "", lastname = "", date = "";
+            String[] rawDate;
             JSONArray newsArr = new JSONArray(news);
             for(int i = 0; i < newsArr.length(); i++) {
                 header = newsArr.getJSONObject(i).getString("Post_Title");
@@ -70,20 +70,31 @@ public class Connection {
                 autor = newsArr.getJSONObject(i).getString("Post_author");
                 lastname = newsArr.getJSONObject(i).getString("Post_author_lastname");
                 date = newsArr.getJSONObject(i).getString("Post_Date");
+                rawDate = date.split("-");
+                if (rawDate.length == 3) {
+                    date = rawDate[0] + "." + rawDate[1] + "." + rawDate[2];
+                }
                 JSONArray arr = newsArr.getJSONObject(i).
                         getJSONArray("Post_image");
                 if (arr.length() != 0) {
-                    url = arr.getJSONObject(0).
-                            getJSONObject("formats").
-                            getJSONObject("large").
-                            getString("url");
+                    url = arr.getJSONObject(0).getJSONObject("formats").getJSONObject("large").getString("url");
                     System.out.println("OK--------------------------------------------------------------------------------");
                 } else {
                     url = "";
-                    System.out.println("EXEPTION--------------------------------------------------------------------------------");
+                    System.out.println("EXCEPTION--------------------------------------------------------------------------------");
                 }
-                info.setInfo(header, desc, url, vid, autor, lastname, date);
+                info.setInfo(desc, header, url, vid, autor, lastname, date);
             }
+
+
+
+//            Random rnd = new Random();
+//            for(int i = 0; i <20; i++) {
+//                info.setInfo(header,desc,url,vid, autor,lastname, "2021.0" + rnd.nextInt(10) + ".0" + rnd.nextInt(10));
+//            }
+
+
+            info.sort();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -141,10 +152,8 @@ public class Connection {
             JSONArray peoArr = new JSONArray(data);
             int counter = 0;
             int[] avers = new int[names.length];
-
             int[] maxes = new int[names.length];
-
-            int[] your = new int[names.length];
+            int[] yours = new int[names.length];
 
 
             JSONArray pers = person.getJSONArray("Statistics");
@@ -154,8 +163,8 @@ public class Connection {
                     if (((JSONObject) pers.get(i)).getString(names[j]).equals("null")) {
                         continue;
                     }
-                    if (your[j] < (int) Float.parseFloat(((JSONObject) pers.get(i)).getString(names[j]))) {
-                        your[j] = (int) Float.parseFloat(((JSONObject) pers.get(i)).getString(names[j]));
+                    if (yours[j] < (int) Float.parseFloat(((JSONObject) pers.get(i)).getString(names[j]))) {
+                        yours[j] = (int) Float.parseFloat(((JSONObject) pers.get(i)).getString(names[j]));
                     }
                 }
             }
@@ -198,13 +207,13 @@ public class Connection {
             }
             System.out.println("\nyour:");
             for (int i = 0; i < names.length; i++) {
-                System.out.print(your[i] + " ");
+                System.out.print(yours[i] + " ");
             }
             System.out.println("\nmaxes:");
             for (int i = 0; i < names.length; i++) {
                 System.out.print(maxes[i] + " ");
             }
-            ret[0] = your;
+            ret[0] = yours;
             ret[1] = avers;
             ret[2] = maxes;
         } catch (Exception exception) {

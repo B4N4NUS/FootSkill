@@ -7,6 +7,7 @@
     tools:context="com.oldi.football.ui.profile.ProfileFragment">
 
     <ScrollView
+        android:id = "@+id/scroll_prof"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbarThumbVertical="@null">
@@ -14,11 +15,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:isScrollContainer="true"
             android:paddingLeft="16dp"
             android:paddingTop="16dp"
             android:paddingRight="16dp"
-            android:paddingBottom="16dp"
             tools:ignore="ScrollViewSize">
 
             <com.mikhaellopez.circularimageview.CircularImageView
@@ -26,10 +25,10 @@
                 android:layout_width="237dp"
                 android:layout_height="235dp"
                 android:layout_marginTop="16dp"
-                app:civ_border_color="@color/light_green"
+                app:civ_border_color="@color/purple_700"
                 app:civ_border_width="5dp"
                 app:civ_shadow="true"
-                app:civ_shadow_color="@color/teal_700"
+                app:civ_shadow_color="@color/light_gray"
                 app:civ_shadow_radius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -50,24 +49,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageProf" />
 
-            <Button
-                android:id="@+id/exitProf"
-                android:layout_width="359dp"
-                android:layout_height="52dp"
-                android:layout_gravity="start"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="48dp"
-                android:backgroundTint="@color/light_green"
-
-                android:backgroundTintMode="add"
-                android:enabled="true"
-                android:text="Выйти"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -97,7 +78,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:text="Позиция:"
-                    android:textColor="@color/light_green" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/footLabel"
@@ -106,7 +87,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:text="Нога:"
-                    android:textColor="@color/light_green" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/teamLabel"
@@ -115,7 +96,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:text="Команда:"
-                    android:textColor="@color/light_green" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/lastPayLabel"
@@ -124,7 +105,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:text="Последняя оплата:"
-                    android:textColor="@color/light_green" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/abonLabel"
@@ -133,7 +114,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:text="Абонемент:"
-                    android:textColor="@color/light_green" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/ageLabel"
@@ -142,7 +123,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:text="Дата рождения:"
-                    android:textColor="@color/light_green" />
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -163,7 +144,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:text="Позиция"
-                    android:textStyle="bold" />
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/footProf"
@@ -172,7 +153,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:text="Нога"
-                    android:textStyle="bold" />
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/teamProf"
@@ -181,7 +162,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:text="Команда"
-                    android:textStyle="bold" />
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/lastPayProf"
@@ -190,7 +171,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:text="крайняя оплата"
-                    android:textStyle="bold" />
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/abonProf"
@@ -199,7 +180,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:text="абонемент"
-                    android:textStyle="bold" />
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/ageProf"
@@ -208,7 +189,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:text="дата рождения"
-                    android:textStyle="bold" />
+                    android:textStyle="italic" />
             </LinearLayout>
 
             <ImageView

@@ -49,17 +49,17 @@ public class TabbedActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
 
-//        tabLayout.addTab(tabLayout.newTab().setText("Статистика").setIcon(R.drawable.ic_stats));
-//        tabLayout.addTab(tabLayout.newTab().setText("Достижения").setIcon(R.drawable.ic_medal));
-//        tabLayout.addTab(tabLayout.newTab().setText("Расписание").setIcon(R.drawable.ic_schedule));
-//        tabLayout.addTab(tabLayout.newTab().setText("Новости").setIcon(R.drawable.ic_schedule));
-//        tabLayout.addTab(tabLayout.newTab().setText("Профиль").setIcon(R.drawable.ic_profile));
-
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_stats));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_medal));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_schedule));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_news));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_profile));
+        tabLayout.addTab(tabLayout.newTab().setText("Статистика").setIcon(R.drawable.ic_stats));
+        tabLayout.addTab(tabLayout.newTab().setText("Достижения").setIcon(R.drawable.ic_medal));
+        tabLayout.addTab(tabLayout.newTab().setText("Расписание").setIcon(R.drawable.ic_schedule));
+        tabLayout.addTab(tabLayout.newTab().setText("Новости").setIcon(R.drawable.ic_news));
+        tabLayout.addTab(tabLayout.newTab().setText("Профиль").setIcon(R.drawable.ic_profile));
+//
+//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_stats));
+//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_medal));
+//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_schedule));
+//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_news));
+//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_profile));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         TextView title = findViewById(R.id.textView4);
@@ -71,27 +71,48 @@ public class TabbedActivity extends AppCompatActivity {
         ImageButton inf = findViewById(R.id.infoButton2);
         inf.setOnClickListener(e-> switchActivitiesWithData2());
 
+        ImageButton logout = findViewById(R.id.logout);
+        logout.setOnClickListener(e-> onBackPressed());
+
         final SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        viewPager.setOffscreenPageLimit(5);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 title.setText(titles[tab.getPosition()]);
-                if (tab.getPosition() == 1) {
-                    info.setVisibility(View.VISIBLE);
-                    inf.setVisibility(View.INVISIBLE);
-                } else {
-                    if (tab.getPosition() == 0) {
+                info.setVisibility(View.INVISIBLE);
+                inf.setVisibility(View.INVISIBLE);
+                logout.setVisibility(View.INVISIBLE);
+                switch(tab.getPosition()) {
+                    case 0: {
                         inf.setVisibility(View.VISIBLE);
-                        info.setVisibility(View.INVISIBLE);
-                    } else {
-                        info.setVisibility(View.INVISIBLE);
-                        inf.setVisibility(View.INVISIBLE);
+                        break;
+                    }
+                    case 1: {
+                        info.setVisibility(View.VISIBLE);
+                        break;
+                    }
+                    case 4: {
+                        logout.setVisibility(View.VISIBLE);
+                        break;
                     }
                 }
+//                if (tab.getPosition() == 1) {
+//                    info.setVisibility(View.VISIBLE);
+//                    inf.setVisibility(View.INVISIBLE);
+//                } else {
+//                    if (tab.getPosition() == 0) {
+//                        inf.setVisibility(View.VISIBLE);
+//                        info.setVisibility(View.INVISIBLE);
+//                    } else {
+//                        info.setVisibility(View.INVISIBLE);
+//                        inf.setVisibility(View.INVISIBLE);
+//                    }
+//                }
                 viewPager.setCurrentItem(tab.getPosition());
             }
 

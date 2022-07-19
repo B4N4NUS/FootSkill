@@ -4,107 +4,129 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
     android:background="@drawable/comp_rect"
     tools:context="com.oldi.football.ui.stats.ComparisonPart">
 
-    <ImageView
-        android:id="@+id/skill"
+    <LinearLayout
+        android:id = "@+id/aboab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin = "10dp">
+        <ImageView
+            android:id="@+id/skill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginStart="10dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/desk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/skill"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="Категория"
+            android:textStyle="bold"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/aboab"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/your_best"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/desk"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="7dp"
+            android:gravity="center"
+            android:text="Ваш лучший результат:" />
+
+        <TextView
+            android:id="@+id/aver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="7dp"
+            android:gravity="center"
+            android:text="Средний результат:" />
+
+        <TextView
+            android:id="@+id/tot_best"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="7dp"
+            android:gravity="center"
+            android:text="Лучший результат:" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/aboab"
+        android:orientation="vertical"
+        android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:minHeight="40dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        >
+        <TextView
+            android:id="@+id/your_best_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="7dp"
+            android:minWidth="30dp"
+            android:gravity="center"
+            android:text="0" />
 
-    <TextView
-        android:id="@+id/desk"
-        android:textSize="24dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/skill"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="0dp"
-        android:gravity="center"
-        android:text="Категория" />
 
-    <TextView
-        android:id="@+id/your_best"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/desk"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:text="Ваш лучший результат:" />
 
-    <TextView
-        android:id="@+id/your_best_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/your_best"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:text="0" />
+        <TextView
+            android:id="@+id/aver_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="7dp"
+            android:minWidth="30dp"
+            android:gravity="center"
+            android:text="0" />
 
-    <TextView
-        android:id="@+id/aver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/your_best_score"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:text="Средний результат:" />
 
-    <TextView
-        android:id="@+id/aver_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/aver"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:text="0" />
 
-    <TextView
-        android:id="@+id/tot_best"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/aver_score"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:text="Лучший результат:" />
+        <TextView
+            android:id="@+id/tot_best_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="20dp"
+            android:minWidth="30dp"
+            android:gravity="center"
+            android:text="0" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/tot_best_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tot_best"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:text="0" />
+
+
 
 </RelativeLayout>

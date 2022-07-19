@@ -39,12 +39,15 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             app:layout_anchor="@+id/view_pager"
             app:layout_anchorGravity="bottom|center"
+            app:tabIconTint="@color/color_selector"
+            app:tabIndicatorColor="@color/purple_700"
+            app:tabSelectedTextColor="@color/purple_700"
             app:tabTextAppearance="@style/MineCustomTabText" />
 
         <TextView
@@ -55,6 +58,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
 
+            android:textStyle="bold"
             android:gravity="center"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
@@ -68,24 +72,42 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
 
+            android:layout_alignTop="@+id/textView4"
+            android:layout_alignBottom="@+id/textView4"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="10dp"
             android:background="#00FFFFFF"
             android:scaleType="fitCenter"
             android:visibility="invisible"
             app:srcCompat="@drawable/info" />
 
         <ImageButton
+            android:id="@+id/logout"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+
+            android:layout_alignTop="@+id/textView4"
+            android:layout_alignBottom="@+id/textView4"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitCenter"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/ic_bold_logout" />
+
+        <ImageButton
             android:id="@+id/infoButton2"
             android:layout_width="25dp"
             android:layout_height="25dp"
 
+            android:layout_alignTop="@+id/textView4"
+            android:layout_alignBottom="@+id/textView4"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="64dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="0dp"
             android:background="#00FFFFFF"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/info" />

@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.google.android.material.imageview.ShapeableImageView;
 import com.oldi.football.AchievementsActivity;
 import com.oldi.football.Connection;
 import com.oldi.football.R;
@@ -27,7 +28,7 @@ import java.net.URL;
 public class NewsPart extends RelativeLayout {
 
     private TextView header, description;
-    private ImageView pic;
+    private ShapeableImageView pic;
     private final Context context;
 
     public NewsPart(Context context) {

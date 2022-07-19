@@ -14,6 +14,7 @@ import com.oldi.football.OnSwipeTouchListener;
 import com.oldi.football.R;
 
 public class ComparisonFragment extends AppCompatActivity {
+    private boolean swipeLR = true;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -44,7 +45,6 @@ public class ComparisonFragment extends AppCompatActivity {
         Spinner spin = findViewById(R.id.years);
         SpinAdapter adapter = new SpinAdapter(getBaseContext(),  android.R.layout.simple_spinner_item, Connection.getYears(), comps);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
         spin.setAdapter(adapter);
 
         View scroll = findViewById(R.id.scroll_comp);
@@ -55,11 +55,13 @@ public class ComparisonFragment extends AppCompatActivity {
             }
 
             public void onSwipeRight() {
+                swipeLR = true;
                 onBackPressed();
                 System.out.println("right");
             }
 
             public void onSwipeLeft() {
+                swipeLR = false;
                 onBackPressed();
                 System.out.println("left");
             }
@@ -69,5 +71,14 @@ public class ComparisonFragment extends AppCompatActivity {
                 System.out.println("bot");
             }
         });
+    }
+    @Override
+    public void finish() {
+        super.finish();
+        if (swipeLR) {
+            overridePendingTransition(R.anim.slide_lr, R.anim.slide_lr_out);
+        } else {
+            overridePendingTransition(R.anim.slide_rl, R.anim.slide_rl_out);
+        }
     }
 }

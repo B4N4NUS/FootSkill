@@ -19,11 +19,9 @@ public class SuperPrettyProgressBar extends ConstraintLayout {
     private TextView progress, t25, t50, t75, t100;
     private ProgressBar bar;
     private Context context;
-    private int prog = 0;
 
     private void Init(Context context) {
-        LayoutInflater inflater = (LayoutInflater)
-                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         inflater.inflate(R.layout.super_pretty_progressbar, this);
 
@@ -51,34 +49,22 @@ public class SuperPrettyProgressBar extends ConstraintLayout {
         Init(context);
     }
 
-    public void Animate() {
-        bar.startAnimation(new Animation() {
-            @Override
-            protected void applyTransformation(float interpolatedTime, Transformation t) {
-                super.applyTransformation(interpolatedTime, t);
-                if (prog != 0) {
-                    setDuration((int) (prog * 1.0 / 100 * 1000));
-                }
-                float value =  prog * interpolatedTime;
-                bar.setProgress((int) value);
-            }
-        });
-    }
-
     @SuppressLint("SetTextI18n")
     public void setData(int prog) {
         progress.setText(prog + "");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             bar.setProgress(prog, true);
+        } else {
+            bar.setProgress(prog);
         }
 
-        if (prog < 37) {
+        if (prog < 24) {
             t25.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
         } else {
-            if (prog < 62) {
+            if (prog < 49) {
                 t50.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
             } else {
-                if (prog < 87) {
+                if (prog < 74) {
                     t75.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
                 } else {
                     t100.setTextColor(ContextCompat.getColor(context, R.color.purple_700));

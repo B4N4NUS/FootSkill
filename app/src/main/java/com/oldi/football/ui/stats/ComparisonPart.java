@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.oldi.football.R;
 
@@ -50,6 +51,10 @@ public class ComparisonPart extends RelativeLayout {
         your.setText(you+"");
         aver.setText(ave+"");
         best.setText(bes+"");
+        if (you > ave && you > bes) {
+            your.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
+        }
+
         image.setImageResource(draw);
         description.setText(name);
     }

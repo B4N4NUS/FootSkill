@@ -14,22 +14,19 @@ import com.oldi.football.Connection;
 import com.oldi.football.R;
 
 public class AchievementFragment extends Fragment {
-    private PrettyProgressBar train;
-    private PrettyProgressBar panna;
-    private PrettyProgressBar turn;
-    private PrettyProgressBar lager;
-    private PrettyProgressBar test;
-    private PrettyProgressBar earned;
-    private SuperPrettyProgressBar available;
+    private int tr, pn, tu, la, te, en;
+    private PrettyProgressBar train, panna, turn, lager, test, earned;
+    SuperPrettyProgressBar available;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Load();
         return inflater.inflate(R.layout.fragment_acheivment, container, false);
     }
 
     public void Load() {
-        int tr = 0, pn = 0, tu = 0, la = 0, te = 0;
+        tr = pn = tu = la = te = en = 0;
+
         try {
             for (int i = 0; i < Connection.userAchievements.size(); i++) {
                 String name = Connection.userAchievements.get(i).getString("last_statements");
@@ -56,7 +53,7 @@ public class AchievementFragment extends Fragment {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-        int en = tr + pn + tu + la + te;
+        en = tr + pn + tu + la + te;
 
         System.out.println("train = " + tr + "\n" +
                 "panna = " + pn + "\n" +
@@ -64,16 +61,6 @@ public class AchievementFragment extends Fragment {
                 "lager = " + la + "\n" +
                 "test = " + te + "\n" +
                 "earned = " + en);
-
-
-        train.setData(tr);
-        panna.setData(pn);
-        turn.setData(tu);
-        lager.setData(la);
-        test.setData(te);
-        earned.setData(en);
-        available.setData(en - Connection.getCountOfMinusPoints());
-
     }
 
     @Override
@@ -86,22 +73,24 @@ public class AchievementFragment extends Fragment {
         earned = view.findViewById(R.id.pb_earned);
         available = view.findViewById(R.id.pb_avaliable);
 
-//        ScrollView scroll = view.findViewById(R.id.ach_scroll);
-//        scroll.getViewTreeObserver().addOnScrollChangedListener(() -> {
-//            Rect scrollBounds = new Rect();
-//            scroll.getHitRect(scrollBounds);
-//            if (train.getLocalVisibleRect(scrollBounds)) {
-//                train.Animate();
-//                panna.Animate();
-//                turn.Animate();
-//                lager.Animate();
-//                test.Animate();
-//                earned.Animate();
-//                available.Animate();
-//                System.out.println("ANIMATED");
-//            }
-//        });
+        train.setData(tr);
+        panna.setData(pn);
+        turn.setData(tu);
+        lager.setData(la);
+        test.setData(te);
+        earned.setData(en);
+        available.setData(en - Connection.getCountOfMinusPoints());
+    }
 
-        Load();
+    @Override
+    public void onResume() {
+        super.onResume();
+        train.setData(tr);
+        panna.setData(pn);
+        turn.setData(tu);
+        lager.setData(la);
+        test.setData(te);
+        earned.setData(en);
+        available.setData(en - Connection.getCountOfMinusPoints());
     }
 }

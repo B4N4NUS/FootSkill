@@ -125,8 +125,8 @@ public class Chart extends LinearLayout {
             set1.setCircleColor(ContextCompat.getColor(context, R.color.purple_700));
             set1.setHighLightColor(Color.rgb(244, 117, 117));
             set1.setColor(ContextCompat.getColor(context, R.color.purple_700));
-            set1.setFillColor(ContextCompat.getColor(context, R.color.purple_700));
-            set1.setFillAlpha(40);
+            set1.setFillColor(ContextCompat.getColor(context, R.color.normal_gray));
+            set1.setFillAlpha(20);
             set1.setDrawHorizontalHighlightIndicator(false);
             set1.setDrawValues(false);
             set1.setFillFormatter((dataSet, dataProvider) -> chart.getAxisLeft().getAxisMinimum());
@@ -148,6 +148,8 @@ public class Chart extends LinearLayout {
 
             ArrayList<ILineDataSet> dataSets = new ArrayList<>();
             dataSets.add(set1);
+            set1.setDrawHorizontalHighlightIndicator(false);
+            set1.setDrawVerticalHighlightIndicator(false);
             LineData data = new LineData(dataSets);
 
 
@@ -164,8 +166,8 @@ public class Chart extends LinearLayout {
             chart.getXAxis().setValueFormatter(new DateValueFormatter());
             set1.setHighlightEnabled(true);
 
-            set1.setDrawHighlightIndicators(true);
-            set1.setHighLightColor(Color.GREEN);
+            //set1.setDrawHighlightIndicators(true);
+            //set1.setHighLightColor(Color.GREEN);
 
             data.setValueTextSize(10f);
 

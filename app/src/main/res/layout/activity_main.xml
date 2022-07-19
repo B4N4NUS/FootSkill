@@ -43,7 +43,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="176dp"
-            android:background="@drawable/rounded_edit_text"
+            android:background="@drawable/rounded_edit_text_gray"
             android:backgroundTintMode="add"
             android:hapticFeedbackEnabled="false"
             android:hint="@string/inputPhone"
@@ -53,7 +53,6 @@
             android:paddingBottom="15dp"
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            android:textColorHint="@color/purple_700"
             app:layout_constraintBottom_toTopOf="@+id/inputPass"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,12 +80,10 @@
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="76dp"
-        android:backgroundTint="@color/light_green"
-        android:backgroundTintMode="add"
 
         android:enabled="true"
         android:text="@string/log_in"
-        android:textColor="#FFFFFF"
+        android:backgroundTint="@color/normal_gray"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -135,7 +132,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="176dp"
-            android:background="@drawable/rounded_edit_text"
+            android:background="@drawable/rounded_edit_text_gray"
             android:backgroundTintMode="add"
             android:hapticFeedbackEnabled="true"
             android:hint="@string/imput_pass"
@@ -147,7 +144,6 @@
             android:paddingBottom="15dp"
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            android:textColorHint="@color/purple_700"
             app:layout_constraintBottom_toTopOf="@+id/loginButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -187,7 +183,9 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:background="@color/white" />
+            android:indeterminate="true"
+            android:indeterminateTint="@color/gray"
+            android:background="@color/white"/>
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
