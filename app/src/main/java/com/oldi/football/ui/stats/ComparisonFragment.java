@@ -75,10 +75,12 @@ public class ComparisonFragment extends AppCompatActivity {
     @Override
     public void finish() {
         super.finish();
-        if (swipeLR) {
-            overridePendingTransition(R.anim.slide_lr, R.anim.slide_lr_out);
-        } else {
-            overridePendingTransition(R.anim.slide_rl, R.anim.slide_rl_out);
+        if (android.os.Build.VERSION.SDK_INT > 29) {
+            if (swipeLR) {
+                overridePendingTransition(R.anim.slide_lr, R.anim.slide_lr_out);
+            } else {
+                overridePendingTransition(R.anim.slide_rl, R.anim.slide_rl_out);
+            }
         }
     }
 }

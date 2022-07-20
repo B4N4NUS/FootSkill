@@ -51,7 +51,9 @@ public class NewsFragment extends Fragment {
                 switchActivityIntent.putExtra("description", info.descriptions.get(finalI));
                 switchActivityIntent.putExtra("video", info.vids.get(finalI));
                 startActivity(switchActivityIntent);
-                getActivity().overridePendingTransition(R.anim.slide_rl, R.anim.slide_rl_out);
+                if (android.os.Build.VERSION.SDK_INT > 29) {
+                    getActivity().overridePendingTransition(R.anim.slide_rl, R.anim.slide_rl_out);
+                }
             });
             part.setData(info.headers.get(i), info.dates.get(i), info.bitmaps.get(i));
             layout.addView(part);
