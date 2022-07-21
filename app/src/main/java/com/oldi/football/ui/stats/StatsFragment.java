@@ -24,7 +24,25 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class StatsFragment extends Fragment {
-    public static final String[] names = {"date", "Speed", "Hit", "Reaction", "Jump", "Hitt", "date_of_game", "sharpshooting", "Speed2", "Speed_s_razbega", "Jump2"};
+    public static final String[] names =
+            {
+                    "date",             // 0
+                    "Speed",            // 1
+                    "Hit",              // 2
+                    "Reaction",         // 3
+                    "Jump",             // 4
+                    "Hitt",             // 5
+                    "date_of_game",     // 6
+                    "sharpshooting",    // 7
+                    "Speed2",           // 8
+                    "Speed_s_razbega",  // 9
+                    "Jump2",            // 10
+                    "Speed_s_razbega2", // 11
+                    "Agility",          // 12
+                    "FootSkill",        // 13
+                    "FootSkill2",       // 14
+                    "special_number"    // 15
+            };
     private ArrayList<String[]> stats = new ArrayList<>();
 
     @Override
@@ -97,47 +115,58 @@ public class StatsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Chart strength = view.findViewById(R.id.strength);
-        Chart walk = view.findViewById(R.id.walk);
-        Chart walk2 = view.findViewById(R.id.walk2);
-        Chart run = view.findViewById(R.id.run);
-        Chart run2 = view.findViewById(R.id.run2);
+        SwitchChart walk = view.findViewById(R.id.walk);
+        SwitchChart run = view.findViewById(R.id.run);
         Chart pounce = view.findViewById(R.id.pounce);
         Chart pounce2 = view.findViewById(R.id.pounce2);
         Chart reaction = view.findViewById(R.id.reaction);
+        Chart agility = view.findViewById(R.id.agility);
+        SwitchChart footskill = view.findViewById(R.id.footskill);
         Chart sharp = view.findViewById(R.id.sharp);
 
         strength.setHeader("Сила удара");
-        walk.setHeader("10 метров с места (км/ч)");
-        walk2.setHeader("10 метров с места (сек)");
-        run2.setHeader("10 метров с разбега (км/ч)");
-        run.setHeader("10 метров с разбега (сек)");
+        walk.setHeader("10 метров с места");
+        run.setHeader("10 метров с разбега");
         pounce.setHeader("Прыжок в высоту");
         pounce2.setHeader("Прыжок в длинну");
         reaction.setHeader("Скорость реакции");
+        agility.setHeader("AGILITY TEST");
+        footskill.setHeader("FOOTSKILL TEST");
         sharp.setHeader("Точность");
 
         try {
             GetStats();
-            strength.setData(GetFloat(2), getDates());
-            walk.setData(GetFloat(1), getDates());
-            walk2.setData(GetFloat(8), getDates());
-            run2.setData(GetFloat(9), getDates());
-            run.setData(GetFloat(9), getDates());
-            pounce.setData(GetFloat(4), getDates());
-            pounce2.setData(GetFloat(10), getDates());
-            reaction.setData(GetFloat(3), getDates());
-            sharp.setData(GetFloat(7), getDates());
+            String[] date = getDates();
 
-            Chart[] charts = {strength, walk, walk2, run2, run, pounce, pounce2, reaction, sharp};
+            strength.setData(GetFloat(2), date);
+            walk.setData(GetFloat(1), date, GetFloat(8), "км/ч","сек");
+            run.setData(GetFloat(9), date, GetFloat(11), "км/ч","сек");
+            pounce.setData(GetFloat(4), date);
+            pounce2.setData(GetFloat(10), date);
+            reaction.setData(GetFloat(3), date);
+            agility.setData(GetFloat(12), date);
+            footskill.setData(GetFloat(13), date, GetFloat(14),"сек","удары");
+            sharp.setData(GetFloat(7), date);
+
+            Chart[] charts = {strength, pounce, pounce2, reaction, sharp, agility};
+            SwitchChart[] switchCharts = {walk, run, footskill};
 
             ScrollView scroll = view.findViewById(R.id.stats_view);
             strength.wasAnimated = true;
             walk.wasAnimated = true;
-            walk2.wasAnimated = true;
+            run.wasAnimated = true;
+
             scroll.getViewTreeObserver().addOnScrollChangedListener(() -> {
                 Rect scrollBounds = new Rect();
                 scroll.getHitRect(scrollBounds);
                 for (Chart chart : charts) {
+                    if (chart.getLocalVisibleRect(scrollBounds)) {
+                        chart.animateChart();
+                    } else {
+                        chart.wasAnimated = false;
+                    }
+                }
+                for (SwitchChart chart : switchCharts) {
                     if (chart.getLocalVisibleRect(scrollBounds)) {
                         chart.animateChart();
                     } else {

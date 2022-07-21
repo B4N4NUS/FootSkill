@@ -32,8 +32,11 @@ public class ComparisonFragment extends AppCompatActivity {
         ComparisonPart reaction = findViewById(R.id.reaction);
         ComparisonPart met_cold = findViewById(R.id.met_cold);
         ComparisonPart met_warn = findViewById(R.id.met_warm);
+        ComparisonPart agility = findViewById(R.id.agility_test);
+        ComparisonPart foot = findViewById(R.id.foot);
+        ComparisonPart tochnost = findViewById(R.id.tochnost);
 
-        ComparisonPart[] comps = new ComparisonPart[]{strength, up, side, reaction, met_cold, met_warn};
+        ComparisonPart[] comps = new ComparisonPart[]{strength, up, side, reaction, met_cold, met_warn, agility, foot, tochnost};
 
 //        strength.SetData(R.drawable.boner, stats[0][2],stats[1][2],stats[2][2]);
 //        up.SetData(R.drawable.up, stats[0][4],stats[1][4],stats[2][4]);

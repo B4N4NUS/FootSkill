@@ -55,14 +55,28 @@
             <com.oldi.football.ui.stats.ComparisonPart
                 android:id="@+id/met_cold"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </com.oldi.football.ui.stats.ComparisonPart>
+                android:layout_height="match_parent"/>
 
             <com.oldi.football.ui.stats.ComparisonPart
                 android:id="@+id/met_warm"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <com.oldi.football.ui.stats.ComparisonPart
+                android:id="@+id/agility_test"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
+            <com.oldi.football.ui.stats.ComparisonPart
+                android:id="@+id/foot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.oldi.football.ui.stats.ComparisonPart
+                android:id="@+id/tochnost"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
         </LinearLayout>
     </ScrollView>
 

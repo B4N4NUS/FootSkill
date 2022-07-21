@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.oldi.football.Connection;
 import com.oldi.football.R;
 
@@ -15,9 +17,7 @@ import java.util.Arrays;
 
 public class SpinAdapter  extends ArrayAdapter<String> {
 
-    // Your sent context
     private Context context;
-    // Your custom values for the spinner (User)
     private String[] values;
 
     private ComparisonPart[] comps;
@@ -50,55 +50,47 @@ public class SpinAdapter  extends ArrayAdapter<String> {
     @Override
     public boolean isEnabled(int position) {
         if (position == 0) {
-            // Disable the first item from Spinner
-            // First item will be use for hint
             return false;
         } else {
             return true;
         }
     }
 
-    // And the "magic" goes here
-    // This is for the "passive" state of the spinner
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // I created a dynamic TextView here, but you can reference your own  custom layout for each spinner item
         TextView label = (TextView) super.getView(position, convertView, parent);
         if (position == 0) {
             label.setTextColor(Color.GRAY);
         } else {
-            label.setTextColor(Color.BLACK);
+            label.setTextColor(ContextCompat.getColor(context, R.color.gray));
         }
         label.setTextSize(24);
-        // Then you can get the current item using the values array (Users array) and the current position
-        // You can NOW reference each method you has created in your bean object (User class)
         label.setText(values[position]);
 
         int[][] stats = Connection.getAverage(values[position]);
 
-        comps[0].SetData("Удар",R.drawable.boner, stats[0][2],stats[1][2],stats[2][2]);
-        comps[1].SetData("Прыжок в высоту",R.drawable.up, stats[0][4],stats[1][4],stats[2][4]);
-        comps[2].SetData("Прыжок в длину",R.drawable.up,stats[0][10],stats[1][10],stats[2][10]);
-        comps[3].SetData("Реакция",R.drawable.clock,stats[0][3],stats[1][3],stats[2][3]);
-        comps[4].SetData("10 метров с места",R.drawable.speed,stats[0][1],stats[1][1],stats[2][1]);
-        comps[5].SetData("10 метров с разбега",R.drawable.speed,stats[0][9],stats[1][9],stats[2][9]);
+        comps[0].SetData("Удар",R.drawable.boner, stats[0][2],stats[1][2],stats[2][2], "км/ч", true);
+        comps[1].SetData("Прыжок в высоту",R.drawable.up, stats[0][4],stats[1][4],stats[2][4], "см", true);
+        comps[2].SetData("Прыжок в длину", R.drawable.jumps_length,stats[0][10],stats[1][10],stats[2][10], "см", true);
+        comps[3].SetData("Реакция",R.drawable.clock,stats[0][3],stats[1][3],stats[2][3], "мс", false);
+        comps[4].SetData("10 метров с места",R.drawable.speed,stats[0][1],stats[1][1],stats[2][1], "км/ч", true, stats[0][8],stats[1][8],stats[2][8], "с", false, "км", "сек");
+        comps[5].SetData("10 метров с разбега",R.drawable.speed,stats[0][9],stats[1][9],stats[2][9], "км/ч", true, stats[0][11],stats[1][11],stats[2][11], "с", false, "км", "сек");
+        comps[6].SetData("Agility test", R.drawable.clock,stats[0][12],stats[1][12],stats[2][12], "с", false);
+        comps[7].SetData("FootSkill test", R.drawable.footskill2,stats[0][13],stats[1][13],stats[2][13], "с", false, stats[0][14],stats[1][14],stats[2][14], "ударов", true, "сек", "уд");
+        comps[8].SetData("Точность", R.drawable.scope,stats[0][7],stats[1][7],stats[2][7], "%", true);
 
-        // And finally return your dynamic (or custom) view for each spinner item
         return label;
     }
 
-    // And here is when the "chooser" is popped up
-    // Normally is the same view, but you can customize it if you want
     @Override
-    public View getDropDownView(int position, View convertView,
-                                ViewGroup parent) {
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
         View view = super.getDropDownView(position, convertView, parent);
         TextView tv = (TextView) view;
         if (position == 0) {
             // Set the hint text color gray
             tv.setTextColor(Color.GRAY);
         } else {
-            tv.setTextColor(Color.BLACK);
+            tv.setTextColor(ContextCompat.getColor(context, R.color.gray));
         }
         return view;
     }

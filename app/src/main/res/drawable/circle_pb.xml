@@ -1,32 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--use rotate tag to rotate the drawable-->
-<rotate
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:fromDegrees="0"
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromDegrees="360"
     android:pivotX="50%"
     android:pivotY="50%"
-    android:toDegrees="360">
-    <!--shape tag is used to
-        build a shape in XML-->
-    <shape
-        android:innerRadiusRatio="3"
-        android:shape= "ring"
-        android:thicknessRatio="12"
-        android:useLevel="false">
+    android:toDegrees="0">
+    <rotate
+        android:fromDegrees="360"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toDegrees="0">
+        <rotate
+            android:fromDegrees="360"
+            android:pivotX="50%"
+            android:pivotY="50%"
+            android:toDegrees="0">
+            <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+                <item
+                    android:width="200dip"
+                    android:height="200dip">
+                    <shape>
 
-        <!--set the size of the shape-->
-        <size
-            android:width="76dip"
-            android:height="76dip" />
+                    </shape>
+                </item>
+                <item
+                    android:width="150dip"
+                    android:height="150dip">
+                    <shape
+                        android:innerRadiusRatio="3"
+                        android:shape="ring"
+                        android:thicknessRatio="14"
+                        android:useLevel="true">
+                        <solid android:color="#D01C1C1C" />
 
-        <!--set the color gradients
-            of the shape-->
-        <gradient
-            android:angle="90"
-            android:endColor=  "#0B0B0B"
-            android:startColor="#D60000"
-            android:type="sweep"
-            android:useLevel="false" />
-    </shape>
-
+                    </shape>
+                </item>
+<!--                <item-->
+<!--                    android:width="33dp"-->
+<!--                    android:height="35dip"-->
+<!--                    android:drawable="@drawable/final_pb"-->
+<!--                    android:left="112dip"-->
+<!--                    android:top="50dip"></item>-->
+            </layer-list>
+        </rotate>
+    </rotate>
 </rotate>

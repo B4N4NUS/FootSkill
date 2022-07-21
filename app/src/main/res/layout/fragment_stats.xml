@@ -22,23 +22,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <com.oldi.football.ui.stats.Chart
+            <com.oldi.football.ui.stats.SwitchChart
                 android:id="@+id/walk"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <com.oldi.football.ui.stats.Chart
-                android:id="@+id/walk2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <com.oldi.football.ui.stats.Chart
+            <com.oldi.football.ui.stats.SwitchChart
                 android:id="@+id/run"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <com.oldi.football.ui.stats.Chart
-                android:id="@+id/run2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -58,9 +48,21 @@
                 android:layout_height="match_parent" />
 
             <com.oldi.football.ui.stats.Chart
+                android:id="@+id/agility"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.oldi.football.ui.stats.SwitchChart
+                android:id="@+id/footskill"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.oldi.football.ui.stats.Chart
                 android:id="@+id/sharp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
+
 
             <TextView
                 android:id="@+id/textView3"

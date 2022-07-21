@@ -53,6 +53,7 @@
             android:paddingBottom="15dp"
             android:selectAllOnFocus="true"
             android:singleLine="true"
+
             app:layout_constraintBottom_toTopOf="@+id/inputPass"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -183,9 +184,9 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:background="@color/white"
             android:indeterminate="true"
-            android:indeterminateTint="@color/gray"
-            android:background="@color/white"/>
+            android:indeterminateTint="@color/gray" />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
