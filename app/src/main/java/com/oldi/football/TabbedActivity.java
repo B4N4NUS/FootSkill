@@ -23,8 +23,8 @@ import com.oldi.football.ui.main.SectionsPagerAdapter;
 
 public class TabbedActivity extends AppCompatActivity {
 
-    public static final Fragment[] tabsFragments = {new ProfileFragment(), new StatsFragment(),new NewsFragment(), new ScheduleFragment(), new AchievementFragment()};
-    private static final String[] titles = {"Статистика","Достижения","Расписание","Новости","Профиль"};
+    public static final Fragment[] tabsFragments = {new StatsFragment(),new NewsFragment(), new ScheduleFragment(), new AchievementFragment(),new ProfileFragment()};
+    private static final String[] titles = {"Статистика","Новости","Расписание","Достижения","Профиль"};
 
     private void switchActivitiesWithData() {
         Intent switchActivityIntent = new Intent(this, AchievementsActivity.class);
@@ -87,15 +87,15 @@ public class TabbedActivity extends AppCompatActivity {
                 inf.setVisibility(View.INVISIBLE);
                 logout.setVisibility(View.INVISIBLE);
                 switch(tab.getPosition()) {
-                    case 1: {
+                    case 0: {
                         inf.setVisibility(View.VISIBLE);
                         break;
                     }
-                    case 4: {
+                    case 3: {
                         info.setVisibility(View.VISIBLE);
                         break;
                     }
-                    case 0: {
+                    case 4: {
                         logout.setVisibility(View.VISIBLE);
                         break;
                     }
