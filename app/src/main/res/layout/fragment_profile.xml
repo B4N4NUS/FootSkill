@@ -145,8 +145,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="Позиция"
-                    android:textStyle="italic" />
+                    android:text="Позиция" />
 
                 <TextView
                     android:id="@+id/footProf"
@@ -154,8 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="Нога"
-                    android:textStyle="italic" />
+                    android:text="Нога" />
 
                 <TextView
                     android:id="@+id/teamProf"
@@ -163,8 +161,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="Команда"
-                    android:textStyle="italic" />
+                    android:text="Команда" />
 
                 <TextView
                     android:id="@+id/lastPayProf"
@@ -172,8 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="крайняя оплата"
-                    android:textStyle="italic" />
+                    android:text="крайняя оплата" />
 
                 <TextView
                     android:id="@+id/abonProf"
@@ -181,8 +177,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="абонемент"
-                    android:textStyle="italic" />
+                    android:text="абонемент" />
 
                 <TextView
                     android:id="@+id/ageProf"
@@ -190,8 +185,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="дата рождения"
-                    android:textStyle="italic" />
+                    android:text="дата рождения" />
             </LinearLayout>
 
             <ImageView

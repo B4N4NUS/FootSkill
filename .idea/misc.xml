@@ -17,10 +17,12 @@
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/font/gotham_pro.xml" value="0.36770833333333336" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/activity_login.xml" value="0.2984375" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/activity_more_achievements.xml" value="0.5" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/activity_more_achievements.xml" value="0.41540256709451573" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/activity_more_comparison.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/activity_more_news.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/activity_tabbed.xml" value="0.5" />
-        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/comparison.xml" value="0.1" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/activity_web_viewer.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/comparison.xml" value="0.3126801152737752" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/day_activity.xml" value="0.892271662763466" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/day_week.xml" value="1.0" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/fragment_acheivment.xml" value="0.3333333333333333" />
@@ -38,6 +40,7 @@
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/more_achievements.xml" value="0.40376175548589344" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/more_news.xml" value="0.1984126984126984" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/part_comp.xml" value="0.7333333333333334" />
+        <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/part_more_comp.xml" value="1.0" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/part_news.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/part_stats.xml" value="0.24265450861195542" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/part_switch_stats.xml" value="0.5" />
@@ -48,13 +51,6 @@
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/layout/wrong_credits.xml" value="0.275" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.307" />
         <entry key="..\:/Users/Master/Desktop/Football/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.307" />
-        <entry key="..\:/Users/mikha/Desktop/FootSkill/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/mikha/Desktop/FootSkill/app/src/main/res/layout/activity_tabbed.xml" value="0.20153985507246377" />
-        <entry key="..\:/Users/mikha/Desktop/FootSkill/app/src/main/res/layout/day_activity.xml" value="0.3109375" />
-        <entry key="..\:/Users/mikha/Desktop/FootSkill/app/src/main/res/layout/day_week.xml" value="0.3109375" />
-        <entry key="..\:/Users/mikha/Desktop/FootSkill/app/src/main/res/layout/fragment_profile.xml" value="0.20153985507246377" />
-        <entry key="..\:/Users/mikha/Desktop/FootSkill/app/src/main/res/layout/part_comp.xml" value="0.3109375" />
-        <entry key="..\:/Users/mikha/Desktop/FootSkill/app/src/main/res/layout/part_switch_stats.xml" value="0.67" />
       </map>
     </option>
   </component>

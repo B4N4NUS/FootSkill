@@ -31,6 +31,8 @@ public class Connection {
     private static String achievement;
     private static String news;
 
+    public static Set<String> years = new HashSet<>();
+
     private static final String serverUrl = "https://cdn.lk-ft.ru/footballers";
     private static final String scheduleUrl = "https://cdn.lk-ft.ru/scheduleas";
     private static final String achievementUrl = "https://cdn.lk-ft.ru/players";
@@ -154,8 +156,7 @@ public class Connection {
         return rawAge.length == 3 ? rawAge[2] + "." + rawAge[1] + "." + rawAge[0] + " " : "-";
     }
 
-    public static String[] getYears() {
-        Set<String> years = new HashSet<>();
+    public static void getYears() {
         try {
             JSONArray peoArr = new JSONArray(data);
             for (int i = 0; i < peoArr.length(); i++) {
@@ -163,13 +164,46 @@ public class Connection {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            years.add("BRUH");
         }
-        return years.toArray(new String[years.size()]);
     }
 
     public static float[][] getAverage(String year) {
         float[][] ret = new float[3][names.length];
         try {
+//            URL url = new URL(serverUrl+"?birthday_gte="+year+"-01-01&birthday_lte="+year+"-12-31");
+//            StringBuilder string = new StringBuilder();
+//            String yearData;
+//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//            connection.setRequestMethod("GET");
+//            connection.setRequestProperty("Accept-Encoding", "gzip");
+//            connection.connect();
+//
+//            // Ответный код сервера.
+//            int responseCode = connection.getResponseCode();
+//            System.out.println("----------------------------------------GOT_RESPONSE_FROM_PLAYERS__SECONDS________________________________________________");
+//
+//
+//            // Если сервак не захотел отдавать данные.
+//            if (responseCode != 200) {
+//                throw new RuntimeException("Players: HttpResponseCode: " + responseCode);
+//            } else {
+//                // Перегоняем инфу с сервера в строку.
+//                Scanner scanner = new Scanner(url.openStream());
+//                while (scanner.hasNext()) {
+//                    string.append(scanner.nextLine());
+//                }
+//                scanner.close();
+//            }
+//            yearData = string.toString();
+//            System.out.println("----------------------------------------CONNECTION_TO_PLAYERS_TOOK__SECONDS________________________________________________");
+//            System.out.println("Raw Players: " + yearData);
+
+
+
+
+
+//            JSONArray peoArr = new JSONArray(yearData);
             JSONArray peoArr = new JSONArray(data);
             int[] counter = new int[names.length];
             float[] avers = new float[names.length];
@@ -246,6 +280,7 @@ public class Connection {
             }
             System.out.println("Entry counter " + counter);
 
+
             for (int i = 0; i < names.length; i++) {
                 if (yours[i] == Float.MAX_VALUE) {
                     yours[i] = 0;
@@ -253,14 +288,23 @@ public class Connection {
                 if (maxes[i] == Float.MAX_VALUE) {
                     maxes[i] = 0;
                 }
-                ret[1][i] = (float)(avers[i] / counter[i]);
+                if (counter[i] == 0) {
+                    ret[1][i] = 0;
+                } else {
+                    ret[1][i] = (float) (avers[i] / counter[i]);
+                }
                 ret[0][i] = yours[i];
                 ret[2][i] = maxes[i];
+                if (names[i].equals("Hit") || names[i].equals("Jump") || names[i].equals("Jump2") || names[i].equals("Reaction") || names[i].equals("FootSkill2") || names[i].equals("sharpshooting")) {
+                    ret[1][i] = Math.round(ret[1][i]);
+                    ret[0][i] = Math.round(ret[0][i]);
+                    ret[2][i] = Math.round(ret[2][i]);
+                }
             }
 
             System.out.println("\nNames:");
-            for (int i = 0; i < names.length; i++) {
-                System.out.print(names[i] + " ");
+            for (String name : names) {
+                System.out.print(name + " ");
             }
             System.out.println("\navers:");
             for (int i = 0; i < names.length; i++) {
@@ -527,6 +571,8 @@ public class Connection {
                     System.out.println("-----------------------------------------CONNECTION_FAILED---------------------------------------------------");
                     exception.printStackTrace();
                 }
+
+                getYears();
 
 
                 System.out.println("------------------------------------------ENDED_CONNECTION_THREAD--------------------------------------------------------------");

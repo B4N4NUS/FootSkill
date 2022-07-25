@@ -49,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
             if (!automaticLogin) {
                 loading.setVisibility(View.INVISIBLE);
             }
+
+            if (!Connection.canConnect) {
+                loading.setVisibility(View.INVISIBLE);
+            }
             logo.setVisibility(View.VISIBLE);
 
             if (rawUser != null) {

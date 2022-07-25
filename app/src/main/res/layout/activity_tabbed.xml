@@ -43,6 +43,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
+
             app:layout_anchor="@+id/view_pager"
             app:layout_anchorGravity="bottom|center"
             app:tabIconTint="@color/color_selector"
@@ -80,7 +81,8 @@
             android:background="#00FFFFFF"
             android:scaleType="fitCenter"
             android:visibility="invisible"
-            app:srcCompat="@drawable/info" />
+            app:srcCompat="@drawable/info_green"
+            app:tint="@color/black" />
 
         <ImageButton
             android:id="@+id/logout"
@@ -96,21 +98,23 @@
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_bold_logout" />
 
-        <ImageButton
+        <TextView
             android:id="@+id/infoButton2"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-
+            android:layout_width="91dp"
+            android:layout_height="wrap_content"
             android:layout_alignTop="@+id/textView4"
             android:layout_alignBottom="@+id/textView4"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="0dp"
-            android:background="#00FFFFFF"
-            android:scaleType="fitCenter"
-            android:visibility="invisible"
-            app:srcCompat="@drawable/info" />
+            android:background="#37FFFFFF"
+            android:gravity="center"
+            android:paddingTop="2dp"
+            android:text="Сравнение"
+            android:textColor="#99257DFF"
+            android:textSize="13dp"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 

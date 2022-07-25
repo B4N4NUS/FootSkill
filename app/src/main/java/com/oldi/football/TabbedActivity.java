@@ -28,13 +28,11 @@ public class TabbedActivity extends AppCompatActivity {
 
     private void switchActivitiesWithData() {
         Intent switchActivityIntent = new Intent(this, AchievementsActivity.class);
-        switchActivityIntent.putExtra("message", "From: " + TabbedActivity.class.getSimpleName());
         startActivity(switchActivityIntent);
     }
 
     private void switchActivitiesWithData2() {
         Intent switchActivityIntent = new Intent(this, ComparisonFragment.class);
-        switchActivityIntent.putExtra("message", "From: " + TabbedActivity.class.getSimpleName());
         startActivity(switchActivityIntent);
     }
 
@@ -46,8 +44,8 @@ public class TabbedActivity extends AppCompatActivity {
         com.oldi.football.databinding.ActivityTabbedBinding binding = com.oldi.football.databinding.ActivityTabbedBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        ViewPager viewPager = findViewById(R.id.view_pager);
 
         tabLayout.addTab(tabLayout.newTab().setText("Профиль").setIcon(R.drawable.ic_profile));
         tabLayout.addTab(tabLayout.newTab().setText("Статистика").setIcon(R.drawable.ic_stats));
@@ -69,7 +67,7 @@ public class TabbedActivity extends AppCompatActivity {
         ImageButton info = findViewById(R.id.infoButton);
         info.setOnClickListener(e-> switchActivitiesWithData());
 
-        ImageButton inf = findViewById(R.id.infoButton2);
+        TextView inf = findViewById(R.id.infoButton2);
         inf.setOnClickListener(e-> switchActivitiesWithData2());
 
         ImageButton logout = findViewById(R.id.logout);

@@ -12,10 +12,11 @@ import androidx.core.content.ContextCompat;
 import com.oldi.football.Connection;
 import com.oldi.football.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class SpinAdapter  extends ArrayAdapter<String> {
+public class SpinAdapter extends ArrayAdapter<String> {
 
     private Context context;
     private String[] values;
@@ -27,23 +28,24 @@ public class SpinAdapter  extends ArrayAdapter<String> {
         this.context = context;
         Arrays.sort(values);
         ArrayList<String> vals = new ArrayList<>(Arrays.asList(values));
-        vals.add(0,"Выберите год рождения");
-        this.values = vals.toArray(new String[vals.size()]);;
+        vals.add(0, "Выберите год рождения");
+        this.values = vals.toArray(new String[vals.size()]);
+        ;
         this.comps = comps;
     }
 
     @Override
-    public int getCount(){
+    public int getCount() {
         return values.length;
     }
 
     @Override
-    public String getItem(int position){
+    public String getItem(int position) {
         return values[position];
     }
 
     @Override
-    public long getItemId(int position){
+    public long getItemId(int position) {
         return position;
     }
 
@@ -69,15 +71,46 @@ public class SpinAdapter  extends ArrayAdapter<String> {
 
         float[][] stats = Connection.getAverage(values[position]);
 
-        comps[0].SetData("Удар",R.drawable.boner, stats[0][2],stats[1][2],stats[2][2], "км/ч", true);
-        comps[1].SetData("Прыжок в высоту",R.drawable.up, stats[0][4],stats[1][4],stats[2][4], "см", true);
-        comps[2].SetData("Прыжок в длину", R.drawable.jumps_length,stats[0][10],stats[1][10],stats[2][10], "см", true);
-        comps[3].SetData("Реакция",R.drawable.clock,stats[0][3],stats[1][3],stats[2][3], "мс", false);
-        comps[4].SetData("10 метров с места",R.drawable.speed,stats[0][1],stats[1][1],stats[2][1], "км/ч", true, stats[0][8],stats[1][8],stats[2][8], "с", false, "км", "сек");
-        comps[5].SetData("10 метров с разбега",R.drawable.speed,stats[0][9],stats[1][9],stats[2][9], "км/ч", true, stats[0][11],stats[1][11],stats[2][11], "с", false, "км", "сек");
-        comps[6].SetData("Agility test", R.drawable.clock,stats[0][12],stats[1][12],stats[2][12], "с", false);
-        comps[7].SetData("FootSkill test", R.drawable.footskill2,stats[0][13],stats[1][13],stats[2][13], "с", false, stats[0][14],stats[1][14],stats[2][14], "ударов", true, "сек", "уд");
-        comps[8].SetData("Точность", R.drawable.scope,stats[0][7],stats[1][7],stats[2][7], "%", true);
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        df.setMinimumFractionDigits(2);
+        DecimalFormat df2 = new DecimalFormat();
+        df2.setMaximumFractionDigits(3);
+        df2.setMinimumFractionDigits(3);
+
+        comps[0].SetData("Удар", R.drawable.boner,
+                (int) stats[0][2] + "", (int) stats[1][2] + "", (int) stats[2][2] + "",
+                "км/ч", true);
+        comps[1].SetData("Прыжок в высоту", R.drawable.up,
+                (int) stats[0][4] + "", (int) stats[1][4] + "", (int) stats[2][4] + "",
+                "см", true);
+        comps[2].SetData("Прыжок в длину", R.drawable.jumps_length,
+                (int) stats[0][10] + "", (int) stats[1][10] + "", (int) stats[2][10] + "",
+                "см", true);
+        comps[3].SetData("Реакция", R.drawable.clock,
+                (int) stats[0][3] + "", (int) stats[1][3] + "", (int) stats[2][3] + "",
+                "мс", false);
+        comps[4].SetData("10 метров с места", R.drawable.speed,
+                df.format(stats[0][1]), df.format(stats[1][1]), df.format(stats[2][1]),
+                "км/ч", true,
+                df2.format(stats[0][8]), df2.format(stats[1][8]), df2.format(stats[2][8]),
+                "с", false, "км", "сек");
+        comps[5].SetData("10 метров с разбега", R.drawable.speed,
+                df.format(stats[0][9]), df.format(stats[1][9]), df.format(stats[2][9]),
+                "км/ч", true,
+                df2.format(stats[0][11]), df2.format(stats[1][11]), df2.format(stats[2][11]),
+                "с", false, "км", "сек");
+        comps[6].SetData("Agility test", R.drawable.clock,
+                df2.format(stats[0][12]), df2.format(stats[1][12]), df2.format(stats[2][12]),
+                "с", false);
+        comps[7].SetData("FootSkill test", R.drawable.footskill2,
+                df.format(stats[0][13]), df.format(stats[1][13]), df.format(stats[2][13]),
+                "с", false,
+                (int) stats[0][14] + "", (int) stats[1][14] + "", (int) stats[2][14] + "",
+                "ударов", true, "сек", "уд");
+        comps[8].SetData("Точность", R.drawable.scope,
+                (int) stats[0][7] + "", (int) stats[1][7] + "", (int) stats[2][7] + "",
+                "%", true);
 
         return label;
     }

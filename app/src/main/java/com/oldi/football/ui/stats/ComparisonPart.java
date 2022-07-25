@@ -52,16 +52,20 @@ public class ComparisonPart extends RelativeLayout {
     }
 
     @SuppressLint("SetTextI18n")
-    public void SetData(String name, int draw, float you, float ave, float bes, String postfix, boolean highest) {
+    public void SetData(String name, int draw, String you, String ave, String bes, String postfix, boolean highest) {
         your.setText(you + " " + postfix);
         aver.setText(ave + " " + postfix);
         best.setText(bes + " " + postfix);
+
+        String ayou = you.replace(",",".");
+        String aave = ave.replace(",",".");
+        String abes = bes.replace(",",".");
 
         MaterialButtonToggleGroup group = findViewById(R.id.group_selectable);
         group.setVisibility(INVISIBLE);
 
         if (highest) {
-            if (you > bes) {
+            if (Float.parseFloat(ayou) > Float.parseFloat(abes)) {
                 your.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
                 best.setTextColor(aver.getTextColors());
             } else {
@@ -69,7 +73,7 @@ public class ComparisonPart extends RelativeLayout {
                 your.setTextColor(aver.getTextColors());
             }
         } else {
-            if (you > bes) {
+            if (Float.parseFloat(ayou) > Float.parseFloat(abes)) {
                 best.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
                 your.setTextColor(aver.getTextColors());
             } else {
@@ -84,11 +88,18 @@ public class ComparisonPart extends RelativeLayout {
 
 
     @SuppressLint("SetTextI18n")
-    public void SetData(String name, int draw,float you, float ave, float bes, String firstHeader, boolean highest, float you2, float ave2, float bes2, String secondHeader, boolean highest2, String h1, String h2) {
+    public void SetData(String name, int draw,String you, String ave, String bes, String firstHeader, boolean highest, String you2, String ave2, String bes2, String secondHeader, boolean highest2, String h1, String h2) {
         MaterialButton firstButton = findViewById(R.id.first_selectable);
         MaterialButton secondButton = findViewById(R.id.second_selectable);
         MaterialButtonToggleGroup group = findViewById(R.id.group_selectable);
         group.setVisibility(VISIBLE);
+
+        String ayou = you.replace(",",".");
+        String aave = ave.replace(",",".");
+        String abes = bes.replace(",",".");
+        String ayou2 = you2.replace(",",".");
+        String aave2 = ave2.replace(",",".");
+        String abes2 = bes2.replace(",",".");
 
         firstButton.setOnClickListener(e -> {
             System.out.println("FIRST");
@@ -96,7 +107,7 @@ public class ComparisonPart extends RelativeLayout {
             aver.setText(ave + " " + firstHeader);
             best.setText(bes + " " + firstHeader);
             if (highest) {
-                if (you > bes) {
+                if (Float.parseFloat(ayou) > Float.parseFloat(abes)) {
                     your.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
                     best.setTextColor(aver.getTextColors());
                 } else {
@@ -104,7 +115,7 @@ public class ComparisonPart extends RelativeLayout {
                     your.setTextColor(aver.getTextColors());
                 }
             } else {
-                if (you > bes) {
+                if (Float.parseFloat(ayou) > Float.parseFloat(abes)) {
                     best.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
                     your.setTextColor(aver.getTextColors());
                 } else {
@@ -120,7 +131,7 @@ public class ComparisonPart extends RelativeLayout {
             aver.setText(ave2 + " " + secondHeader);
             best.setText(bes2 + " " + secondHeader);
             if (highest2) {
-                if (you2 > bes2) {
+                if (Float.parseFloat(ayou2) > Float.parseFloat(abes2)) {
                     your.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
                     best.setTextColor(aver.getTextColors());
                 } else {
@@ -128,7 +139,7 @@ public class ComparisonPart extends RelativeLayout {
                     your.setTextColor(aver.getTextColors());
                 }
             } else {
-                if (you2 > bes2) {
+                if (Float.parseFloat(ayou2) > Float.parseFloat(abes2)) {
                     best.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
                     your.setTextColor(aver.getTextColors());
                 } else {

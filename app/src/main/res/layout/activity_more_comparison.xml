@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.stats.MoreComparisonActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+
+            android:gravity="center"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:text="Тестирование FootSkill"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            app:layout_anchorGravity="top|center" />
+
+        <ImageView
+            android:id="@+id/upper_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/textView4"
+            app:srcCompat="@drawable/tabs_splitter"
+            />
+
+        <ScrollView
+            android:id="@+id/more_comp_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/upper_line"
+            tools:ignore="SpeakableTextPresentCheck">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.oldi.football.ui.stats.MoreCompPart
+                    android:id="@+id/comp_stat1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.oldi.football.ui.stats.MoreCompPart
+                    android:id="@+id/comp_stat2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.oldi.football.ui.stats.MoreCompPart
+                    android:id="@+id/comp_stat3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.oldi.football.ui.stats.MoreCompPart
+                    android:id="@+id/comp_stat4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.oldi.football.ui.stats.MoreCompPart
+                    android:id="@+id/comp_stat5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.oldi.football.ui.stats.MoreCompPart
+                    android:id="@+id/comp_stat6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.oldi.football.ui.stats.MoreCompPart
+                    android:id="@+id/comp_stat7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.oldi.football.ui.stats.MoreCompPart
+                    android:id="@+id/comp_stat8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</FrameLayout>
