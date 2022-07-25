@@ -155,6 +155,9 @@ public class Chart extends LinearLayout {
 
             if (labels != null) {
                 XAxis xAxis = chart.getXAxis();
+//                xAxis.setGranularity(1f);
+//                xAxis.setLabelCount(4);
+                xAxis.setLabelRotationAngle(45f);
                 xAxis.setValueFormatter(new IndexAxisValueFormatter() {
                     @Override
                     public String getFormattedValue(float value) {

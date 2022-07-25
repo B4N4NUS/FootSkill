@@ -94,7 +94,6 @@
             android:layout_marginEnd="10dp"
             android:background="#00FFFFFF"
             android:scaleType="fitCenter"
-            android:visibility="invisible"
             app:srcCompat="@drawable/ic_bold_logout" />
 
         <ImageButton
@@ -110,6 +109,7 @@
             android:layout_marginBottom="0dp"
             android:background="#00FFFFFF"
             android:scaleType="fitCenter"
+            android:visibility="invisible"
             app:srcCompat="@drawable/info" />
 
     </RelativeLayout>

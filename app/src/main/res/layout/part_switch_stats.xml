@@ -24,25 +24,39 @@
             android:layout_height="wrap_content"
             app:singleSelection="true"
             app:selectionRequired="true"
-            android:scaleY="0.7"
-            android:scaleX="0.7"
+            android:scaleY="1"
+            android:scaleX="1"
+            android:layout_marginTop="16dp"
+            android:layout_weight="0"
             android:layout_toRightOf="@+id/header"
             android:gravity="right"
             android:layout_alignParentRight="true">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/first_selectable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="24dp"
+                android:textSize="10dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:insetRight="0dp"
+                android:padding="0dp"
                 style="?attr/materialButtonOutlinedStyle"
-                android:text="Км/час" />
+                android:text="Кмч" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/second_selectable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="24dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:insetRight="0dp"
+                android:padding = "0dp"
+                android:textSize="10dp"
                 style="?attr/materialButtonOutlinedStyle"
-                android:text="с" />
+                android:text="удары" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <TextView

@@ -10,6 +10,7 @@ import com.oldi.football.ui.schedule.RawSchedule;
 import org.json.*;
 
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -102,33 +103,55 @@ public class Connection {
     }
 
     public static String getName() throws JSONException {
-        return person.getString("firstname") + " " + person.getString("lastname");
+        String firstname, secondname;
+        firstname =person.getString("firstname");
+        secondname = person.getString("lastname");
+
+        if (firstname.equals("null")) {
+            firstname = "";
+        }
+        if (secondname.equals("null")) {
+            secondname = "";
+        }
+        return firstname + " " + secondname;
     }
 
     public static String getPosition() throws JSONException {
+        if (person.getString("playerPosition").equals("null")) {
+            return "-";
+        }
         return person.getString("playerPosition");
     }
 
     public static String getFoot() throws JSONException {
+        if (person.getString("lead_leg").equals("null")) {
+            return "-";
+        }
         return person.getString("lead_leg");
     }
 
     public static String getTeam() throws JSONException {
+        if (person.getString("team").equals("null")) {
+            return "-";
+        }
         return person.getString("team");
     }
 
     public static String getLastPay() throws JSONException {
         String[] rawDate = person.getString("date_of_last_pay").split("-");
-        return rawDate.length == 3 ? rawDate[2] + "." + rawDate[1] + "." + rawDate[0] : "null";
+        return rawDate.length == 3 ? rawDate[2] + "." + rawDate[1] + "." + rawDate[0] : "-";
     }
 
     public static String getAbonement() throws JSONException {
+        if (person.getString("variant_of_subscription").equals("null")) {
+            return "-";
+        }
         return person.getString("variant_of_subscription");
     }
 
     public static String getAge() throws JSONException {
         String[] rawAge = person.getString("birthday").split("-");
-        return rawAge.length == 3 ? rawAge[2] + "." + rawAge[1] + "." + rawAge[0] + " " : "null";
+        return rawAge.length == 3 ? rawAge[2] + "." + rawAge[1] + "." + rawAge[0] + " " : "-";
     }
 
     public static String[] getYears() {
@@ -144,8 +167,8 @@ public class Connection {
         return years.toArray(new String[years.size()]);
     }
 
-    public static int[][] getAverage(String year) {
-        int[][] ret = new int[3][names.length];
+    public static float[][] getAverage(String year) {
+        float[][] ret = new float[3][names.length];
         try {
             JSONArray peoArr = new JSONArray(data);
             int[] counter = new int[names.length];
@@ -156,14 +179,26 @@ public class Connection {
 
             maxes[3] = Float.MAX_VALUE;
             yours[3] = Float.MAX_VALUE;
+            maxes[8] = Float.MAX_VALUE;
+            yours[8] = Float.MAX_VALUE;
+            maxes[11] = Float.MAX_VALUE;
+            yours[11] = Float.MAX_VALUE;
+            maxes[12] = Float.MAX_VALUE;
+            yours[12] = Float.MAX_VALUE;
+            maxes[13] = Float.MAX_VALUE;
+            yours[13] = Float.MAX_VALUE;
             JSONArray pers = person.getJSONArray("Statistics");
 
+            System.out.print("YOU   |  ");
+            System.out.print("Y:" + person.getString("birthday") + "  |  \n");
             for (int i = 0; i < pers.length(); i++) {
                 for (int j = 1; j < names.length; j++) {
-                    if (((JSONObject) pers.get(i)).getString(names[j]).equals("null")) {
+                    if (((JSONObject) pers.get(i)).getString(names[j]).equals("null")|| ((JSONObject) pers.get(i)).getString(names[j]).equals("0.00")) {
+                        System.out.print(names[j]+":skip  |  \n");
                         continue;
                     }
-                    if (names[j].equals("Reaction")) {
+                    System.out.print(names[j]+":" + Float.parseFloat(((JSONObject) pers.get(i)).getString(names[j]))+ "  |  \n");
+                    if (names[j].equals("FootSkill") ||names[j].equals("Reaction") || names[j].equals("Speed_s_razbega2") || names[j].equals("Speed2") || names[j].equals("Agility")) {
                         if (yours[j] - Float.parseFloat(((JSONObject) pers.get(i)).getString(names[j])) > eps) {
                             yours[j] = Float.parseFloat(((JSONObject) pers.get(i)).getString(names[j]));
                         }
@@ -176,32 +211,37 @@ public class Connection {
             }
 
             for (int k = 0; k < peoArr.length(); k++) {
-                    if (peoArr.getJSONObject(k).getString("birthday").split("-")[0].equals(year)) {
-                        JSONArray raw = peoArr.getJSONObject(k).getJSONArray("Statistics");
+                if (peoArr.getJSONObject(k).getString("birthday").split("-")[0].equals(year)) {
+                    System.out.print("\n\nId:" + peoArr.getJSONObject(k).getString("id")+ "  |  ");
+                    System.out.print("Y:" + peoArr.getJSONObject(k).getString("birthday")+ "  |  \n");
+                    JSONArray raw = peoArr.getJSONObject(k).getJSONArray("Statistics");
 
-                        for (int i = 0; i < raw.length(); i++) {
-                            for (int j = 1; j < names.length; j++) {
-                                if (((JSONObject) raw.get(i)).getString(names[j]).equals("null") || ((JSONObject) raw.get(i)).getString(names[j]).equals("0.00")) {
-                                    continue;
+                    for (int i = 0; i < raw.length(); i++) {
+                        for (int j = 1; j < names.length; j++) {
+                            if (((JSONObject) raw.get(i)).getString(names[j]).equals("null") || ((JSONObject) raw.get(i)).getString(names[j]).equals("0.00")) {
+                                System.out.print(names[j]+":skip  |  \n");
+                                continue;
+                            }
+                            counter[j]++;
+                            System.out.print(names[j]+":" + Float.parseFloat(((JSONObject) raw.get(i)).getString(names[j]))+ "  |  \n");
+                            avers[j] += Float.parseFloat(((JSONObject) raw.get(i)).getString(names[j]));
+
+                            if (names[j].equals("FootSkill") ||names[j].equals("Reaction") || names[j].equals("Speed_s_razbega2") || names[j].equals("Speed2") || names[j].equals("Agility")) {
+                                if (maxes[j] - Float.parseFloat(((JSONObject) raw.get(i)).getString(names[j])) > eps) {
+                                    //System.out.println("old " + maxes[j]);
+                                    maxes[j] = Float.parseFloat(((JSONObject) raw.get(i)).getString(names[j]));
+                                    //System.out.println("new " + maxes[j]);
                                 }
-                                counter[j]++;
-                                avers[j] += Float.parseFloat(((JSONObject) raw.get(i)).getString(names[j]));
-
-                                if (names[j].equals("Reaction")) {
-                                    if (maxes[j] - Float.parseFloat(((JSONObject) raw.get(i)).getString(names[j])) > eps) {
-                                        System.out.println("old " + maxes[j]);
-                                        maxes[j] = Float.parseFloat(((JSONObject) raw.get(i)).getString(names[j]));
-                                        System.out.println("new " + maxes[j]);
-                                    }
-                                } else {
-                                    if (maxes[j] - Float.parseFloat(((JSONObject) raw.get(i)).getString(names[j])) < eps) {
-                                        System.out.println("old " + maxes[j]);
-                                        maxes[j] = Float.parseFloat(((JSONObject) raw.get(i)).getString(names[j]));
-                                        System.out.println("new " + maxes[j]);
-                                    }
+                            } else {
+                                if (maxes[j] - Float.parseFloat(((JSONObject) raw.get(i)).getString(names[j])) < eps) {
+                                    //System.out.println("old " + maxes[j]);
+                                    maxes[j] = Float.parseFloat(((JSONObject) raw.get(i)).getString(names[j]));
+                                    //System.out.println("new " + maxes[j]);
                                 }
                             }
+                        }
                     }
+                    System.out.println();
                 }
             }
             System.out.println("Entry counter " + counter);
@@ -213,9 +253,9 @@ public class Connection {
                 if (maxes[i] == Float.MAX_VALUE) {
                     maxes[i] = 0;
                 }
-                ret[1][i] = (int) Math.round(avers[i] * 1.0 / counter[i]);
-                ret[0][i] = (int) Math.round(yours[i]);
-                ret[2][i] = (int) Math.round(maxes[i]);
+                ret[1][i] = (float)(avers[i] / counter[i]);
+                ret[0][i] = yours[i];
+                ret[2][i] = maxes[i];
             }
 
             System.out.println("\nNames:");
@@ -383,7 +423,6 @@ public class Connection {
                 try {
                     StringBuilder string = new StringBuilder();
 
-
                     System.out.println("----------------------------------------STARTED_CONNECTION_THREAD--------------------------------------------------------------");
                     // Подключение к серверу.
                     URL url = new URL(serverUrl);
@@ -517,6 +556,8 @@ public class Connection {
         person = null;
         userAchievements.clear();
 
+
+
         // Если пользователь использует логин разработчика.
         if (Objects.equals(login, adminLog) && Objects.equals(pass, adminPass)) {
             try {
@@ -556,43 +597,113 @@ public class Connection {
             return null;
         }
 
+
+
+
+        StringBuilder string = new StringBuilder();
+
+        System.out.println("----------------------------------------FINDING_USER--------------------------------------------------------------");
+        // Подключение к серверу.
+        URL url = null;
         try {
-            // Если пароль и логин могут быть в системе.
-            if (data.contains(login) && data.contains(pass)) {
-                JSONArray peoArr = new JSONArray(data);
+            String sosi = "";
+            url = new URL(serverUrl+"?f_email="+login+"&f_password="+pass);
 
-                // Проходимся по всем пользователям.
-                for (int i = 0; i < peoArr.length(); i++) {
-                    JSONObject object = peoArr.getJSONObject(i);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Accept-Encoding", "gzip");
+            connection.connect();
 
-                    // Если логин и пароль подходят.
-                    if (Objects.equals(login, object.getString("f_email")) && Objects.equals(pass, object.getString("f_password"))) {
-                        giveAccess = true;
-                        person = peoArr.getJSONObject(i);
-                        System.out.println("___________________________________________________USER_FOUND________________________________________________________");
+            // Ответный код сервера.
+            int responseCode = connection.getResponseCode();
+            System.out.println("----------------------------------------GOT_RESPONSE_FROM_PLAYERS_FOR_USER_FINDING________________________________________________");
 
-                        // Проходимся по всем достижениям.
-                        JSONArray achArr = new JSONArray(achievement);
-                        for (int j = 0; j < achArr.length(); j++) {
-                            JSONObject obj = achArr.getJSONObject(j);
-                            if (obj.getString("fullname").equals("null")) {
-                                continue;
-                            }
 
-                            // Проверяем ачивку на вшивость.
-                            if (Objects.equals(obj.getString("fullname"), object.getString("lastname") + " " + object.getString("firstname") + " " + object.getString("id") + " ")) {
-                                userAchievements.add(achArr.getJSONObject(j));
-                                System.out.println("___________________________________________________ACHIEVEMENT_FOUND________________________________________________________");
-                            }
-                        }
-                        break;
+            // Если сервак не захотел отдавать данные.
+            if (responseCode != 200) {
+                throw new RuntimeException("Players: HttpResponseCode: " + responseCode);
+            } else {
+                // Перегоняем инфу с сервера в строку.
+                Scanner scanner = new Scanner(url.openStream());
+                while (scanner.hasNext()) {
+                    string.append(scanner.nextLine());
+                }
+                scanner.close();
+            }
+
+            sosi  = string.toString();
+            System.out.println("----------------------------------------RAW_USER_________________________________________________");
+            System.out.println("Raw user: " + sosi );
+
+            if (!sosi.equals("[]")) {
+                giveAccess = true;
+                person = new JSONObject(sosi.substring(1,sosi.length()-1));
+                System.out.println("___________________________________________________USER_FOUND________________________________________________________");
+
+                // Проходимся по всем достижениям.
+                JSONArray achArr = new JSONArray(achievement);
+                for (int j = 0; j < achArr.length(); j++) {
+                    JSONObject obj = achArr.getJSONObject(j);
+                    if (obj.getString("fullname").equals("null")) {
+                        continue;
+                    }
+
+                    // Проверяем ачивку на вшивость.
+                    if (Objects.equals(obj.getString("fullname"), person.getString("lastname") + " " + person.getString("firstname") + " " + person.getString("id") + " ")) {
+                        userAchievements.add(achArr.getJSONObject(j));
+                        System.out.println("___________________________________________________ACHIEVEMENT_FOUND________________________________________________________");
                     }
                 }
+            } else {
+                System.out.println("___________________________________________________NO_USER_FOUND________________________________________________________");
             }
-        } catch (Exception ex) {
+        } catch (Exception e) {
             giveAccess = false;
-            ex.printStackTrace();
+            e.printStackTrace();
         }
+
+
+
+
+
+//
+//        try {
+//            // Если пароль и логин могут быть в системе.
+//            if (data.contains(login) && data.contains(pass)) {
+//                JSONArray peoArr = new JSONArray(data);
+//
+//                // Проходимся по всем пользователям.
+//                for (int i = 0; i < peoArr.length(); i++) {
+//                    JSONObject object = peoArr.getJSONObject(i);
+//
+//                    // Если логин и пароль подходят.
+//                    if (Objects.equals(login, object.getString("f_email")) && Objects.equals(pass, object.getString("f_password"))) {
+//                        giveAccess = true;
+//                        person = peoArr.getJSONObject(i);
+//                        System.out.println("___________________________________________________USER_FOUND________________________________________________________");
+//
+//                        // Проходимся по всем достижениям.
+//                        JSONArray achArr = new JSONArray(achievement);
+//                        for (int j = 0; j < achArr.length(); j++) {
+//                            JSONObject obj = achArr.getJSONObject(j);
+//                            if (obj.getString("fullname").equals("null")) {
+//                                continue;
+//                            }
+//
+//                            // Проверяем ачивку на вшивость.
+//                            if (Objects.equals(obj.getString("fullname"), object.getString("lastname") + " " + object.getString("firstname") + " " + object.getString("id") + " ")) {
+//                                userAchievements.add(achArr.getJSONObject(j));
+//                                System.out.println("___________________________________________________ACHIEVEMENT_FOUND________________________________________________________");
+//                            }
+//                        }
+//                        break;
+//                    }
+//                }
+//            }
+//        } catch (Exception ex) {
+//            giveAccess = false;
+//            ex.printStackTrace();
+//        }
 
         return new Pair(giveAccess, person);
     }

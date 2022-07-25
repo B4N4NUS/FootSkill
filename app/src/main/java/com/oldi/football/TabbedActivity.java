@@ -23,7 +23,7 @@ import com.oldi.football.ui.main.SectionsPagerAdapter;
 
 public class TabbedActivity extends AppCompatActivity {
 
-    public static final Fragment[] tabsFragments = {new StatsFragment(), new AchievementFragment(), new ScheduleFragment(), new NewsFragment(), new ProfileFragment()};
+    public static final Fragment[] tabsFragments = {new ProfileFragment(), new StatsFragment(),new NewsFragment(), new ScheduleFragment(), new AchievementFragment()};
     private static final String[] titles = {"Статистика","Достижения","Расписание","Новости","Профиль"};
 
     private void switchActivitiesWithData() {
@@ -49,11 +49,12 @@ public class TabbedActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Статистика").setIcon(R.drawable.ic_stats));
-        tabLayout.addTab(tabLayout.newTab().setText("Достижения").setIcon(R.drawable.ic_medal));
-        tabLayout.addTab(tabLayout.newTab().setText("Расписание").setIcon(R.drawable.ic_schedule));
-        tabLayout.addTab(tabLayout.newTab().setText("Новости").setIcon(R.drawable.ic_news));
         tabLayout.addTab(tabLayout.newTab().setText("Профиль").setIcon(R.drawable.ic_profile));
+        tabLayout.addTab(tabLayout.newTab().setText("Статистика").setIcon(R.drawable.ic_stats));
+        tabLayout.addTab(tabLayout.newTab().setText("Новости").setIcon(R.drawable.ic_news));
+        tabLayout.addTab(tabLayout.newTab().setText("Расписание").setIcon(R.drawable.ic_schedule));
+        tabLayout.addTab(tabLayout.newTab().setText("Достижения").setIcon(R.drawable.ic_medal));
+
 //
 //        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_stats));
 //        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_medal));
@@ -88,15 +89,15 @@ public class TabbedActivity extends AppCompatActivity {
                 inf.setVisibility(View.INVISIBLE);
                 logout.setVisibility(View.INVISIBLE);
                 switch(tab.getPosition()) {
-                    case 0: {
+                    case 1: {
                         inf.setVisibility(View.VISIBLE);
                         break;
                     }
-                    case 1: {
+                    case 4: {
                         info.setVisibility(View.VISIBLE);
                         break;
                     }
-                    case 4: {
+                    case 0: {
                         logout.setVisibility(View.VISIBLE);
                         break;
                     }

@@ -52,7 +52,7 @@ public class ComparisonPart extends RelativeLayout {
     }
 
     @SuppressLint("SetTextI18n")
-    public void SetData(String name, int draw, int you, int ave, int bes, String postfix, boolean highest) {
+    public void SetData(String name, int draw, float you, float ave, float bes, String postfix, boolean highest) {
         your.setText(you + " " + postfix);
         aver.setText(ave + " " + postfix);
         best.setText(bes + " " + postfix);
@@ -84,7 +84,7 @@ public class ComparisonPart extends RelativeLayout {
 
 
     @SuppressLint("SetTextI18n")
-    public void SetData(String name, int draw, int you, int ave, int bes, String firstHeader, boolean highest, int you2, int ave2, int bes2, String secondHeader, boolean highest2, String h1, String h2) {
+    public void SetData(String name, int draw,float you, float ave, float bes, String firstHeader, boolean highest, float you2, float ave2, float bes2, String secondHeader, boolean highest2, String h1, String h2) {
         MaterialButton firstButton = findViewById(R.id.first_selectable);
         MaterialButton secondButton = findViewById(R.id.second_selectable);
         MaterialButtonToggleGroup group = findViewById(R.id.group_selectable);

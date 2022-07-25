@@ -67,7 +67,7 @@ public class SpinAdapter  extends ArrayAdapter<String> {
         label.setTextSize(24);
         label.setText(values[position]);
 
-        int[][] stats = Connection.getAverage(values[position]);
+        float[][] stats = Connection.getAverage(values[position]);
 
         comps[0].SetData("Удар",R.drawable.boner, stats[0][2],stats[1][2],stats[2][2], "км/ч", true);
         comps[1].SetData("Прыжок в высоту",R.drawable.up, stats[0][4],stats[1][4],stats[2][4], "см", true);

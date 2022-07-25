@@ -206,6 +206,10 @@ public class SwitchChart extends LinearLayout {
 
             if (labels != null) {
                 XAxis xAxis = chart.getXAxis();
+                //xAxis.setLabelCount(7, true);
+                xAxis.setGranularity(10000f);
+                xAxis.setLabelRotationAngle(45f);
+                xAxis.setAvoidFirstLastClipping(false);
                 xAxis.setValueFormatter(new IndexAxisValueFormatter() {
                     @Override
                     public String getFormattedValue(float value) {
