@@ -134,4 +134,10 @@ public class NewsActivity extends YouTubeBaseActivity {
             }
         }
     }
+
+    @Override
+    public void onDestroy() {
+        System.gc();
+        super.onDestroy();
+    }
 }

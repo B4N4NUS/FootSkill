@@ -68,5 +68,13 @@ public class WebViewerActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_rl, R.anim.slide_rl_out);
             }
         }
+        System.gc();
+    }
+
+
+    @Override
+    public void onDestroy() {
+        System.gc();
+        super.onDestroy();
     }
 }

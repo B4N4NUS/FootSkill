@@ -20,20 +20,35 @@
             android:paddingRight="16dp"
             tools:ignore="ScrollViewSize">
 
-            <com.mikhaellopez.circularimageview.CircularImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageProf"
-                android:layout_width="237dp"
-                android:layout_height="235dp"
-                android:layout_marginTop="16dp"
-                app:civ_border_color="@color/purple_700"
-                app:civ_border_width="5dp"
-                app:civ_shadow="true"
-                app:civ_shadow_color="@color/light_gray"
-                app:civ_shadow_radius="10dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="34dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
+                android:padding="10dp"
+
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+                app:strokeColor="@color/purple_700"
+                app:strokeWidth="5dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+<!--            <com.mikhaellopez.circularimageview.CircularImageView-->
+<!--                android:id="@+id/imagePro"-->
+<!--                android:layout_width="237dp"-->
+<!--                android:layout_height="235dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                app:civ_border_color="@color/purple_700"-->
+<!--                app:civ_border_width="5dp"-->
+<!--                app:civ_shadow="true"-->
+<!--                app:civ_shadow_color="@color/light_gray"-->
+<!--                app:civ_shadow_radius="10dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                tools:src="@tools:sample/avatars" />-->
 
             <TextView
                 android:id="@+id/nameProf"

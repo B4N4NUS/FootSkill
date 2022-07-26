@@ -18,6 +18,9 @@ import com.oldi.football.OnSwipeTouchListener;
 import com.oldi.football.R;
 import com.oldi.football.TabbedActivity;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 public class ComparisonFragment extends AppCompatActivity {
     private boolean swipeLR = true;
     FloatingActionButton button;
@@ -74,7 +77,7 @@ public class ComparisonFragment extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         LinearLayout lays = findViewById(R.id.lay_comp);
-
+        lays.removeAllViews();
         ComparisonPart[] comps = new ComparisonPart[]{
                 new ComparisonPart(lays.getContext()), new ComparisonPart(lays.getContext()), new ComparisonPart(lays.getContext()),
                 new ComparisonPart(lays.getContext()), new ComparisonPart(lays.getContext()), new ComparisonPart(lays.getContext()),
@@ -89,13 +92,19 @@ public class ComparisonFragment extends AppCompatActivity {
             lays.addView(comp);
         }
 
+
         TextView end = new TextView(lays.getContext());
         end.setText("End");
         end.setTextColor(Color.WHITE);
         end.setTextSize(60);
         lays.addView(end);
 
-        SpinAdapter adapter = new SpinAdapter(getBaseContext(), android.R.layout.simple_spinner_item, Connection.years.toArray(new String[Connection.years.size()]), comps);
+        ArrayList<String> years = new ArrayList<>();
+        for (int i = 2000; i < Calendar.getInstance().get(Calendar.YEAR); i++) {
+            years.add(i + "");
+        }
+
+        SpinAdapter adapter = new SpinAdapter(getBaseContext(), android.R.layout.simple_spinner_item, years.toArray(new String[0]), comps);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(adapter);
     }
@@ -110,5 +119,12 @@ public class ComparisonFragment extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_rl, R.anim.slide_rl_out);
             }
         }
+        System.gc();
+    }
+
+    @Override
+    public void onDestroy() {
+        System.gc();
+        super.onDestroy();
     }
 }

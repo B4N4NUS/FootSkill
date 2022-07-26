@@ -28,14 +28,6 @@ public class ProfileFragment extends Fragment {
 
 
     public ProfileFragment() {
-        try{
-            String url = Connection.getProfileUrl();
-            System.out.println(url);
-            bitmap = BitmapFactory.decodeStream((InputStream)new URL(Connection.imagesUrl + url).getContent());
-        } catch (Exception ex) {
-            bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.red_logo);
-            ex.printStackTrace();
-        }
     }
 
     @Override
@@ -56,6 +48,14 @@ public class ProfileFragment extends Fragment {
         ImageView image = view.findViewById(R.id.imageProf);
         TextView text;
 
+        try{
+            String url = Connection.getProfileUrl();
+            System.out.println(url);
+            bitmap = BitmapFactory.decodeStream((InputStream)new URL(Connection.imagesUrl + url).getContent());
+        } catch (Exception ex) {
+            bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.red_logo);
+            ex.printStackTrace();
+        }
         try{
             image.setImageBitmap(bitmap);
         } catch (Exception ex) {
@@ -81,5 +81,11 @@ public class ProfileFragment extends Fragment {
             ex.printStackTrace();
         }
         System.out.println("-------------------------------------------PROFILE_CREATED_IN_"+((System.currentTimeMillis() - startTimer*1.0)/1000) + "_SECONDS-------------------------------------");
+    }
+
+    @Override
+    public void onDestroy() {
+        System.gc();
+        super.onDestroy();
     }
 }

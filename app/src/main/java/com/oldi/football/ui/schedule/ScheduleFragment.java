@@ -37,7 +37,7 @@ public class ScheduleFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         LinearLayout layout = view.findViewById(R.id.lays);
-
+        layout.removeAllViews();
         long startTimer = System.currentTimeMillis();
         try {
             for (int i = 0; i < data.size(); i++) {
@@ -57,5 +57,11 @@ public class ScheduleFragment extends Fragment {
         layout.addView(end);
 
         System.out.println("_____________________________________SCHEDULE_CREATED_IN_" + ((System.currentTimeMillis() - startTimer * 1.0) / 1000) + "_SECONDS_______________________________");
+    }
+
+    @Override
+    public void onDestroy() {
+        System.gc();
+        super.onDestroy();
     }
 }

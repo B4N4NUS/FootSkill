@@ -1,12 +1,16 @@
 package com.oldi.football.ui.stats;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -38,6 +42,8 @@ public class SwitchChart extends LinearLayout {
     public boolean wasAnimated = false;
     public boolean firstViewed = true;
 
+    String more;
+
     public SwitchChart(Context context) {
         super(context);
         this.context = context;
@@ -59,13 +65,14 @@ public class SwitchChart extends LinearLayout {
     public void animateChart() {
         if (!wasAnimated) {
             wasAnimated = true;
-            chart.animateY(1000);
+            chart.animateY(500);
 
         }
     }
 
-    public void setHeader(String name) {
+    public void setHeader(String name, String more) {
         header.setText(name);
+        this.more = more;
     }
 
     private void initControl(Context context) {
@@ -79,7 +86,21 @@ public class SwitchChart extends LinearLayout {
         firstButton = findViewById(R.id.first_selectable);
         secondButton = findViewById(R.id.second_selectable);
         group = findViewById(R.id.group_selectable);
-        //group.setSingleSelection(0);
+
+        ImageButton but = findViewById(R.id.chart_info);
+        but.setOnClickListener(e-> {
+            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+            alertDialog.setTitle(header.getText().toString());
+            alertDialog.setMessage(more);
+
+//            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "ПОЙТИ НАХУЙ", new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int which) {
+//                    Toast.makeText(context, "ВЫ ПОШЛИ НАХУЙ", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+
+            alertDialog.show();
+        });
     }
 
     private float DateToMillis(String date) {
@@ -235,7 +256,7 @@ public class SwitchChart extends LinearLayout {
                 chart.setData(data);
                 chart.invalidate();
                 if (!firstViewed) {
-                    chart.animateY(1000);
+                    chart.animateY(500);
                 } else {
                     firstViewed = false;
                 }
@@ -245,7 +266,7 @@ public class SwitchChart extends LinearLayout {
                 System.out.println("SECOND");
                 chart.setData(dataSequel);
                 chart.invalidate();
-                chart.animateY(1000);
+                chart.animateY(500);
             });
             //chart.setData(data);
 

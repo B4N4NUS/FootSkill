@@ -1,12 +1,16 @@
 package com.oldi.football.ui.stats;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -32,6 +36,7 @@ public class Chart extends LinearLayout {
     private LineChart chart;
     private final Context context;
     public boolean wasAnimated = false;
+    String more;
 
     public Chart(Context context) {
         super(context);
@@ -54,13 +59,14 @@ public class Chart extends LinearLayout {
     public void animateChart() {
         if (!wasAnimated) {
             wasAnimated = true;
-            chart.animateY(1000);
+            chart.animateY(500);
 
         }
     }
 
-    public void setHeader(String name) {
+    public void setHeader(String name, String more) {
         header.setText(name);
+        this.more = more;
     }
 
     private void initControl(Context context) {
@@ -71,6 +77,20 @@ public class Chart extends LinearLayout {
 
         header = findViewById(R.id.header);
         chart = findViewById(R.id.chart1);
+        ImageButton but = findViewById(R.id.chart_info);
+        but.setOnClickListener(e-> {
+            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+            alertDialog.setTitle(header.getText().toString());
+            alertDialog.setMessage(more);
+
+//            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "ПОЙТИ НАХУЙ", new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int which) {
+//                    Toast.makeText(context, "ВЫ ПОШЛИ НАХУЙ", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+
+            alertDialog.show();
+        });
     }
 
     private float DateToMillis(String date) {

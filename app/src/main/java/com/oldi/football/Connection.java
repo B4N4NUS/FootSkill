@@ -26,12 +26,12 @@ public class Connection {
 
     public static boolean canConnect = true;
 
-    private static String data;
+//    private static String data;
     private static String schedule;
     private static String achievement;
     private static String news;
 
-    public static Set<String> years = new HashSet<>();
+    //public static Set<String> years = new HashSet<>();
 
     private static final String serverUrl = "https://cdn.lk-ft.ru/footballers";
     private static final String scheduleUrl = "https://cdn.lk-ft.ru/scheduleas";
@@ -156,55 +156,55 @@ public class Connection {
         return rawAge.length == 3 ? rawAge[2] + "." + rawAge[1] + "." + rawAge[0] + " " : "-";
     }
 
-    public static void getYears() {
-        try {
-            JSONArray peoArr = new JSONArray(data);
-            for (int i = 0; i < peoArr.length(); i++) {
-                years.add(peoArr.getJSONObject(i).getString("birthday").split("-")[0]);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            years.add("BRUH");
-        }
-    }
+//    public static void getYears() {
+//        try {
+//            JSONArray peoArr = new JSONArray(data);
+//            for (int i = 0; i < peoArr.length(); i++) {
+//                years.add(peoArr.getJSONObject(i).getString("birthday").split("-")[0]);
+//            }
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//            years.add("BRUH");
+//        }
+//    }
 
     public static float[][] getAverage(String year) {
         float[][] ret = new float[3][names.length];
         try {
-//            URL url = new URL(serverUrl+"?birthday_gte="+year+"-01-01&birthday_lte="+year+"-12-31");
-//            StringBuilder string = new StringBuilder();
-//            String yearData;
-//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//            connection.setRequestMethod("GET");
-//            connection.setRequestProperty("Accept-Encoding", "gzip");
-//            connection.connect();
-//
-//            // Ответный код сервера.
-//            int responseCode = connection.getResponseCode();
-//            System.out.println("----------------------------------------GOT_RESPONSE_FROM_PLAYERS__SECONDS________________________________________________");
-//
-//
-//            // Если сервак не захотел отдавать данные.
-//            if (responseCode != 200) {
-//                throw new RuntimeException("Players: HttpResponseCode: " + responseCode);
-//            } else {
-//                // Перегоняем инфу с сервера в строку.
-//                Scanner scanner = new Scanner(url.openStream());
-//                while (scanner.hasNext()) {
-//                    string.append(scanner.nextLine());
-//                }
-//                scanner.close();
-//            }
-//            yearData = string.toString();
-//            System.out.println("----------------------------------------CONNECTION_TO_PLAYERS_TOOK__SECONDS________________________________________________");
-//            System.out.println("Raw Players: " + yearData);
+            URL url = new URL(serverUrl+"?birthday_gte="+year+"-01-01&birthday_lte="+year+"-12-31");
+            StringBuilder string = new StringBuilder();
+            String yearData;
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Accept-Encoding", "gzip");
+            connection.connect();
+
+            // Ответный код сервера.
+            int responseCode = connection.getResponseCode();
+            System.out.println("----------------------------------------GOT_RESPONSE_FROM_PLAYERS__SECONDS________________________________________________");
+
+
+            // Если сервак не захотел отдавать данные.
+            if (responseCode != 200) {
+                throw new RuntimeException("Players: HttpResponseCode: " + responseCode);
+            } else {
+                // Перегоняем инфу с сервера в строку.
+                Scanner scanner = new Scanner(url.openStream());
+                while (scanner.hasNext()) {
+                    string.append(scanner.nextLine());
+                }
+                scanner.close();
+            }
+            yearData = string.toString();
+            System.out.println("----------------------------------------CONNECTION_TO_PLAYERS_TOOK__SECONDS________________________________________________");
+            System.out.println("Raw Players: " + yearData);
 
 
 
 
 
-//            JSONArray peoArr = new JSONArray(yearData);
-            JSONArray peoArr = new JSONArray(data);
+            JSONArray peoArr = new JSONArray(yearData);
+//            JSONArray peoArr = new JSONArray(data);
             int[] counter = new int[names.length];
             float[] avers = new float[names.length];
             float[] maxes = new float[names.length];
@@ -450,7 +450,7 @@ public class Connection {
      */
     public static void getData(MainActivity act) {
         // Обнуление переменных.
-        data = "";
+//        data = "";
         schedule = "";
         achievement = "";
 
@@ -471,30 +471,30 @@ public class Connection {
                     // Подключение к серверу.
                     URL url = new URL(serverUrl);
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("GET");
-                    connection.setRequestProperty("Accept-Encoding", "gzip");
-                    connection.connect();
-
+//                    connection.setRequestMethod("GET");
+//                    connection.setRequestProperty("Accept-Encoding", "gzip");
+//                    connection.connect();
+//
                     // Ответный код сервера.
                     int responseCode = connection.getResponseCode();
-                    System.out.println("----------------------------------------GOT_RESPONSE_FROM_PLAYERS_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
-
-
-                    // Если сервак не захотел отдавать данные.
-                    if (responseCode != 200) {
-                        throw new RuntimeException("Players: HttpResponseCode: " + responseCode);
-                    } else {
-                        // Перегоняем инфу с сервера в строку.
-                        Scanner scanner = new Scanner(url.openStream());
-                        while (scanner.hasNext()) {
-                            string.append(scanner.nextLine());
-                        }
-                        scanner.close();
-                    }
-                    data = string.toString();
-                    string = new StringBuilder();
-                    System.out.println("----------------------------------------CONNECTION_TO_PLAYERS_TOOK_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
-                    System.out.println("Raw Players: " + data);
+//                    System.out.println("----------------------------------------GOT_RESPONSE_FROM_PLAYERS_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
+//
+//
+//                    // Если сервак не захотел отдавать данные.
+//                    if (responseCode != 200) {
+//                        throw new RuntimeException("Players: HttpResponseCode: " + responseCode);
+//                    } else {
+//                        // Перегоняем инфу с сервера в строку.
+//                        Scanner scanner = new Scanner(url.openStream());
+//                        while (scanner.hasNext()) {
+//                            string.append(scanner.nextLine());
+//                        }
+//                        scanner.close();
+//                    }
+//                    data = string.toString();
+//                    string = new StringBuilder();
+//                    System.out.println("----------------------------------------CONNECTION_TO_PLAYERS_TOOK_" + ((1.0 * System.currentTimeMillis() - startTimer) / 1000) + "_SECONDS________________________________________________");
+//                    System.out.println("Raw Players: " + data);
 
 
                     url = new URL(scheduleUrl);
@@ -572,7 +572,7 @@ public class Connection {
                     exception.printStackTrace();
                 }
 
-                getYears();
+                //getYears();
 
 
                 System.out.println("------------------------------------------ENDED_CONNECTION_THREAD--------------------------------------------------------------");
@@ -603,46 +603,46 @@ public class Connection {
         userAchievements.clear();
 
 
-
-        // Если пользователь использует логин разработчика.
-        if (Objects.equals(login, adminLog) && Objects.equals(pass, adminPass)) {
-            try {
-                JSONArray peoArr = new JSONArray(data);
-
-                // Проходимся по всем пользователям.
-                JSONObject object = peoArr.getJSONObject(0);
-
-                // Если логин и пароль подходят.
-                giveAccess = true;
-                person = peoArr.getJSONObject(0);
-                System.out.println("___________________________________________________USER_FOUND________________________________________________________");
-
-                // Проходимся по всем достижениям.
-                JSONArray achArr = new JSONArray(achievement);
-                for (int j = 0; j < achArr.length(); j++) {
-                    JSONObject obj = achArr.getJSONObject(j);
-                    if (obj.getString("fullname").equals("null")) {
-                        continue;
-                    }
-
-                    // Проверяем ачивку на вшивость.
-                    if (Objects.equals(obj.getString("fullname"), object.getString("lastname") + " " + object.getString("firstname") + " " + object.getString("id") + " ")) {
-                        userAchievements.add(achArr.getJSONObject(j));
-                        System.out.println("___________________________________________________ACHIEVEMENT_FOUND________________________________________________________");
-                    }
-                }
-                main.login.setText(object.getString("f_email"));
-                main.pass.setText(object.getString("f_password"));
-            } catch (Exception ex) {
-                return new Pair(true, null);
-            }
-        }
-
-        //  Если с сервака ничего не подсосало.
-        if (Objects.equals(data, "")) {
-            return null;
-        }
-
+//
+//        // Если пользователь использует логин разработчика.
+//        if (Objects.equals(login, adminLog) && Objects.equals(pass, adminPass)) {
+//            try {
+//                JSONArray peoArr = new JSONArray(data);
+//
+//                // Проходимся по всем пользователям.
+//                JSONObject object = peoArr.getJSONObject(0);
+//
+//                // Если логин и пароль подходят.
+//                giveAccess = true;
+//                person = peoArr.getJSONObject(0);
+//                System.out.println("___________________________________________________USER_FOUND________________________________________________________");
+//
+//                // Проходимся по всем достижениям.
+//                JSONArray achArr = new JSONArray(achievement);
+//                for (int j = 0; j < achArr.length(); j++) {
+//                    JSONObject obj = achArr.getJSONObject(j);
+//                    if (obj.getString("fullname").equals("null")) {
+//                        continue;
+//                    }
+//
+//                    // Проверяем ачивку на вшивость.
+//                    if (Objects.equals(obj.getString("fullname"), object.getString("lastname") + " " + object.getString("firstname") + " " + object.getString("id") + " ")) {
+//                        userAchievements.add(achArr.getJSONObject(j));
+//                        System.out.println("___________________________________________________ACHIEVEMENT_FOUND________________________________________________________");
+//                    }
+//                }
+//                main.login.setText(object.getString("f_email"));
+//                main.pass.setText(object.getString("f_password"));
+//            } catch (Exception ex) {
+//                return new Pair(true, null);
+//            }
+//        }
+//
+//        //  Если с сервака ничего не подсосало.
+//        if (Objects.equals(data, "")) {
+//            return null;
+//        }
+//
 
 
 

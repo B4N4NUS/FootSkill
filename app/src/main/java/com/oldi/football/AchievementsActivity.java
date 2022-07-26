@@ -53,4 +53,9 @@ public class AchievementsActivity extends AppCompatActivity {
             }
         }
     }
+    @Override
+    public void onDestroy() {
+        System.gc();
+        super.onDestroy();
+    }
 }

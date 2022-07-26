@@ -93,4 +93,10 @@ public class AchievementFragment extends Fragment {
         earned.setData(en);
         available.setData(en - Connection.getCountOfMinusPoints());
     }
+
+    @Override
+    public void onDestroy() {
+        System.gc();
+        super.onDestroy();
+    }
 }

@@ -59,4 +59,10 @@ public class NewsFragment extends Fragment {
             layout.addView(part);
         }
     }
+
+    @Override
+    public void onDestroy() {
+        System.gc();
+        super.onDestroy();
+    }
 }

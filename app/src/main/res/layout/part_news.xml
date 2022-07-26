@@ -39,13 +39,16 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/pic"
-        android:layout_margin = "10dp"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        app:strokeWidth="1dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:padding="1dp"
-        app:strokeColor="@android:color/darker_gray"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize12Percent"
+        app:strokeColor="@android:color/darker_gray"
+        app:strokeWidth="1dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView

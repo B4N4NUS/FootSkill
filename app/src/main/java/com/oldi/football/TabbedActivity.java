@@ -47,11 +47,11 @@ public class TabbedActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabs);
         ViewPager viewPager = findViewById(R.id.view_pager);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Профиль").setIcon(R.drawable.ic_profile));
         tabLayout.addTab(tabLayout.newTab().setText("Статистика").setIcon(R.drawable.ic_stats));
         tabLayout.addTab(tabLayout.newTab().setText("Новости").setIcon(R.drawable.ic_news));
         tabLayout.addTab(tabLayout.newTab().setText("Расписание").setIcon(R.drawable.ic_schedule));
         tabLayout.addTab(tabLayout.newTab().setText("Достижения").setIcon(R.drawable.ic_medal));
+        tabLayout.addTab(tabLayout.newTab().setText("Профиль").setIcon(R.drawable.ic_profile));
 
 //
 //        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_stats));
@@ -126,5 +126,11 @@ public class TabbedActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onDestroy() {
+        System.gc();
+        super.onDestroy();
     }
 }
