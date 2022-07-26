@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.oldi.football.R;
 import com.github.mikephil.charting.charts.*;
 import com.github.mikephil.charting.components.XAxis;
@@ -147,7 +149,7 @@ public class Chart extends LinearLayout {
             set1.setColor(ContextCompat.getColor(context, R.color.purple_700));
             set1.setFillColor(ContextCompat.getColor(context, R.color.light_green));
             set1.setFillAlpha(20);
-            set1.setDrawHorizontalHighlightIndicator(false);
+
             set1.setDrawValues(false);
             set1.setFillFormatter((dataSet, dataProvider) -> chart.getAxisLeft().getAxisMinimum());
 
@@ -161,6 +163,18 @@ public class Chart extends LinearLayout {
 
             chart.getLegend().setEnabled(false);
             chart.setDescription(null);
+
+            chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+                @Override
+                public void onValueSelected(Entry e, Highlight h) {
+                    Toast.makeText(context, e.getY() + " " +DateValueFormatter.getFormat(e.getX()), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onNothingSelected() {
+
+                }
+            });
 
             chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
             chart.getAxisLeft().setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);

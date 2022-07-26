@@ -16,4 +16,13 @@ public class DateValueFormatter extends IndexAxisValueFormatter {
 
         return dateTimeFormat.format(timeMilliseconds);
     }
+
+    public static String getFormat(float value) {
+        long emissionsMilliSince1970Time = ((long) value) * 1000;
+
+        Date timeMilliseconds = new Date(emissionsMilliSince1970Time);
+        DateFormat dateTimeFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
+
+        return dateTimeFormat.format(timeMilliseconds);
+    }
 }

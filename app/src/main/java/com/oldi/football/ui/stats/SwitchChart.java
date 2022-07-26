@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.oldi.football.R;
@@ -207,6 +209,18 @@ public class SwitchChart extends LinearLayout {
 
             chart.getLegend().setEnabled(false);
             chart.setDescription(null);
+
+            chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+                @Override
+                public void onValueSelected(Entry e, Highlight h) {
+                    Toast.makeText(context, e.getY() + " " +DateValueFormatter.getFormat(e.getX()), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onNothingSelected() {
+
+                }
+            });
 
             chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
             chart.getAxisLeft().setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
