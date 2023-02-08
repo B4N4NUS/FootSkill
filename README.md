@@ -33,7 +33,7 @@ https://play.google.com/store/apps/details?id=com.oldi.football
 
 7) Просмотр новостей от администрации школы с возможностью просмотра приложенного видео через Api YouTube
 
-![photo_2023-02-08_13-34-00](https://user-images.githubusercontent.com/71143870/217506229-f47fbbf9-0825-465f-80ba-3367b0403a0d.jpg)![photo_2023-02-08_13-33-57](https://user-images.githubusercontent.com/71143870/217506381-c02f8731-5746-4969-a82d-8a7ebdc7bf19.jpg)
+![photo_2023-02-08_13-34-00](https://user-images.githubusercontent.com/71143870/217506229-f47fbbf9-0825-465f-80ba-3367b0403a0d.jpg)
 ![photo_2023-02-08_13-33-57](https://user-images.githubusercontent.com/71143870/217506696-0077a996-0eba-4ac5-8f81-adb2b798ea66.jpg)
 
 
